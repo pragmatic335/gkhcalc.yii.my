@@ -1,0 +1,621 @@
+{
+  "label": "choose services",
+  "note": "note services",
+  "step": 1,
+  "count": 3,
+  "names":
+  {
+    "0": "energy",
+    "1": "hotwater",
+    "2": "coldwater"
+  },
+
+
+  "0":
+  {
+    "label": "type meters",
+    "note": "note type meters",
+    "name": "energy",
+    "step": 2,
+    "count": 2,
+    "names":
+    {
+      "0": "odpu",
+      "1": "ipu"
+    },
+    "image": "fa-bolt",
+
+    "0":
+    {
+      "label": "exists meter",
+      "name": "odpu",
+      "step": 3,
+      "count": 2,
+      "names":
+      {
+        "0": "exists",
+        "1": "not exists"
+      },
+      "image": "fa-bolt",
+
+
+
+
+      "0":
+      {
+
+
+        "calc": 1,
+        "label": "formula",
+        "name": "exists",
+        "step": 4,
+        "count": 1,
+        "image": "fa-bolt",
+        "names":
+        {
+          "0": "formula 1"
+        },
+        "0":
+        {
+          "name": 1,
+          "image": "fa-bolt"
+        }
+      },
+
+      "1":
+      {
+        "calc": 2,
+        "label": "formula",
+        "name": "not exists",
+        "step": 4,
+        "count": 1,
+        "image": "fa-bolt",
+        "names":
+        {
+          "0": "formula 2"
+        },
+        "0":
+        {
+          "name": 2,
+          "image": "fa-bolt"
+        }
+      }
+
+    },
+
+
+
+
+
+    "1":
+    {
+      "label": "exists meter",
+      "name": "ipu",
+      "step": 3,
+      "count": 3,
+      "names":
+      {
+        "0": "exists",
+        "1": "not exists",
+        "2": "not exists and imposible setup"
+      },
+      "image": "fa-bolt",
+
+      "0":
+      {
+        "calc": 3,
+        "label": "formula",
+        "name": "exists",
+        "step": 4,
+        "count": 1,
+        "image": "fa-bolt",
+        "names":
+        {
+          "0": "formula 3"
+        },
+        "0":
+        {
+          "name": 4,
+          "image": "fa-bolt"
+        }
+      },
+
+      "1":
+      {
+        "calc": 4,
+        "label": "formula",
+        "name": "not exists",
+        "step": 4,
+        "count": 1,
+        "image": "fa-bolt",
+        "names":
+        {
+          "0": "formula 4"
+        },
+        "0":
+        {
+          "name": 5,
+          "image": "fa-bolt"
+        }
+      },
+
+      "2":
+      {
+        "calc": 5,
+        "label": "formula",
+        "name": "not exists and imposible setup",
+        "step": 4,
+        "count": 1,
+        "image": "fa-bolt",
+        "names":
+        {
+          "0": "formula 5"
+        },
+        "0":
+        {
+          "name": 6,
+          "image": "fa-bolt"
+        }
+      }
+    }
+  },
+
+  "1":
+  {
+    "label": "type tariff",
+    "note": "note type meters",
+    "name": "hotwater",
+    "image": "fa-thermometer-full",
+    "step": 2,
+    "count": 2,
+    "names":
+    {
+      "0": "onekom",
+      "1": "twokom"
+    },
+
+
+    "0":
+    {
+      "label": "type meters",
+      "name": "onekom",
+      "image": "fa-bolt",
+      "step": 3,
+      "count": 2,
+      "names":
+      {
+        "0": "odpu",
+        "1": "ipu"
+      },
+
+      "0":
+      {
+        "label": "exists meter",
+        "name": "odpu",
+        "step": 4,
+        "count": 2,
+        "names":
+        {
+          "0": "exists",
+          "1": "not exists"
+        },
+        "image": "fa-bolt",
+
+
+
+
+        "0":
+        {
+
+
+          "calc": 6,
+          "label": "formula",
+          "name": "exists",
+          "step": 5,
+          "count": 1,
+          "image": "fa-bolt",
+          "names":
+          {
+            "0": "formula 6"
+          },
+          "0":
+          {
+            "name": 1,
+            "image": "fa-bolt"
+          }
+        },
+
+        "1":
+        {
+          "calc": 7,
+          "label": "formula",
+          "name": "not exists",
+          "step": 5,
+          "count": 1,
+          "image": "fa-bolt",
+          "names":
+          {
+            "0": "formula 7"
+          },
+          "0":
+          {
+            "name": 2,
+            "image": "fa-bolt"
+          }
+        }
+
+      },
+
+      "1":
+      {
+        "label": "exists meter",
+        "name": "ipu",
+        "step": 4,
+        "count": 3,
+        "names":
+        {
+          "0": "exists",
+          "1": "not exists",
+          "2": "not exists and imposible setup"
+        },
+        "image": "fa-bolt",
+
+        "0":
+        {
+          "calc": 3,
+          "label": "formula",
+          "name": "exists",
+          "step": 5,
+          "count": 1,
+          "image": "fa-bolt",
+          "names":
+          {
+            "0": "formula 3"
+          },
+          "0":
+          {
+            "name": 4,
+            "image": "fa-bolt"
+          }
+        },
+
+        "1":
+        {
+          "calc": 4,
+          "label": "formula",
+          "name": "not exists",
+          "step": 5,
+          "count": 1,
+          "image": "fa-bolt",
+          "names":
+          {
+            "0": "formula 4"
+          },
+          "0":
+          {
+            "name": 5,
+            "image": "fa-bolt"
+          }
+        },
+
+        "2":
+        {
+          "calc": 5,
+          "label": "formula",
+          "name": "not exists and imposible setup",
+          "step": 5,
+          "count": 1,
+          "image": "fa-bolt",
+          "names":
+          {
+            "0": "formula 5"
+          },
+          "0":
+          {
+            "name": 6,
+            "image": "fa-bolt"
+          }
+        }
+      }
+
+    },
+
+
+    "1":
+    {
+      "label": "type meters",
+      "name": "twokom",
+      "image": "fa-bolt",
+      "step": 3,
+      "count": 2,
+      "names":
+      {
+        "0": "odpu",
+        "1": "ipu"
+      },
+
+      "0":
+      {
+        "label": "exists meter",
+        "name": "odpu",
+        "step": 4,
+        "count": 2,
+        "names":
+        {
+          "0": "exists",
+          "1": "not exists"
+        },
+        "image": "fa-bolt",
+
+
+
+
+        "0":
+        {
+
+
+          "calc": 8,
+          "label": "formula",
+          "name": "exists",
+          "step": 5,
+          "count": 1,
+          "image": "fa-bolt",
+          "names":
+          {
+            "0": "formula 8"
+          },
+          "0":
+          {
+            "name": 8,
+            "image": "fa-bolt"
+          }
+        },
+
+        "1":
+        {
+          "calc": 9,
+          "label": "formula",
+          "name": "not exists",
+          "step": 5,
+          "count": 1,
+          "image": "fa-bolt",
+          "names":
+          {
+            "0": "formula 9"
+          },
+          "0":
+          {
+            "name": 2,
+            "image": "fa-bolt"
+          }
+        }
+
+      },
+
+      "1":
+      {
+        "label": "exists meter",
+        "name": "ipu",
+        "step": 4,
+        "count": 3,
+        "names":
+        {
+          "0": "exists",
+          "1": "not exists",
+          "2": "not exists and imposible setup"
+        },
+        "image": "fa-bolt",
+
+        "0":
+        {
+          "calc": 10,
+          "label": "formula",
+          "name": "exists",
+          "step": 5,
+          "count": 1,
+          "image": "fa-bolt",
+          "names":
+          {
+            "0": "formula 10"
+          },
+          "0":
+          {
+            "name": 4,
+            "image": "fa-bolt"
+          }
+        },
+
+        "1":
+        {
+          "calc": 11,
+          "label": "formula",
+          "name": "not exists",
+          "step": 5,
+          "count": 1,
+          "image": "fa-bolt",
+          "names":
+          {
+            "0": "formula 11"
+          },
+          "0":
+          {
+            "name": 5,
+            "image": "fa-bolt"
+          }
+        },
+
+        "2":
+        {
+          "calc": 12,
+          "label": "formula",
+          "name": "not exists and imposible setup",
+          "step": 5,
+          "count": 1,
+          "image": "fa-bolt",
+          "names":
+          {
+            "0": "formula 12"
+          },
+          "0":
+          {
+            "name": 6,
+            "image": "fa-bolt"
+          }
+        }
+      }
+    }
+
+
+
+  },
+
+
+  "2":
+  {
+    "label": "type meters",
+    "note": "note type meters",
+    "name": "coldwater",
+    "step": 2,
+    "count": 2,
+    "names":
+    {
+      "0": "odpu",
+      "1": "ipu"
+    },
+    "image": "fa-bolt",
+
+    "0":
+    {
+      "label": "exists meter",
+      "name": "odpu",
+      "step": 3,
+      "count": 2,
+      "names":
+      {
+        "0": "exists",
+        "1": "not exists"
+      },
+      "image": "fa-bolt",
+
+
+
+
+      "0":
+      {
+
+
+        "calc": 1,
+        "label": "formula",
+        "name": "exists",
+        "step": 4,
+        "count": 1,
+        "image": "fa-bolt",
+        "names":
+        {
+          "0": "formula 1"
+        },
+        "0":
+        {
+          "name": 1,
+          "image": "fa-bolt"
+        }
+      },
+
+      "1":
+      {
+        "calc": 2,
+        "label": "formula",
+        "name": "not exists",
+        "step": 4,
+        "count": 1,
+        "image": "fa-bolt",
+        "names":
+        {
+          "0": "formula 2"
+        },
+        "0":
+        {
+          "name": 2,
+          "image": "fa-bolt"
+        }
+      }
+
+    },
+
+
+
+
+
+    "1":
+    {
+      "label": "exists meter",
+      "name": "ipu",
+      "step": 3,
+      "count": 3,
+      "names":
+      {
+        "0": "exists",
+        "1": "not exists",
+        "2": "not exists and imposible setup"
+      },
+      "image": "fa-bolt",
+
+      "0":
+      {
+        "calc": 3,
+        "label": "formula",
+        "name": "exists",
+        "step": 4,
+        "count": 1,
+        "image": "fa-bolt",
+        "names":
+        {
+          "0": "formula 3"
+        },
+        "0":
+        {
+          "name": 4,
+          "image": "fa-bolt"
+        }
+      },
+
+      "1":
+      {
+        "calc": 4,
+        "label": "formula",
+        "name": "not exists",
+        "step": 4,
+        "count": 1,
+        "image": "fa-bolt",
+        "names":
+        {
+          "0": "formula 4"
+        },
+        "0":
+        {
+          "name": 5,
+          "image": "fa-bolt"
+        }
+      },
+
+      "2":
+      {
+        "calc": 5,
+        "label": "formula",
+        "name": "not exists and imposible setup",
+        "step": 4,
+        "count": 1,
+        "image": "fa-bolt",
+        "names":
+        {
+          "0": "formula 5"
+        },
+        "0":
+        {
+          "name": 6,
+          "image": "fa-bolt"
+        }
+      }
+    }
+  }
+}

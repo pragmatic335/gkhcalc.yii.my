@@ -1,0 +1,121 @@
+body {
+    background-color: white !important;
+}
+
+  .vertical-timeline-block > .vertical-timeline-icon {
+    border-color: #5f2dab !important;
+    border-width: 2px !important;
+
+    background-color: white !important;
+    color: #0f0f0f !important;
+    font-size: 24px !important;
+
+}
+
+  .vertical-timeline-block > .vertical-timeline-icon > .fa {
+    position: absolute !important;
+    top: 14px !important;
+    font-weight: bold !important;
+}
+
+.myIcon {
+    min-height: 55px;
+    min-width: 55px;
+    left:50% !important;
+    top:14% !important;
+    transform: translate(-50%, -50%) !important;
+    transition: 0.3s;
+    cursor: pointer;
+
+    border-color: #5f2dab !important;
+    border-width: 2px !important;
+    background-color: white !important;
+
+    color: #6c757d !important;
+
+
+}
+
+.myIcon > .fa {
+    position: absolute !important;
+
+    top: 37%;
+}
+
+
+
+
+
+.air {
+    height: 45px;
+    width: auto;
+    background-color: #5f2dab;
+    border-radius: 11px;
+    position: relative;
+    top: 15px;
+}
+
+.col-centered{
+
+}
+.centred {
+    position: absolute;
+      /* position the top  edge of the element at the middle of the parent */
+    right: 20px; /* position the left edge of the element at the middle of the parent */
+
+    /*transform: translate(-50%, -50%);*/
+}
+
+.heightMin {
+    min-height: 120px;
+}
+
+ .myIcon:hover {
+    width: 80px;
+    height: 80px;
+    transition: 0.3s;
+    color: #1dc5a3 !important;
+}
+
+
+
+ .myLabel {
+     position: absolute;
+     left:50%;
+     top:80px;
+     transform: translate(-50%, -50%);
+
+ }
+ .myNote {
+
+     border: 1px solid #5bc0de;
+     border-radius: 6px;
+     height:300px;
+     background-color: #f1f1f1;
+
+ }
+
+ .notes {
+     border-radius: 15px;
+     height: 500px;
+     background-color: #f5f5f5;
+
+ }
+
+ #vertical-timeline {
+     margin-right: 0;
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
