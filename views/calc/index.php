@@ -11,45 +11,56 @@ use yii\widgets\Pjax;
 
 
 
-<div class="col-md-9">
+<div class="col-md-9 mycontent">
 <div class="panel-group" id="accordion">
-    <div id="vertical-timeline" class="vertical-container dark-timeline">
-
+    <div id="vertical-timeline" class="vertical-container dark-timeline mycontent">
         <?php
-
-//        if(isset($model->calc_conf)) {
-//            var_dump($model->calc_conf);
-//            die();
-//        }
-
-
-
         $array = json_decode($model->params, true);
-
-
         foreach($array as $json) {
             Form::begin(['config' => $json, 'model' => $model]);
             Form::end();
         }
-
-
-
-
-
         ?>
-
-
     </div>
 </div>
 </div>
-<div class="col-md-3" style="position: fixed; left: 75%; top: 12.0%;">
+<div class="col-md-3 mynote" style="position: fixed; left: 75%; top: 12.0%;">
     <div class="col-md-8 notes" >
-        <h4 style="position: absolute; top: 15%;  line-height: 30px;">Здесь содержиться справочная информация касаемо отображаемого контента контента</h4>
+        <h4 style="position: absolute; top: 15%;  line-height: 30px;"><?=(Yii::t('app', $json['note'])) ?></h4>
     </div>
     <div class="col-md-4">
     </div>
 
 </div>
+
+
+<?php
+$js = " $(document).ready(function() {
+$('.myclick').on('click', function() {
+
+    var o = $(this).closest('.panel-default').find('.panel-collapse.collapse');
+    
+    $('[class*=\"panel-collapse collapse in\"]').each(function( index ){
+        if ( $(this).attr('id') != $(o).attr('id') ) {
+            var b = $(this).parent().find('a.myclick');
+            $(b).removeClass('myclick').click();
+            setTimeout(function(){
+                $(b).addClass('myclick');
+            }, 250 );
+       }
+    });
+    
+});
+});";
+$this->registerJs($js);
+
+
+
+
+
+//$("#box").animate({height: "0px"});
+//        $(this).removeClass('in');
+?>
 
 
 

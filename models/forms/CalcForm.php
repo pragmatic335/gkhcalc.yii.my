@@ -156,7 +156,7 @@ class CalcForm extends Model
             'size_odpu' => 'Объем потребления на общедомовом приборе учета',
             'size_ipu_all' => 'Объем потребления по всем жилым помещениям, оборудованных индивидуальными приборами учета',
             'size_notliv_all' => 'Объем потребления по всем нежилым помещениям',
-            'size2service_hvs' => 'Объем холодной воды, использованный при производстве коммунальной услуги по отоплению и (или) горячему водоснабжению',
+            'size2service_hvs' => 'Объем холодной воды(или электроэнергии), использованный при производстве коммунальной услуги по отоплению и (или) горячему водоснабжению',
             'size_not_ipu_all' => 'объем потребления по всем жилым помещениям, не оборудованными ИПУ',
             'norm2odn' => 'Норматив на услугу, предоставленную на общедомовые нужды, установленный для Вашего региона (м3):',
             'space_oi_all' => 'Общая площадь помещений, входящих в состав общего имущества собственников помещений МКД (м2):',
@@ -180,8 +180,15 @@ class CalcForm extends Model
 
         [['space_owner', 'space_full_all', 'size_odpu', 'size_ipu_all', 'size_notliv_all',
             'size_not_ipu_all', 'size2service_hvs', 'space_oi_all', 'size_ipu', 'kol',
-            'size2service_gvs', 'space_full_all_liv'], 'integer'],
+            'size2service_gvs', 'space_full_all_liv'], 'double'],
+
+        [['space_owner', 'space_full_all', 'size_odpu', 'size_ipu_all', 'size_notliv_all',
+            'size_not_ipu_all', 'size2service_hvs', 'space_oi_all', 'size_ipu', 'kol',
+            'size2service_gvs', 'space_full_all_liv'], 'required', 'message' => 'Поле не должно быть пустым'],
+
         [['tariff', 'norm2odn', 'norm', 'norm2heating', 'tariff2heating_energy', 'norm_gvs'], 'double'],
+        [['tariff', 'norm2odn', 'norm', 'norm2heating', 'tariff2heating_energy', 'norm_gvs'], 'required', 'message' => 'Необходимо ввести данные'],
+
         [['value', 'params', 'calc_conf'], 'safe']
 
 

@@ -103,8 +103,34 @@ body {
  }
 
  #vertical-timeline {
-     margin-right: 0;
+
  }
+
+ .fa-check-circle {
+     background-color: #f5f5f5 !important;
+     color: #00cc00;
+ }
+
+
+.mytitle {
+    display: flex;
+    align-items: center;
+}
+
+.mytimeline {
+    padding: 0 !important;
+}
+
+
+.mynote {
+    padding-left: 0;
+}
+
+.mycontent {
+    margin-right: 0px !important;
+}
+
+
 
 
 

@@ -23,7 +23,6 @@ if($state == true) {
             ],
         ],
         'options' => ['data-pjax' => 1]]);
-
 }
 
 ?>
@@ -37,12 +36,25 @@ if($state == true) {
     </div>
 
 <!--    <div class="col-sm-9">-->
-        <div class="vertical-timeline-content">
+        <div class="vertical-timeline-content mytimeline">
             <div class="panel panel-default" style="border:0px;">
                 <div class="panel-heading">
-                    <h5 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><?= Yii::t('app', $config['label']) ?> <?= (!$state)? ' &mdash; ' . Yii::t('app',$config['choosename']): '' ;?></a></h5>
+                    <h5 class="panel-title mytitle">
+                        <?php
+                        if(!$state) {
+                            ?>
+                            <i class="fa fa-check-circle fa-2x"></i>
+                            <?= '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' ?>
+                        <?php } ?>
+
+                        <a class="myclick" data-toggle="collapse" data-parent="#accordion" href="#collapse<?= $config['step']; ?>">
+                            <?= Yii::t('app', $config['label']) ?> <?= (!$state)? ' &mdash; ' . Yii::t('app',$config['choosename']) : '' ;?>
+                        </a>
+
+                    </h5>
+
                 </div>
-                <div id="collapseOne" class="panel-collapse collapse <?= $state? 'in': '' ?>">
+                <div id="collapse<?= $config['step']; ?>" class="panel-collapse collapse <?= $state? 'in': '' ?>">
                     <div class="panel-body" style="min-height: 100px;">
 
                         <?php
@@ -65,7 +77,7 @@ if($state == true) {
                             foreach ($array as $name) {
                                 echo $form->field( $model, $name )->input('text', [['maxlength'=>10]])->label();
                                 echo "<br>";
-                                echo "<br>";
+//                                echo "<br>";
                             }
                         }
 
@@ -118,24 +130,17 @@ if($state == true) {
                 </div>
             </div>
         </div>
-<!--    </div>-->
-<!--    <div class="col-sm-3">-->
-<!--        <div class="panel panel-default">-->
-<!--            <div class="panel-heading">-->
-<!--                <h5 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapseOneHelp">Подсказка</a></h5>-->
-<!--            </div>-->
-<!--            <div id="collapseOneHelp" class="panel-collapse collapse in">-->
-<!--                <div class="panel-body">-->
-<!--                    --><?//= Yii::t('app', $config['note']) ?>
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
 </div>
 
 
 
 <?php
+
+
+
+
+
+
 if($state == true) {
 
     $j = "$(document).ready(function() {
@@ -146,10 +151,17 @@ if($state == true) {
         $('#calcform-calc_conf').val($('#calcform-calc_conf').attr('value'));
         
         
+        
         $('#calcform').submit();               
-    });
+    });     
 })";
     $this->registerJs($j);
     ActiveForm::end();
 }
+
+
+
+//var_dump($config);
+//echo '<br>' . $config['step'];
+
 ?>

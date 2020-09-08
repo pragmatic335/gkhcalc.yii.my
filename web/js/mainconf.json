@@ -14,7 +14,7 @@
   "0":
   {
     "label": "type meters",
-    "note": "note type meters",
+    "note": "note type_meters",
     "name": "energy",
     "step": 2,
     "count": 2,
@@ -28,6 +28,7 @@
     "0":
     {
       "label": "exists meter",
+      "note": "note odpu_exist",
       "name": "odpu",
       "step": 3,
       "count": 2,
@@ -83,13 +84,10 @@
 
     },
 
-
-
-
-
     "1":
     {
       "label": "exists meter",
+      "note": "note ipu_exist",
       "name": "ipu",
       "step": 3,
       "count": 3,
@@ -163,7 +161,7 @@
   "1":
   {
     "label": "type tariff",
-    "note": "note type meters",
+    "note": "note type_tariff",
     "name": "hotwater",
     "image": "fa-thermometer-full",
     "step": 2,
@@ -178,6 +176,7 @@
     "0":
     {
       "label": "type meters",
+      "note": "note type_meters",
       "name": "onekom",
       "image": "fa-bolt",
       "step": 3,
@@ -191,6 +190,7 @@
       "0":
       {
         "label": "exists meter",
+        "note": "note odpu_exist",
         "name": "odpu",
         "step": 4,
         "count": 2,
@@ -249,6 +249,7 @@
       "1":
       {
         "label": "exists meter",
+        "note": "note ipu_exist",
         "name": "ipu",
         "step": 4,
         "count": 3,
@@ -324,6 +325,7 @@
     "1":
     {
       "label": "type meters",
+      "note": "note type_meters",
       "name": "twokom",
       "image": "fa-bolt",
       "step": 3,
@@ -337,6 +339,7 @@
       "0":
       {
         "label": "exists meter",
+        "note": "note odpu_exist",
         "name": "odpu",
         "step": 4,
         "count": 2,
@@ -395,6 +398,7 @@
       "1":
       {
         "label": "exists meter",
+        "note": "note ipu_exist",
         "name": "ipu",
         "step": 4,
         "count": 3,
@@ -469,11 +473,10 @@
 
   },
 
-
   "2":
   {
     "label": "type meters",
-    "note": "note type meters",
+    "note": "note type_meters",
     "name": "coldwater",
     "step": 2,
     "count": 2,
@@ -482,7 +485,7 @@
       "0": "odpu",
       "1": "ipu"
     },
-    "image": "fa-bolt",
+    "image": "fa-shower",
 
     "0":
     {

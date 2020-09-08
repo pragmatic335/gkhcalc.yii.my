@@ -17,7 +17,7 @@ class CalcController extends Controller
         $model = new CalcForm;
 
 
-        if (count(Yii::$app->request->post()) > 0 && $model->load(Yii::$app->request->post()) && $model->validate() ) {
+        if ( count(Yii::$app->request->post()) > 0 && $model->load(Yii::$app->request->post()) ) {
 
             $model->params = json_decode($model->params, true);
 
