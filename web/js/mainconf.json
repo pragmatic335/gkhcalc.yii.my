@@ -23,7 +23,7 @@
       "0": "odpu",
       "1": "ipu"
     },
-    "image": "fa-bolt",
+    "image": "images/electro-main.png",
 
     "0":
     {
@@ -37,7 +37,7 @@
         "0": "exists",
         "1": "not exists"
       },
-      "image": "fa-bolt",
+      "image": "images/odn.png",
 
 
 
@@ -46,20 +46,20 @@
       {
 
 
-        "calc": 1,
+        "calc": 13,
         "label": "formula",
         "name": "exists",
         "step": 4,
         "count": 1,
-        "image": "fa-bolt",
+        "image": "images/odpu-on.png",
         "names":
         {
-          "0": "formula 1"
+          "0": "formula"
         },
         "0":
         {
           "name": 1,
-          "image": "fa-bolt"
+          "image": "images/odpu-on.png"
         }
       },
 
@@ -70,15 +70,15 @@
         "name": "not exists",
         "step": 4,
         "count": 1,
-        "image": "fa-bolt",
+        "image": "images/odpu-no.png",
         "names":
         {
-          "0": "formula 2"
+          "0": "formula"
         },
         "0":
         {
           "name": 2,
-          "image": "fa-bolt"
+          "image": "images/odpu-no.png"
         }
       }
 
@@ -97,7 +97,7 @@
         "1": "not exists",
         "2": "not exists and imposible setup"
       },
-      "image": "fa-bolt",
+      "image": "images/flat.png",
 
       "0":
       {
@@ -106,15 +106,15 @@
         "name": "exists",
         "step": 4,
         "count": 1,
-        "image": "fa-bolt",
+        "image": "images/ipu-on.png",
         "names":
         {
-          "0": "formula 3"
+          "0": "formula"
         },
         "0":
         {
           "name": 4,
-          "image": "fa-bolt"
+          "image": "images/ipu-on.png"
         }
       },
 
@@ -125,15 +125,15 @@
         "name": "not exists",
         "step": 4,
         "count": 1,
-        "image": "fa-bolt",
+        "image": "images/ipu-no.png",
         "names":
         {
-          "0": "formula 4"
+          "0": "formula"
         },
         "0":
         {
           "name": 5,
-          "image": "fa-bolt"
+          "image": "images/ipu-no.png"
         }
       },
 
@@ -144,15 +144,15 @@
         "name": "not exists and imposible setup",
         "step": 4,
         "count": 1,
-        "image": "fa-bolt",
+        "image": "images/ipu-no-on.png",
         "names":
         {
-          "0": "formula 5"
+          "0": "formula"
         },
         "0":
         {
           "name": 6,
-          "image": "fa-bolt"
+          "image": "images/ipu-no-on.png"
         }
       }
     }
@@ -163,7 +163,7 @@
     "label": "type tariff",
     "note": "note type_tariff",
     "name": "hotwater",
-    "image": "fa-thermometer-full",
+    "image": "images/gvs-main.png",
     "step": 2,
     "count": 2,
     "names":
@@ -178,7 +178,7 @@
       "label": "type meters",
       "note": "note type_meters",
       "name": "onekom",
-      "image": "fa-bolt",
+      "image": "images/one-tarif.png",
       "step": 3,
       "count": 2,
       "names":
@@ -199,7 +199,7 @@
           "0": "exists",
           "1": "not exists"
         },
-        "image": "fa-bolt",
+        "image": "images/odn.png",
 
 
 
@@ -213,15 +213,15 @@
           "name": "exists",
           "step": 5,
           "count": 1,
-          "image": "fa-bolt",
+          "image": "images/odpu-on.png",
           "names":
           {
-            "0": "formula 6"
+            "0": "formula"
           },
           "0":
           {
             "name": 1,
-            "image": "fa-bolt"
+            "image": "images/odpu-on.png"
           }
         },
 
@@ -232,15 +232,15 @@
           "name": "not exists",
           "step": 5,
           "count": 1,
-          "image": "fa-bolt",
+          "image": "images/odpu-no.png",
           "names":
           {
-            "0": "formula 7"
+            "0": "formula"
           },
           "0":
           {
             "name": 2,
-            "image": "fa-bolt"
+            "image": "images/odpu-no.png"
           }
         }
 
@@ -259,7 +259,7 @@
           "1": "not exists",
           "2": "not exists and imposible setup"
         },
-        "image": "fa-bolt",
+        "image": "images/flat.png",
 
         "0":
         {
@@ -268,15 +268,15 @@
           "name": "exists",
           "step": 5,
           "count": 1,
-          "image": "fa-bolt",
+          "image": "images/ipu-on.png",
           "names":
           {
-            "0": "formula 3"
+            "0": "formula"
           },
           "0":
           {
             "name": 4,
-            "image": "fa-bolt"
+            "image": "images/ipu-on.png"
           }
         },
 
@@ -287,15 +287,15 @@
           "name": "not exists",
           "step": 5,
           "count": 1,
-          "image": "fa-bolt",
+          "image": "images/ipu-no.png",
           "names":
           {
-            "0": "formula 4"
+            "0": "formula"
           },
           "0":
           {
             "name": 5,
-            "image": "fa-bolt"
+            "image": "images/ipu-no.png"
           }
         },
 
@@ -306,15 +306,15 @@
           "name": "not exists and imposible setup",
           "step": 5,
           "count": 1,
-          "image": "fa-bolt",
+          "image": "images/ipu-no-on.png",
           "names":
           {
-            "0": "formula 5"
+            "0": "formula"
           },
           "0":
           {
             "name": 6,
-            "image": "fa-bolt"
+            "image": "images/ipu-no-on.png"
           }
         }
       }
@@ -327,7 +327,7 @@
       "label": "type meters",
       "note": "note type_meters",
       "name": "twokom",
-      "image": "fa-bolt",
+      "image": "images/two-tarif.png",
       "step": 3,
       "count": 2,
       "names":
@@ -348,7 +348,7 @@
           "0": "exists",
           "1": "not exists"
         },
-        "image": "fa-bolt",
+        "image": "images/odn.png",
 
 
 
@@ -362,15 +362,15 @@
           "name": "exists",
           "step": 5,
           "count": 1,
-          "image": "fa-bolt",
+          "image": "images/odpu-on.png",
           "names":
           {
-            "0": "formula 8"
+            "0": "formula"
           },
           "0":
           {
             "name": 8,
-            "image": "fa-bolt"
+            "image": "images/odpu-on.png"
           }
         },
 
@@ -381,15 +381,15 @@
           "name": "not exists",
           "step": 5,
           "count": 1,
-          "image": "fa-bolt",
+          "image": "images/odpu-no.png",
           "names":
           {
-            "0": "formula 9"
+            "0": "formula"
           },
           "0":
           {
             "name": 2,
-            "image": "fa-bolt"
+            "image": "images/odpu-no.png"
           }
         }
 
@@ -408,7 +408,7 @@
           "1": "not exists",
           "2": "not exists and imposible setup"
         },
-        "image": "fa-bolt",
+        "image": "images/flat.png",
 
         "0":
         {
@@ -417,15 +417,15 @@
           "name": "exists",
           "step": 5,
           "count": 1,
-          "image": "fa-bolt",
+          "image": "images/ipu-on.png",
           "names":
           {
-            "0": "formula 10"
+            "0": "formula"
           },
           "0":
           {
             "name": 4,
-            "image": "fa-bolt"
+            "image": "images/ipu-on.png"
           }
         },
 
@@ -436,15 +436,15 @@
           "name": "not exists",
           "step": 5,
           "count": 1,
-          "image": "fa-bolt",
+          "image": "images/ipu-no.png",
           "names":
           {
-            "0": "formula 11"
+            "0": "formula"
           },
           "0":
           {
             "name": 5,
-            "image": "fa-bolt"
+            "image": "images/ipu-no.png"
           }
         },
 
@@ -455,15 +455,15 @@
           "name": "not exists and imposible setup",
           "step": 5,
           "count": 1,
-          "image": "fa-bolt",
+          "image": "images/ipu-no-on.png",
           "names":
           {
-            "0": "formula 12"
+            "0": "formula"
           },
           "0":
           {
             "name": 6,
-            "image": "fa-bolt"
+            "image": "images/ipu-no-on.png"
           }
         }
       }
@@ -478,6 +478,8 @@
     "label": "type meters",
     "note": "note type_meters",
     "name": "coldwater",
+    "image": "images/hvs-main.png",
+
     "step": 2,
     "count": 2,
     "names":
@@ -485,12 +487,13 @@
       "0": "odpu",
       "1": "ipu"
     },
-    "image": "fa-shower",
+
 
     "0":
     {
       "label": "exists meter",
       "name": "odpu",
+      "note": "note odpu_exist",
       "step": 3,
       "count": 2,
       "names":
@@ -498,7 +501,7 @@
         "0": "exists",
         "1": "not exists"
       },
-      "image": "fa-bolt",
+      "image": "images/odn.png",
 
 
 
@@ -512,15 +515,15 @@
         "name": "exists",
         "step": 4,
         "count": 1,
-        "image": "fa-bolt",
+        "image": "images/odpu-on.png",
         "names":
         {
-          "0": "formula 1"
+          "0": "formula"
         },
         "0":
         {
           "name": 1,
-          "image": "fa-bolt"
+          "image": "images/odpu-on.png"
         }
       },
 
@@ -531,28 +534,25 @@
         "name": "not exists",
         "step": 4,
         "count": 1,
-        "image": "fa-bolt",
+        "image": "images/odpu-no.png",
         "names":
         {
-          "0": "formula 2"
+          "0": "formula"
         },
         "0":
         {
           "name": 2,
-          "image": "fa-bolt"
+          "image": "images/odpu-no.png"
         }
       }
 
     },
 
-
-
-
-
     "1":
     {
       "label": "exists meter",
       "name": "ipu",
+      "note": "note ipu_exist",
       "step": 3,
       "count": 3,
       "names":
@@ -561,7 +561,7 @@
         "1": "not exists",
         "2": "not exists and imposible setup"
       },
-      "image": "fa-bolt",
+      "image": "images/flat.png",
 
       "0":
       {
@@ -570,15 +570,15 @@
         "name": "exists",
         "step": 4,
         "count": 1,
-        "image": "fa-bolt",
+        "image": "images/ipu-on.png",
         "names":
         {
-          "0": "formula 3"
+          "0": "formula"
         },
         "0":
         {
           "name": 4,
-          "image": "fa-bolt"
+          "image": "images/ipu-on.png"
         }
       },
 
@@ -589,15 +589,15 @@
         "name": "not exists",
         "step": 4,
         "count": 1,
-        "image": "fa-bolt",
+        "image": "images/ipu-no.png",
         "names":
         {
-          "0": "formula 4"
+          "0": "formula"
         },
         "0":
         {
           "name": 5,
-          "image": "fa-bolt"
+          "image": "images/ipu-no.png"
         }
       },
 
@@ -608,17 +608,18 @@
         "name": "not exists and imposible setup",
         "step": 4,
         "count": 1,
-        "image": "fa-bolt",
+        "image": "images/ipu-no-on.png",
         "names":
         {
-          "0": "formula 5"
+          "0": "formula"
         },
         "0":
         {
           "name": 6,
-          "image": "fa-bolt"
+          "image": "images/ipu-no-on.png"
         }
       }
     }
   }
+
 }

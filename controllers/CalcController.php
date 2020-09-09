@@ -21,14 +21,27 @@ class CalcController extends Controller
 
             $model->params = json_decode($model->params, true);
 
+
            if( isset($model->params[array_key_last($model->params)]['calc']) ) {
                $model->routeCalc($model->params[array_key_last($model->params)]['calc']);
                $model->params = json_encode($model->params);
                return $this->render('index', ['model' => $model]);
            }
 
+//            if($model->params[1]['step'] == 2) {
+//                echo( $model->value );
+//                die();
+//            }
 
            $model->fixJson($model->value);
+//
+//            if($model->params[2]['step'] == 3) {
+////                var_dump($model->params[2]);
+////                echo('Успезх');
+//                die();
+//            }
+
+
 
            if( isset($model->params[array_key_last($model->params)]['calc']) ) {
                 $model->routeCalculationVaribles($model->params[array_key_last($model->params)]['calc']);

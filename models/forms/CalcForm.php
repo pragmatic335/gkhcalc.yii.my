@@ -44,6 +44,7 @@ class CalcForm extends Model
         public $size2service_hvs; // Объем холодной воды, использованный при производстве коммунальной услуги по отоплению и (или) горячему водоснабжению (при отсутствии на доме централизованнной сиситемы теплоснабжения) (м3)
         /* ------------------------------ */
 
+        public $size2service_energy;
 
         /* общие поля для ОДН ХВС */
         public $tariff; // Тариф
@@ -156,7 +157,7 @@ class CalcForm extends Model
             'size_odpu' => 'Объем потребления на общедомовом приборе учета',
             'size_ipu_all' => 'Объем потребления по всем жилым помещениям, оборудованных индивидуальными приборами учета',
             'size_notliv_all' => 'Объем потребления по всем нежилым помещениям',
-            'size2service_hvs' => 'Объем холодной воды(или электроэнергии), использованный при производстве коммунальной услуги по отоплению и (или) горячему водоснабжению',
+            'size2service_hvs' => 'Объем холодной воды, использованный при производстве коммунальной услуги по отоплению и (или) горячему водоснабжению',
             'size_not_ipu_all' => 'объем потребления по всем жилым помещениям, не оборудованными ИПУ',
             'norm2odn' => 'Норматив на услугу, предоставленную на общедомовые нужды, установленный для Вашего региона (м3):',
             'space_oi_all' => 'Общая площадь помещений, входящих в состав общего имущества собственников помещений МКД (м2):',
@@ -167,7 +168,8 @@ class CalcForm extends Model
             'norm2heating' => 'Норматив на подогрев',
             'tariff2heating_energy' => 'Тариф на тепловую энергию',
             'space_full_all_liv' => 'Площадь всех жилых помещений',
-            'norm_gvs' => 'норматив потребления на горячее водоснабжение'
+            'norm_gvs' => 'норматив потребления на горячее водоснабжение',
+            'size2service_energy' => ' Объем электрической энергии, использованный при производстве коммунальной услуги по отоплению и (или) горячему водоснабжению (кВт)',
         ];
     }
 
@@ -180,11 +182,11 @@ class CalcForm extends Model
 
         [['space_owner', 'space_full_all', 'size_odpu', 'size_ipu_all', 'size_notliv_all',
             'size_not_ipu_all', 'size2service_hvs', 'space_oi_all', 'size_ipu', 'kol',
-            'size2service_gvs', 'space_full_all_liv'], 'double'],
+            'size2service_gvs', 'space_full_all_liv', 'size2service_energy'], 'double'],
 
         [['space_owner', 'space_full_all', 'size_odpu', 'size_ipu_all', 'size_notliv_all',
             'size_not_ipu_all', 'size2service_hvs', 'space_oi_all', 'size_ipu', 'kol',
-            'size2service_gvs', 'space_full_all_liv'], 'required', 'message' => 'Поле не должно быть пустым'],
+            'size2service_gvs', 'space_full_all_liv', 'size2service_energy'], 'required', 'message' => 'Поле не должно быть пустым'],
 
         [['tariff', 'norm2odn', 'norm', 'norm2heating', 'tariff2heating_energy', 'norm_gvs'], 'double'],
         [['tariff', 'norm2odn', 'norm', 'norm2heating', 'tariff2heating_energy', 'norm_gvs'], 'required', 'message' => 'Необходимо ввести данные'],
@@ -270,6 +272,11 @@ class CalcForm extends Model
             $this->calc_conf = json_encode(['kol', 'norm', 'tariff', 'norm2heating', 'tariff2heating_energy']);
         }
 
+        if($number == 13) {
+            $this->calc_conf = json_encode(['tariff', 'space_owner', 'space_full_all', 'size_odpu', 'size_ipu_all', 'size_not_ipu_all', 'size_notliv_all', 'size2service_energy']);
+        }
+
+
         return true;
     }
 
@@ -324,6 +331,10 @@ class CalcForm extends Model
         if($value == 12) {
             return $this->calcTwenty();
 
+        }
+
+        if($value == 13) {
+            return $this->calcThirteen();
         }
 
         return false;
@@ -510,6 +521,23 @@ class CalcForm extends Model
 
         $this->result = round( (self::MULTIPLIER * $tmp * $this->$c) + (($tmp * $this->$d) * $this->$e), 2);
         return true;
+    }
+
+    public function calcThirteen() {
+        $array = json_decode($this->calc_conf, true);
+
+        $a = $array[3];
+        $b = $array[4];
+        $c = $array[5];
+        $d = $array[6];
+        $e = $array[0];
+        $f = $array[1];
+        $g = $array[2];
+        $r = $array[7];
+
+        $this->result = ($this->$a - $this->$d - $this->$b - $this->$c - $this->$r) * $this->$e * ($this->$f/$this->$g);
+        return true;
+
     }
 
 

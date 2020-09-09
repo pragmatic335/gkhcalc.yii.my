@@ -3,7 +3,7 @@ body {
 }
 
   .vertical-timeline-block > .vertical-timeline-icon {
-    border-color: #5f2dab !important;
+    border-color: #583f66 !important;
     border-width: 2px !important;
 
     background-color: white !important;
@@ -19,15 +19,15 @@ body {
 }
 
 .myIcon {
-    min-height: 55px;
-    min-width: 55px;
+    min-height: 65px;
+    min-width: 65px;
     left:50% !important;
     top:14% !important;
     transform: translate(-50%, -50%) !important;
     transition: 0.3s;
     cursor: pointer;
 
-    border-color: #5f2dab !important;
+    border-color: #583f66 !important;
     border-width: 2px !important;
     background-color: white !important;
 
@@ -49,7 +49,7 @@ body {
 .air {
     height: 45px;
     width: auto;
-    background-color: #5f2dab;
+    background-color: #583f66;
     border-radius: 11px;
     position: relative;
     top: 15px;
@@ -71,8 +71,8 @@ body {
 }
 
  .myIcon:hover {
-    width: 80px;
-    height: 80px;
+    width: 85px;
+    height: 85px;
     transition: 0.3s;
     color: #1dc5a3 !important;
 }
@@ -85,7 +85,18 @@ body {
      top:80px;
      transform: translate(-50%, -50%);
 
+
  }
+
+.myLabel p{
+
+    transition: 0.3s;
+
+}
+
+
+
+
  .myNote {
 
      border: 1px solid #5bc0de;
@@ -129,6 +140,43 @@ body {
 .mycontent {
     margin-right: 0px !important;
 }
+
+
+
+.myImage {
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+
+    transform: translate(-50%, -50%);
+    filter: grayscale(100%);
+
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.myImage:hover {
+    height: 55px;
+    width: 55px;
+
+    filter:none;
+
+
+    transition: 0.3s;
+}
+
+
+.myIcon:hover ~ .myLabel p{
+    font-weight: bolder;
+    transition: 0.3s;
+
+}
+
+
+
+
 
 
 

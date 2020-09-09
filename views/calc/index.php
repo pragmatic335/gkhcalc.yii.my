@@ -16,8 +16,16 @@ use yii\widgets\Pjax;
     <div id="vertical-timeline" class="vertical-container dark-timeline mycontent">
         <?php
         $array = json_decode($model->params, true);
+        $o = [];
         foreach($array as $json) {
-            Form::begin(['config' => $json, 'model' => $model]);
+            $o[] = $json;
+//            var_dump($json);
+//            if($json['count'] == null) {
+//                var_dump($json);
+//                die();
+//            }
+
+            Form::begin(['config' => $json, 'model' => $model, 'array' => $o]);
             Form::end();
         }
         ?>

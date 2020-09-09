@@ -10,8 +10,12 @@ use yii\bootstrap\ActiveForm;
 $size = intdiv(12, $config['count']);
 $state = (isset($config['event']))? true: false;
 
-if($state == true) {
-    $form = ActiveForm::begin(['id' => 'calcform',
+$test = clone $model;
+$test->params = json_encode($array);
+
+
+
+    $form = ActiveForm::begin(['id' => 'calcform' . $config['step'],
         'layout' => 'horizontal',
         'fieldConfig' => [
             'horizontalCssClasses' => [
@@ -23,9 +27,9 @@ if($state == true) {
             ],
         ],
         'options' => ['data-pjax' => 1]]);
-}
 
-?>
+ ?>
+
 
 <!--  Составной блок нашего аккардиона -->
 <div class="vertical-timeline-block">
@@ -47,8 +51,8 @@ if($state == true) {
                             <?= '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' ?>
                         <?php } ?>
 
-                        <a class="myclick" data-toggle="collapse" data-parent="#accordion" href="#collapse<?= $config['step']; ?>">
-                            <?= Yii::t('app', $config['label']) ?> <?= (!$state)? ' &mdash; ' . Yii::t('app',$config['choosename']) : '' ;?>
+                        <a  class="myclick" data-toggle="collapse" data-parent="#accordion" href="#collapse<?= $config['step']; ?>">
+                            <?= Yii::t('app', $config['label']) ?>  <span style="font-weight: bolder;"><?= (!$state)? ' &mdash; ' . Yii::t('app',$config['choosename']) : '' ;?></span>
                         </a>
 
                     </h5>
@@ -58,17 +62,14 @@ if($state == true) {
                     <div class="panel-body" style="min-height: 100px;">
 
                         <?php
-                        if($model->result == null) {
+                        if($model->result == null || $state == false ) {
                         ?>
 
                         <?php if(!is_integer($config['calc'])){ ?>
                         <div class="air"></div>
                         <?php } ?>
 
-                        <?php if($state == true) { ?>
-                            <div class="hide"><?= $form->field( $model, 'value' )->hiddenInput()->label(false); ?></div>
 
-                        <?php } ?>
 
                         <?php
 
@@ -77,26 +78,38 @@ if($state == true) {
                             foreach ($array as $name) {
                                 echo $form->field( $model, $name )->input('text', [['maxlength'=>10]])->label();
                                 echo "<br>";
-//                                echo "<br>";
                             }
                         }
-
                         ?>
 
-                        <?php if($state == true) { ?>
-                            <div class="hide"><?= $form->field( $model, 'params' )->hiddenInput()->label(false); ?></div>
-                        <?php } ?>
+                         <div class="hide"><?= $form->field( $test, 'value', [
+                                 'inputOptions' => [
+                                     'id' => 'calcform-value' . $config['step'],
+                                 ],
+                             ] )->hiddenInput()->label(false); ?></div>
 
-                        <?php if($state == true) { ?>
-                            <div class="hide"><?= $form->field( $model, 'calc_conf' )->hiddenInput()->label(false); ?></div>
-                        <?php } ?>
+                         <div class="hide"><?= $form->field( $test, 'params', [
+                                 'inputOptions' => [
+                                     'id' => 'calcform-params' . $config['step'],
+                                 ],
+                             ] )->hiddenInput()->label(false); ?></div>
+
+                         <div class="hide"><?= $form->field( $test, 'calc_conf', [
+                                 'inputOptions' => [
+                                     'id' => 'calcform-calc_conf' . $config['step'],
+                                 ],
+                             ] )->hiddenInput()->label(false); ?></div>
+
 
                         <?php
-                        for($i = 0; $i < $config['count']; $i++) {
+                            echo "<br>";
+                            echo "<br>";
+                            echo "<br>";
+                        for($i = 0; $i < $config['count']; $i++)    {
                             ?>
                             <div class="col-sm-<?= $size ?> heightMin">
-                                <div class="vertical-timeline-icon navy-bg myIcon <?= $state? "activeIcon":"" ?>" data-id="<?= $i ?>">
-                                    <i class="fa <?= $config[$i]['image'] ?> fa-2x" aria-hidden="true"></i>
+                                <div id="<?=  $config['step'] . $i ?>"  class="vertical-timeline-icon navy-bg myIcon <?= $state? "activeIcon":"" ?>" data-id="<?= $i ?>">
+                                    <img src="<?= $config[$i]['image']?>" width="45" height="45" class="myImage">
                                 </div>
                                 <div class="myLabel text-center">
                                     <p><?=  Yii::t('app', $config['names'][$i]) ?></p>
@@ -111,20 +124,9 @@ if($state == true) {
                             else {
                             ?>
 
-
                                 <h1> <?= $model->result; ?> </h1>
 
-
-
                         <?php } ?>
-
-
-
-
-
-
-
-
 
                     </div>
                 </div>
@@ -136,32 +138,15 @@ if($state == true) {
 
 <?php
 
-
-
-
-
-
-if($state == true) {
-
     $j = "$(document).ready(function() {
-    $('.activeIcon').on('click', function() {
-        
-        $('#calcform-value').val($(this).attr('data-id'));
-        $('#calcform-params').val($('#calcform-params').attr('value'));
-        $('#calcform-calc_conf').val($('#calcform-calc_conf').attr('value'));
-        
-        
-        
-        $('#calcform').submit();               
+    $('[id^=\"" . $config['step'] . "\"]').on('click', function() {
+        $('#calcform-value" . $config['step'] . "').val($(this).attr('data-id'));
+        $('#calcform-params" . $config['step'] . "').val($('#calcform-params" . $config['step'] . "').attr('value'));
+        $('#calcform-calc_conf" . $config['step'] . "').val($('#calcform-calc_conf" . $config['step'] . "').attr('value'));
+        $('#calcform" . $config['step'] . "').submit();               
     });     
 })";
     $this->registerJs($j);
     ActiveForm::end();
-}
-
-
-
-//var_dump($config);
-//echo '<br>' . $config['step'];
 
 ?>

@@ -10,6 +10,7 @@ class Form extends Widget
 {
     public $config;
     public $model;
+    public $array;
 
     public function init()
     {
@@ -22,6 +23,6 @@ class Form extends Widget
         parent::run();
         $output = ob_get_clean();
 
-        return $this->render('form', ['config' => $this->config, 'model' => $this->model] );
+        return $this->render('form', ['config' => $this->config, 'model' => $this->model, 'array' => $this->array] );
     }
 }
