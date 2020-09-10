@@ -13,7 +13,11 @@ return array (
     'type meters' => 'Тип прибора учета',
     'type tariff' => 'Тип тарифа',
     "exists meter" => 'Наличие счетчика',
+    "type room" => 'Тип помещения',
     'formula' => 'Формула',
+    'apart' => 'Квартира',
+    'house' => 'Жилой дом',
+    'note type_room' => 'Выберите тип помещения по которому хотите произвести расчет',
     '1' => '1',
     '2' => '2',
     '3' => '3',
@@ -43,8 +47,8 @@ return array (
 
 
 
-    'exists' => 'ПУ +',
-    'not exists' => 'ПУ -',
+    'exists' => 'Да',
+    'not exists' => 'Нет',
     'not exists and imposible setup' => 'ПУ -+',
     'formula' => 'Произвести расчет'
 

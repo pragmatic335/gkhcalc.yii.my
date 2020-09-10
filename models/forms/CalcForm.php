@@ -44,6 +44,8 @@ class CalcForm extends Model
         public $size2service_hvs; // Объем холодной воды, использованный при производстве коммунальной услуги по отоплению и (или) горячему водоснабжению (при отсутствии на доме централизованнной сиситемы теплоснабжения) (м3)
         /* ------------------------------ */
 
+
+        //количество электроэнергии затраченной на прочие услуги
         public $size2service_energy;
 
         /* общие поля для ОДН ХВС */
@@ -153,22 +155,22 @@ class CalcForm extends Model
         return [
             'tariff' => 'Тариф',
             'space_owner' => 'Площадь вашей квартиры',
-            'space_full_all' => 'Общая площадь всем помещений в МКД',
+            'space_full_all' => 'Общая площадь всех помещений в МКД',
             'size_odpu' => 'Объем потребления на общедомовом приборе учета',
             'size_ipu_all' => 'Объем потребления по всем жилым помещениям, оборудованных индивидуальными приборами учета',
             'size_notliv_all' => 'Объем потребления по всем нежилым помещениям',
             'size2service_hvs' => 'Объем холодной воды, использованный при производстве коммунальной услуги по отоплению и (или) горячему водоснабжению',
-            'size_not_ipu_all' => 'объем потребления по всем жилым помещениям, не оборудованными ИПУ',
+            'size_not_ipu_all' => 'Объем потребления по всем жилым помещениям, не оборудованными ИПУ',
             'norm2odn' => 'Норматив на услугу, предоставленную на общедомовые нужды, установленный для Вашего региона (м3):',
             'space_oi_all' => 'Общая площадь помещений, входящих в состав общего имущества собственников помещений МКД (м2):',
             'size_ipu' => 'Объем услуги, потребленной по Вашему индивидуальному прибору учета в кубических метрах (м3)',
             'norm' => 'Норматив, установленный на услугу для Вашего региона (м3)',
             'kol' => 'Количество постоянно и временно проживающих в квартире граждан (чел.):',
-            'size2service_gvs' => 'объем электрической энергии или газа, использованный за расчетный период исполнителем при производстве коммунальной услуги по отоплению и (или) горячему водоснабжению',
+            'size2service_gvs' => 'Объем электрической энергии или газа, использованный за расчетный период исполнителем при производстве коммунальной услуги по отоплению и (или) горячему водоснабжению',
             'norm2heating' => 'Норматив на подогрев',
             'tariff2heating_energy' => 'Тариф на тепловую энергию',
             'space_full_all_liv' => 'Площадь всех жилых помещений',
-            'norm_gvs' => 'норматив потребления на горячее водоснабжение',
+            'norm_gvs' => 'Норматив потребления на горячее водоснабжение',
             'size2service_energy' => ' Объем электрической энергии, использованный при производстве коммунальной услуги по отоплению и (или) горячему водоснабжению (кВт)',
         ];
     }
@@ -179,26 +181,81 @@ class CalcForm extends Model
     public function rules()
     {
         return [
-
-        [['space_owner', 'space_full_all', 'size_odpu', 'size_ipu_all', 'size_notliv_all',
-            'size_not_ipu_all', 'size2service_hvs', 'space_oi_all', 'size_ipu', 'kol',
-            'size2service_gvs', 'space_full_all_liv', 'size2service_energy'], 'double'],
-
-        [['space_owner', 'space_full_all', 'size_odpu', 'size_ipu_all', 'size_notliv_all',
-            'size_not_ipu_all', 'size2service_hvs', 'space_oi_all', 'size_ipu', 'kol',
-            'size2service_gvs', 'space_full_all_liv', 'size2service_energy'], 'required', 'message' => 'Поле не должно быть пустым'],
-
-        [['tariff', 'norm2odn', 'norm', 'norm2heating', 'tariff2heating_energy', 'norm_gvs'], 'double'],
-        [['tariff', 'norm2odn', 'norm', 'norm2heating', 'tariff2heating_energy', 'norm_gvs'], 'required', 'message' => 'Необходимо ввести данные'],
-
-        [['value', 'params', 'calc_conf'], 'safe']
-
-
+            [['space_full_all', 'size_odpu', 'size_ipu_all', 'size_notliv_all',
+                'size_not_ipu_all', 'size2service_hvs', 'space_oi_all', 'size_ipu', 'kol',
+                'size2service_gvs', 'space_full_all_liv', 'size2service_energy'], 'double', 'message' => 'Введите правильное числовое значение. Будьте внимательны, дробную часть отделяйте от целой точкой, а не запятой! '],
+//            [['space_full_all', 'size_odpu', 'size_ipu_all', 'size_notliv_all',
+//                'size_not_ipu_all', 'size2service_hvs', 'space_oi_all', 'size_ipu', 'kol',
+//                'size2service_gvs', 'space_full_all_liv', 'size2service_energy'], 'required', 'message' => 'Поле не должно быть пустым'],
+            [['tariff', 'norm2odn', 'norm', 'norm2heating', 'tariff2heating_energy', 'norm_gvs'], 'double', 'message' => 'Введите правильное числовое значение. Будьте внимательны, дробную часть отделяйте от целой точкой «.», а не запятой! '],
+//            [['tariff', 'norm2odn', 'norm', 'norm2heating', 'tariff2heating_energy', 'norm_gvs'], 'required', 'message' => 'Необходимо ввести данные'],
+            [['value', 'params', 'calc_conf', 'space_owner'], 'safe'],
+            ['params', 'decodeParams'],
+            ['space_owner', 'filter', 'filter' => [$this, 'test']],
 
         ];
     }
 
     //В params заносим json с параметрами следующего шага
+
+
+
+    //когда вызываешь в контроллере $model->validate() у тебя срабатывает этот валидатор для того, чтобы в модельку упал не JSON, а сразу же массив(очень удобно)
+    public function decodeParams($attribute, $params) {
+        $this->$attribute = json_decode( $this->$attribute, true);
+
+    }
+
+
+
+    public function test($space_owner) {
+
+        return $space_owner;
+    }
+
+
+    //Функция говорит, а что за единица измерения используется для нашей переменной в формуле расчета.
+    // В добавок возвращает конфигурационный массив для виджета MaskedInput, опять же, для переменной.
+    public function configVariable($variable)
+    {
+        $space = [
+                    ['space_full_all', 'space_owner'],
+                    [
+                        'clientOptions' => [
+                            'alias' => 'decimal',
+                            'digits' => 2,
+                            'digitsOptional' => true,
+                            'radixPoint' => ',',
+                            'groupSeparator' => ' ',
+                            'autoGroup' => true,
+                            'removeMaskOnSubmit' => true,
+                        ]
+                    ],
+                    'meter^2'
+            ];
+
+        $money = [
+                    ['tariff', 'tariff2heating_energy'],
+                    [
+                        'clientOptions' => [
+                            'alias' => 'decimal',
+                            'digits' => 2,
+                            'digitsOptional' => true,
+                            'radixPoint' => ',',
+                            'groupSeparator' => ' ',
+                            'autoGroup' => true,
+                            'removeMaskOnSubmit' => true,
+                        ]
+                    ],
+                    'rub'
+            ];
+
+        return (in_array($variable, $space[0]))? [$space[1], $space[2]] : ( (in_array($variable, $money[0]))? [$money[1], $money[2]] : [$money[1], $money[2]] );
+    }
+
+
+
+
     public function fixJson($value) {
         if(is_null($this->params)) {
             $content = file_get_contents('js/mainconf.json');
@@ -354,10 +411,8 @@ class CalcForm extends Model
          $f = $array[1];
          $g = $array[2];
          $r = $array[7];
-
         $this->result = ($this->$a - $this->$d - $this->$b - $this->$c - $this->$r) * $this->$e * ($this->$f/$this->$g);
         return true;
-
     }
 
 
@@ -484,6 +539,7 @@ class CalcForm extends Model
         return true;
     }
 
+    //горячая вода двухкомпонентный тариф ИПУ  есть
     public function calcTen()
     {
         $array = json_decode($this->calc_conf, true);
@@ -495,6 +551,7 @@ class CalcForm extends Model
         return true;
     }
 
+    //горячая вода двухкомпонентный тариф ИПУ нет возможности установки нет
     public function calcEleven()
     {
         $array = json_decode($this->calc_conf, true);
@@ -509,6 +566,7 @@ class CalcForm extends Model
         return true;
     }
 
+    //горячая вода двухкомпонентный тариф ИПУ нет возможности установки есть
     public function calcTwenty()
     {
         $array = json_decode($this->calc_conf, true);
@@ -523,6 +581,8 @@ class CalcForm extends Model
         return true;
     }
 
+
+    //ОДПУ отопление
     public function calcThirteen() {
         $array = json_decode($this->calc_conf, true);
 
@@ -539,6 +599,10 @@ class CalcForm extends Model
         return true;
 
     }
+
+
+
+
 
 
     }

@@ -2,16 +2,126 @@
   "label": "choose services",
   "note": "note services",
   "step": 1,
-  "count": 3,
+  "count": 4,
   "names":
   {
-    "0": "energy",
-    "1": "hotwater",
-    "2": "coldwater"
+    "0": "heating",
+    "1": "energy",
+    "2": "hotwater",
+    "3": "coldwater"
+  },
+
+  "0":
+  {
+    "label": "type room",
+    "note": "note type_room",
+    "name": "heating",
+    "step": 2,
+    "count": 2,
+    "names":
+    {
+      "0": "apart",
+      "1": "house"
+    },
+    "image": "images/warm.png",
+
+    "0": {
+
+      "label": "exists meter",
+      "note": "note type_room",
+      "name": "apart",
+      "step": 3,
+      "count": 4,
+      "names":
+      {
+        "0": "heating_odpu_no",
+        "1": "heating_odpu_yes_ipu_nofull",
+        "2": "heating_odpu_yes_ipu_yeshalf",
+        "3": "heating_odpu_yes_ipu_yeshalf"
+      },
+      "image": "images/flat.png",
+
+      "0": {
+        "label": "exists meter",
+        "note": "note odpu_exist",
+        "name": "Yes",
+        "step": 3,
+        "count": 2,
+        "names":
+        {
+          "0": "Yes",
+          "1": "Not"
+        },
+        "image": "images/flat.png",
+        "0": {
+
+          "label": "exists meter",
+          "note": "note odpu_exist",
+          "name": "Yes",
+          "step": 3,
+          "count": 2,
+          "names":
+          {
+            "0": "Yes",
+            "1": "Not"
+          },
+          "image": "images/yes.png"
+        },
+        "1": {
+
+          "label": "exists meter",
+          "note": "note odpu_exist",
+          "name": "Yes",
+          "step": 3,
+          "count": 2,
+          "names":
+          {
+            "0": "Yes",
+            "1": "Not"
+          },
+          "image": "images/not.jpg"
+        }
+      }
+
+    },
+
+    "1": {
+
+      "label": "type room",
+      "note": "note type_room",
+      "name": "heating",
+      "step": 2,
+      "count": 2,
+      "names":
+      {
+        "0": "apart",
+        "1": "house"
+      },
+      "image": "images/house.png"
+    }
+
   },
 
 
-  "0":
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  "1":
   {
     "label": "type meters",
     "note": "note type_meters",
@@ -158,7 +268,7 @@
     }
   },
 
-  "1":
+  "2":
   {
     "label": "type tariff",
     "note": "note type_tariff",
@@ -473,7 +583,7 @@
 
   },
 
-  "2":
+  "3":
   {
     "label": "type meters",
     "note": "note type_meters",

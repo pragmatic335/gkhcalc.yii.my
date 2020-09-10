@@ -4,6 +4,7 @@
 /* @var $model \app\models\forms\CalcForm*/
 use app\widgets\Form;
 use yii\bootstrap\ActiveForm;
+use yii\widgets\MaskedInput;
 
 
 // Количество выбираемых элементов в блоке
@@ -75,12 +76,20 @@ $test->params = json_encode($array);
 
                         if( isset($model->calc_conf) && isset($config['calc']) ) {
                             $array = json_decode($model->calc_conf, true);
+
                             foreach ($array as $name) {
-                                echo $form->field( $model, $name )->input('text', [['maxlength'=>10]])->label();
+                                $t = $model->configVariable($name);
+
+                                echo $form->field( $model, $name )->widget(MaskedInput::className(), $t[0])->label();
+                                echo $t[1];
                                 echo "<br>";
                             }
                         }
                         ?>
+
+
+
+
 
                          <div class="hide"><?= $form->field( $test, 'value', [
                                  'inputOptions' => [
@@ -102,9 +111,9 @@ $test->params = json_encode($array);
 
 
                         <?php
-                            echo "<br>";
-                            echo "<br>";
-                            echo "<br>";
+//                            echo "<br>";
+//                            echo "<br>";
+//                            echo "<br>";
                         for($i = 0; $i < $config['count']; $i++)    {
                             ?>
                             <div class="col-sm-<?= $size ?> heightMin">
@@ -147,6 +156,18 @@ $test->params = json_encode($array);
     });     
 })";
     $this->registerJs($j);
+
+    $test = "$(document).ready(function() {
+        $('[id^=\"" . $config['step'] . "\"]').on('click', function() {
+            $('#calcform-value" . $config['step'] . "').val($(this).attr('data-id'));
+            $('#calcform-params" . $config['step'] . "').val($('#calcform-params" . $config['step'] . "').attr('value'));
+            $('#calcform-calc_conf" . $config['step'] . "').val($('#calcform-calc_conf" . $config['step'] . "').attr('value'));
+            $('#calcform" . $config['step'] . "').submit();               
+        });     
+    })";
+
+
+
     ActiveForm::end();
 
 ?>
