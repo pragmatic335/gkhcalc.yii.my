@@ -181,7 +181,12 @@ class CalcForm extends Model
     public function rules()
     {
         return [
-            [['space_full_all', 'size_odpu', 'size_ipu_all', 'size_notliv_all',
+
+//            [['space_owner'], 'filter', 'filter' => [$this, 'test']],
+//            [['space_owner'], 'string'],
+//            [['space_owner'], 'validateDouble'],
+
+            [['space_full_all', 'space_owner' ,'size_odpu', 'size_ipu_all', 'size_notliv_all',
                 'size_not_ipu_all', 'size2service_hvs', 'space_oi_all', 'size_ipu', 'kol',
                 'size2service_gvs', 'space_full_all_liv', 'size2service_energy'], 'double', 'message' => 'Введите правильное числовое значение. Будьте внимательны, дробную часть отделяйте от целой точкой, а не запятой! '],
 //            [['space_full_all', 'size_odpu', 'size_ipu_all', 'size_notliv_all',
@@ -191,13 +196,23 @@ class CalcForm extends Model
 //            [['tariff', 'norm2odn', 'norm', 'norm2heating', 'tariff2heating_energy', 'norm_gvs'], 'required', 'message' => 'Необходимо ввести данные'],
             [['value', 'params', 'calc_conf', 'space_owner'], 'safe'],
             ['params', 'decodeParams'],
-            ['space_owner', 'filter', 'filter' => [$this, 'test']],
+//            [['space_owner'], 'filter', 'filter' => [$this, 'inputSpaceDelete']],
+
 
         ];
-    }
+   }
 
     //В params заносим json с параметрами следующего шага
 
+
+    public function test($str) {
+        if(is_null($str) || ($str == '')) {
+            return 2;
+        }
+        else
+            return 3;
+
+    }
 
 
     //когда вызываешь в контроллере $model->validate() у тебя срабатывает этот валидатор для того, чтобы в модельку упал не JSON, а сразу же массив(очень удобно)
@@ -208,9 +223,21 @@ class CalcForm extends Model
 
 
 
-    public function test($space_owner) {
+    public function validateDouble($attribute, $params) {
+            $var = $this->inputSpaceDelete($this->$attribute);
+            if (is_double($var)) {
+                $this->$attribute = $var;
+            } else {
+                $this->addError($attribute, 'Введите корректное числовое значение');
+            }
+    }
 
-        return $space_owner;
+
+
+    public function inputSpaceDelete($str) {
+        $str = str_replace(" ", "", $str);
+        $str = str_replace(",", ".", $str);
+        return $str;
     }
 
 
@@ -218,8 +245,10 @@ class CalcForm extends Model
     // В добавок возвращает конфигурационный массив для виджета MaskedInput, опять же, для переменной.
     public function configVariable($variable)
     {
-        $space = [
-                    ['space_full_all', 'space_owner'],
+        $array =
+            [
+                [
+                    ['space_full_all', 'space_owner', 'space_oi_all', 'space_full_all_liv', ],
                     [
                         'clientOptions' => [
                             'alias' => 'decimal',
@@ -232,9 +261,9 @@ class CalcForm extends Model
                         ]
                     ],
                     'meter^2'
-            ];
+                ],
 
-        $money = [
+                [
                     ['tariff', 'tariff2heating_energy'],
                     [
                         'clientOptions' => [
@@ -248,9 +277,49 @@ class CalcForm extends Model
                         ]
                     ],
                     'rub'
+                ],
+
+                [
+                    ['size_odpu', 'size_ipu_all', 'size_notliv_all', 'norm2odn', 'size_ipu', 'norm', 'size2service_hvs', 'size_not_ipu_all'],
+                    [
+                        'clientOptions' => [
+                            'alias' => 'decimal',
+                            'digits' => 3,
+                            'digitsOptional' => true,
+                            'radixPoint' => ',',
+                            'groupSeparator' => ' ',
+                            'autoGroup' => true,
+                            'removeMaskOnSubmit' => true,
+                        ]
+                    ],
+                    'meter^3'
+                ],
+
+                [
+                    ['kol'],
+                    [
+                        'clientOptions' => [
+                            'alias' => 'decimal',
+                            'digits' => 0,
+                            'digitsOptional' => false,
+                            'groupSeparator' => ' ',
+                            'autoGroup' => true,
+                            'removeMaskOnSubmit' => true,
+                        ]
+                    ],
+                    'humans'
+                ],
+
             ];
 
-        return (in_array($variable, $space[0]))? [$space[1], $space[2]] : ( (in_array($variable, $money[0]))? [$money[1], $money[2]] : [$money[1], $money[2]] );
+        foreach($array as $value) {
+            if(in_array($variable, $value[0])) {
+                return [$value[1], $value[2]];
+            }
+        }
+
+        return false;
+
     }
 
 

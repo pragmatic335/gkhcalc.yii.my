@@ -6,29 +6,7 @@ use \yii\widgets\MaskedInput;
 /* @var $this yii\web\View */
 /* @var $model app\models\forms\CalcForm */
 
-
 ?>
-
-<?php
-
-echo MaskedInput::widget([
-    'name' => 'masked-input',
-    'clientOptions' => [
-        'alias' => 'decimal',
-        'digits' => 2,
-        'digitsOptional' => false,
-        'radixPoint' => '.',
-        'groupSeparator' => ',',
-        'autoGroup' => true,
-        'removeMaskOnSubmit' => true,
-    ],
-]);
-// Содержимое, которое нужно обновлять динамически
-
-
-?>
-
-
 <div class="col-md-9 mycontent">
 <div class="panel-group" id="accordion">
 
@@ -38,11 +16,6 @@ echo MaskedInput::widget([
         $o = [];
         foreach($array as $json) {
             $o[] = $json;
-//            var_dump($json);
-//            if($json['count'] == null) {
-//                var_dump($json);
-//                die();
-//            }
 
             Form::begin(['config' => $json, 'model' => $model, 'array' => $o]);
             Form::end();

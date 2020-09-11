@@ -19,15 +19,17 @@ $test->params = json_encode($array);
     $form = ActiveForm::begin(['id' => 'calcform' . $config['step'],
         'layout' => 'horizontal',
         'fieldConfig' => [
+                'template' => "{label}{beginWrapper}{input}\n{error}{endWrapper}{hint}",
             'horizontalCssClasses' => [
                 'label' => 'col-sm-6',
                 'offset' => '',
+
                 'wrapper' => 'col-sm-4',
                 'error' => '',
                 'hint' => 'col-sm-2',
             ],
         ],
-        'options' => ['data-pjax' => 1]]);
+        'options' => ['class' => 'mytextsize']]);
 
  ?>
 
@@ -52,7 +54,7 @@ $test->params = json_encode($array);
                             <?= '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' ?>
                         <?php } ?>
 
-                        <a  class="myclick" data-toggle="collapse" data-parent="#accordion" href="#collapse<?= $config['step']; ?>">
+                        <a  class="myclick mytextsize" data-toggle="collapse" data-parent="#accordion" href="#collapse<?= $config['step']; ?>">
                             <?= Yii::t('app', $config['label']) ?>  <span style="font-weight: bolder;"><?= (!$state)? ' &mdash; ' . Yii::t('app',$config['choosename']) : '' ;?></span>
                         </a>
 
@@ -70,22 +72,33 @@ $test->params = json_encode($array);
                         <div class="air"></div>
                         <?php } ?>
 
+                            <?php
+                            if( isset($model->calc_conf) && isset($config['calc']) ) {
+                                $array = json_decode($model->calc_conf, true);
 
-
-                        <?php
-
-                        if( isset($model->calc_conf) && isset($config['calc']) ) {
-                            $array = json_decode($model->calc_conf, true);
-
-                            foreach ($array as $name) {
-                                $t = $model->configVariable($name);
-
-                                echo $form->field( $model, $name )->widget(MaskedInput::className(), $t[0])->label();
-                                echo $t[1];
-                                echo "<br>";
+                                foreach ($array as $name) {
+                                    $t = $model->configVariable($name);
+                                    if($t) {
+                                        echo $form->field($model, $name)->widget(MaskedInput::className(), $t[0])->label()->hint(Yii::t('app', $t[1]), ['style' => 'font-weight: bold; margin: 0; display: inline;', 'class' => 'mytextsize control-label']);
+                                        echo "<br>";
+                                    }
+                                    else {
+                                        echo $form->field($model, $name)->widget(MaskedInput::className(), [
+                                            'clientOptions' => [
+                                                'alias' => 'decimal',
+                                                'digits' => 2,
+                                                'digitsOptional' => true,
+                                                'radixPoint' => ',',
+                                                'groupSeparator' => ' ',
+                                                'autoGroup' => true,
+                                                'removeMaskOnSubmit' => true,
+                                            ]
+                                        ])->label();
+                                        echo "<br>";
+                                    }
+                                }
                             }
-                        }
-                        ?>
+                            ?>
 
 
 
@@ -118,10 +131,15 @@ $test->params = json_encode($array);
                             ?>
                             <div class="col-sm-<?= $size ?> heightMin">
                                 <div id="<?=  $config['step'] . $i ?>"  class="vertical-timeline-icon navy-bg myIcon <?= $state? "activeIcon":"" ?>" data-id="<?= $i ?>">
-                                    <img src="<?= $config[$i]['image']?>" width="45" height="45" class="myImage">
+                                    <?php if( !in_array($config[$i]['image'], ['Yes', 'Not']) ) { ?>
+                                         <img src="<?= $config[$i]['image']?>" width="45" height="45" class="myImage">
+                                     <?php } else {?>
+                                           <p class="myYesNot"><?= Yii::t('app',$config[$i]['image']) ?></p>
+                                     <?php } ?>
+
                                 </div>
                                 <div class="myLabel text-center">
-                                    <p><?=  Yii::t('app', $config['names'][$i]) ?></p>
+                                    <p class="mytextsize"><?=  Yii::t('app', $config['names'][$i]) ?></p>
                                 </div>
 
                             </div>

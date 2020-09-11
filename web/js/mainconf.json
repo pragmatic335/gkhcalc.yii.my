@@ -103,24 +103,6 @@
   },
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   "1":
   {
     "label": "type meters",
@@ -664,12 +646,11 @@
       "name": "ipu",
       "note": "note ipu_exist",
       "step": 3,
-      "count": 3,
+      "count": 2,
       "names":
       {
-        "0": "exists",
-        "1": "not exists",
-        "2": "not exists and imposible setup"
+        "0": "",
+        "1": ""
       },
       "image": "images/flat.png",
 
@@ -680,7 +661,7 @@
         "name": "exists",
         "step": 4,
         "count": 1,
-        "image": "images/ipu-on.png",
+        "image": "Yes",
         "names":
         {
           "0": "formula"
@@ -694,41 +675,55 @@
 
       "1":
       {
-        "calc": 4,
-        "label": "formula",
+        "label": "exists setup",
         "name": "not exists",
         "step": 4,
-        "count": 1,
-        "image": "images/ipu-no.png",
+        "count": 2,
+        "image": "Not",
         "names":
         {
-          "0": "formula"
+          "0": "",
+          "1": ""
         },
         "0":
         {
-          "name": 5,
-          "image": "images/ipu-no.png"
-        }
-      },
+          "calc": 4,
+          "label": "formula",
+          "name": "exists",
+          "step": 5,
+          "count": 1,
+          "image": "Yes",
+          "names":
+          {
+            "0": "formula"
+          },
+          "0":
+          {
+            "name": 5,
+            "image": "images/ipu-on.png"
+          }
+        },
 
-      "2":
-      {
-        "calc": 5,
-        "label": "formula",
-        "name": "not exists and imposible setup",
-        "step": 4,
-        "count": 1,
-        "image": "images/ipu-no-on.png",
-        "names":
+        "1":
         {
-          "0": "formula"
-        },
-        "0":
-        {
-          "name": 6,
-          "image": "images/ipu-no-on.png"
+          "calc": 5,
+          "label": "formula",
+          "name": "not exists and imposible setup",
+          "step": 5,
+          "count": 1,
+          "image": "Not",
+          "names":
+          {
+            "0": "formula"
+          },
+          "0":
+          {
+            "name": 6,
+            "image": "images/ipu-no-on.png"
+          }
         }
       }
+
     }
   }
 

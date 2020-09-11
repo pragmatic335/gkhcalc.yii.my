@@ -2,6 +2,22 @@ body {
     background-color: white !important;
 }
 
+
+.myYesNot {
+    font-size: 22px !important;
+    font-weight: bold;
+    margin-top: 0 !important;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+}
+
+.mytextsize {
+    font-size: 15px !important;
+}
+
   .vertical-timeline-block > .vertical-timeline-icon {
     border-color: #583f66 !important;
     border-width: 2px !important;

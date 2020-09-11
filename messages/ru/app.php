@@ -50,6 +50,25 @@ return array (
     'exists' => 'Да',
     'not exists' => 'Нет',
     'not exists and imposible setup' => 'ПУ -+',
-    'formula' => 'Произвести расчет'
+    'formula' => 'Произвести расчет',
+    'exists setup' => 'А возможно ли установить прибора учета?',
+
+    'Yes' => 'Да',
+    'Not' => 'Нет',
+
+
+
+
+
+    "rub" => 'руб',
+    "meter^2" => 'м²',
+    'meter^3' => 'м³',
+    'humans' => 'кол-во человек'
+
+
+
+
+
+
 
 );
