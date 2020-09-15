@@ -139,6 +139,30 @@ class CalcForm extends Model
 
 
 
+    //на одпу если есть все ИПУ
+
+    public $size_ipu_heating_one;//потребление на ИПУ жильца
+    public $size_odpu_heating;//потребление на ОДПУ дома
+    public $size_ipu_heating_all;//общее потребления по всем ИПУ в доме
+
+
+
+    //отопление одпу есть ипу не везде в квартире ИПУ установлен
+
+    //public $size_ipu_heating_one;//потребление на ИПУ жильца
+    //public $size_odpu_heating;//потребление на ОДПУ дома
+    //public $size_ipu_heating_all;//общее потребления по всем ИПУ в доме
+    public $space_ipu_where;
+
+
+
+    // если есть
+    //public $size_odpu_heating;//потребление на ОДПУ дома
+    //public $size_ipu_heating_all;//общее потребления по всем ИПУ в доме
+    public $space_iio_where;
+    //space_oi_all
+
+
 
 
 
@@ -170,8 +194,13 @@ class CalcForm extends Model
             'norm2heating' => 'Норматив на подогрев',
             'tariff2heating_energy' => 'Тариф на тепловую энергию',
             'space_full_all_liv' => 'Площадь всех жилых помещений',
+            'space_ipu_where' => 'Площадь всех помещений, где установлен индивидуальный прибор учета',
             'norm_gvs' => 'Норматив потребления на горячее водоснабжение',
             'size2service_energy' => ' Объем электрической энергии, использованный при производстве коммунальной услуги по отоплению и (или) горячему водоснабжению (кВт)',
+            'size_ipu_heating_one' => 'Объем (количество) тепловой энергии, потребленной в вашей квартире',
+            'size_odpu_heating' => 'Объем тепловой энергии по показаниям общедомового прибора учета',
+            'size_ipu_heating_all' => 'Cумма объемов по всем показаниям индивидуальных приборов учета в МКД',
+            'space_iio_where' => 'Общая площадь жилых помещений (квартир) и нежилых помещений, имеющих индивидуальные источники тепловой энергии'
         ];
     }
 
@@ -181,65 +210,32 @@ class CalcForm extends Model
     public function rules()
     {
         return [
-
-//            [['space_owner'], 'filter', 'filter' => [$this, 'test']],
-//            [['space_owner'], 'string'],
-//            [['space_owner'], 'validateDouble'],
+            [['space_full_all', 'space_owner' ,'size_odpu', 'size_ipu_all', 'size_notliv_all',
+                'size_not_ipu_all', 'size2service_hvs', 'space_oi_all', 'size_ipu', 'kol',
+                'size2service_gvs', 'space_full_all_liv', 'size2service_energy', 'space_owner',
+                'tariff', 'norm2odn', 'norm', 'norm2heating', 'tariff2heating_energy', 'norm_gvs',
+                'size_ipu_heating_one', 'size_odpu_heating', 'size_ipu_heating_all',
+                'tariff', 'norm2odn', 'norm', 'norm2heating', 'tariff2heating_energy', 'norm_gvs',
+                'space_ipu_where', 'space_iio_where'], 'test'],
 
             [['space_full_all', 'space_owner' ,'size_odpu', 'size_ipu_all', 'size_notliv_all',
                 'size_not_ipu_all', 'size2service_hvs', 'space_oi_all', 'size_ipu', 'kol',
-                'size2service_gvs', 'space_full_all_liv', 'size2service_energy'], 'double', 'message' => 'Введите правильное числовое значение. Будьте внимательны, дробную часть отделяйте от целой точкой, а не запятой! '],
-//            [['space_full_all', 'size_odpu', 'size_ipu_all', 'size_notliv_all',
-//                'size_not_ipu_all', 'size2service_hvs', 'space_oi_all', 'size_ipu', 'kol',
-//                'size2service_gvs', 'space_full_all_liv', 'size2service_energy'], 'required', 'message' => 'Поле не должно быть пустым'],
-            [['tariff', 'norm2odn', 'norm', 'norm2heating', 'tariff2heating_energy', 'norm_gvs'], 'double', 'message' => 'Введите правильное числовое значение. Будьте внимательны, дробную часть отделяйте от целой точкой «.», а не запятой! '],
-//            [['tariff', 'norm2odn', 'norm', 'norm2heating', 'tariff2heating_energy', 'norm_gvs'], 'required', 'message' => 'Необходимо ввести данные'],
-            [['value', 'params', 'calc_conf', 'space_owner'], 'safe'],
-            ['params', 'decodeParams'],
-//            [['space_owner'], 'filter', 'filter' => [$this, 'inputSpaceDelete']],
+                'size2service_gvs', 'space_full_all_liv', 'size2service_energy', 'space_owner',
+                'size_ipu_heating_one', 'size_odpu_heating', 'size_ipu_heating_all',
+                'tariff', 'norm2odn', 'norm', 'norm2heating', 'tariff2heating_energy', 'norm_gvs', 'space_ipu_where', 'space_iio_where'],
+                'string', 'message' => 'Введите правильное числовое значение. Будьте внимательны, дробную часть отделяйте от целой точкой, а не запятой! '],
 
-
+            [['value', 'params', 'calc_conf'], 'safe'],
         ];
    }
 
     //В params заносим json с параметрами следующего шага
 
 
-    public function test($str) {
-        if(is_null($str) || ($str == '')) {
-            return 2;
-        }
-        else
-            return 3;
-
+    public function test($attribute, $params) {
+       $this->$attribute = str_replace(',', '.', $this->$attribute);
+        $this->$attribute = str_replace(' ', '', $this->$attribute);
     }
-
-
-    //когда вызываешь в контроллере $model->validate() у тебя срабатывает этот валидатор для того, чтобы в модельку упал не JSON, а сразу же массив(очень удобно)
-    public function decodeParams($attribute, $params) {
-        $this->$attribute = json_decode( $this->$attribute, true);
-
-    }
-
-
-
-    public function validateDouble($attribute, $params) {
-            $var = $this->inputSpaceDelete($this->$attribute);
-            if (is_double($var)) {
-                $this->$attribute = $var;
-            } else {
-                $this->addError($attribute, 'Введите корректное числовое значение');
-            }
-    }
-
-
-
-    public function inputSpaceDelete($str) {
-        $str = str_replace(" ", "", $str);
-        $str = str_replace(",", ".", $str);
-        return $str;
-    }
-
 
     //Функция говорит, а что за единица измерения используется для нашей переменной в формуле расчета.
     // В добавок возвращает конфигурационный массив для виджета MaskedInput, опять же, для переменной.
@@ -248,7 +244,7 @@ class CalcForm extends Model
         $array =
             [
                 [
-                    ['space_full_all', 'space_owner', 'space_oi_all', 'space_full_all_liv', ],
+                    ['space_full_all', 'space_owner', 'space_oi_all', 'space_full_all_liv', 'space_ipu_where', 'space_iio_where'],
                     [
                         'clientOptions' => [
                             'alias' => 'decimal',
@@ -308,6 +304,22 @@ class CalcForm extends Model
                         ]
                     ],
                     'humans'
+                ],
+//'size_ipu_heating_one', 'size_odpu_heating', 'size_ipu_heating_all',
+                [
+                    ['size_ipu_heating_one', 'size_odpu_heating', 'size_ipu_heating_all', 'size_ipu_heating_diff'],
+                    [
+                        'clientOptions' => [
+                            'alias' => 'decimal',
+                            'digits' => 3,
+                            'digitsOptional' => true,
+                            'radixPoint' => ',',
+                            'groupSeparator' => ' ',
+                            'autoGroup' => true,
+                            'removeMaskOnSubmit' => true,
+                        ]
+                    ],
+                    'GKL'
                 ],
 
             ];
@@ -403,6 +415,27 @@ class CalcForm extends Model
         }
 
 
+        if($number == 20) {
+            $this->calc_conf = json_encode(['tariff', 'space_owner', 'space_full_all','size_ipu_heating_one', 'size_odpu_heating', 'size_ipu_heating_all']);
+        }
+
+        if($number == 21) {
+            $this->calc_conf = json_encode(['tariff', 'space_owner', 'space_full_all','size_ipu_heating_one', 'size_odpu_heating', 'size_ipu_heating_all', 'space_ipu_where']);
+        }
+
+        if($number == 22) {
+            $this->calc_conf = json_encode(['tariff', 'space_owner', 'space_full_all', 'size_odpu_heating', 'size_ipu_heating_all', 'space_ipu_where']);
+        }
+
+        if($number == 23) {
+            $this->calc_conf = json_encode(['tariff', 'space_owner', 'space_full_all', 'space_oi_all', 'space_iio_where','size_odpu_heating']);
+        }
+
+        if($number == 24) {
+            $this->calc_conf = json_encode(['tariff', 'space_owner', 'space_full_all', 'space_oi_all', 'space_iio_where','size_odpu_heating']);
+        }
+
+
         return true;
     }
 
@@ -455,12 +488,33 @@ class CalcForm extends Model
         }
 
         if($value == 12) {
-            return $this->calcTwenty();
+            return $this->calcTwelve();
 
         }
 
-        if($value == 13) {
-            return $this->calcThirteen();
+
+        //Отопление ОДПУ+ ИПУ везде
+        if($value == 20) {
+            return $this->calcTwenty();
+        }
+
+        //Отопление ОДПУ+ ИПУ не везде в квартире установлен
+        if($value == 21) {
+            return $this->calcTwentyOne();
+        }
+
+        //Отопление ОДПУ+ ИПУ не везде в квартире не установлен
+        if($value == 22) {
+            return $this->calcTwentyTwo();
+        }
+
+        //Отопление ОДПУ+ нет ИПУ квартира подключена к общей сети
+        if($value == 23) {
+            return $this->calcTwentyThree();
+        }
+
+        if($value == 24) {
+            return $this->calcTwentyFour();
         }
 
         return false;
@@ -636,7 +690,7 @@ class CalcForm extends Model
     }
 
     //горячая вода двухкомпонентный тариф ИПУ нет возможности установки есть
-    public function calcTwenty()
+    public function calcTwelve()
     {
         $array = json_decode($this->calc_conf, true);
         $a = $array[0];
@@ -670,7 +724,92 @@ class CalcForm extends Model
     }
 
 
+    //ОДПУ отопление
+    public function calcTwenty() {
+        //$this->calc_conf = json_encode(['tariff', 'space_owner', 'space_full_all','size_ipu_heating_one', 'size_odpu_heating', 'size_ipu_heating_all']);
+        $array = json_decode($this->calc_conf, true);
+        $a = $array[0];
+        $b = $array[1];
+        $c = $array[2];
+        $d = $array[3];
+        $e = $array[4];
+        $f = $array[5];
+        $this->result = $this->$a * ($this->$d + (($this->$e - $this->$f) * ($this->$b/$this->$c)));
 
+    }
+
+    public function calcTwentyOne() {
+        //$this->calc_conf = json_encode(['tariff', 'space_owner', 'space_full_all','size_ipu_heating_one', 'size_odpu_heating', 'size_ipu_heating_all' ,'space_liv']);
+        $array = json_decode($this->calc_conf, true);
+        $a = $array[0];
+        $b = $array[1];
+        $c = $array[2];
+        $d = $array[3];
+        $e = $array[4];
+        $f = $array[5];
+        $g = $array[6];
+
+        $tmp = $this->$c - $this->$g;
+
+        $summ = $tmp * ($this->$f/$this->$g) + $this->$f;
+
+
+
+
+        $this->result = $this->$a * ( $this->$d + ( ($this->$b/$this->$c) * ($this->$e - $summ) ) );
+
+    }
+
+    public function calcTwentyTwo() {
+        //$this->calc_conf = json_encode(['tariff', 'space_owner', 'space_full_all', 'size_ipu_heating_one', 'size_odpu_heating', 'size_ipu_heating_all' ,'space_liv']);
+        $array = json_decode($this->calc_conf, true);
+        $a = $array[0];
+        $b = $array[1];
+        $c = $array[2];
+        $e = $array[3];
+        $f = $array[4];
+        $g = $array[5];
+
+        $tmp = $this->$c - $this->$g;
+
+        $my = ($this->$f/$this->$g) * $this->$b;
+
+        $summ = $tmp * ($this->$f/$this->$g) + $this->$f;
+
+
+
+
+        $this->result = $this->$a * ( $my + ( ($this->$b/$this->$c) * ($this->$e - $summ) ) );
+
+    }
+
+    public function calcTwentyThree() {
+        // json_encode(['tariff', 'space_owner', 'space_full_all', 'space_oi_all', 'space_iio_where','size_odpu_heating']);
+        $array = json_decode($this->calc_conf, true);
+        $a = $array[0];//tariff
+        $b = $array[1];//space_owner
+        $c = $array[2];//space_full_all
+        $e = $array[3];//space_oi_all
+        $f = $array[4];//space_iio_where
+        $g = $array[5];//size_odpu_heating
+        $my = $this->$b * ($this->$g/($this->$c - $this->$f + $this->$e));
+        $sum = ($this->$c - $this->$f) * ($this->$g/($this->$c - $this->$f + $this->$e));
+        $this->result = ($my + ($this->$b * ($this->$g - $sum))/$this->$c) * $this->$a;
+    }
+
+    public function calcTwentyFour() {
+        // json_encode(['tariff', 'space_owner', 'space_full_all', 'space_oi_all', 'space_iio_where','size_odpu_heating']);
+        $array = json_decode($this->calc_conf, true);
+        $a = $array[0];//tariff
+        $b = $array[1];//space_owner
+        $c = $array[2];//space_full_all
+        $e = $array[3];//space_oi_all
+        $f = $array[4];//space_iio_where
+        $g = $array[5];//size_odpu_heating
+        $my = 0;
+        $sum = ($this->$c - $this->$f) * ($this->$g/($this->$c - $this->$f + $this->$e));
+        $this->result = ($my + ($this->$b * ($this->$g - $sum))/$this->$c) * $this->$a;
+    }
 
 
 

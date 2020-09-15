@@ -65,6 +65,28 @@ $test->params = json_encode($array);
                     <div class="panel-body" style="min-height: 100px;">
 
                         <?php
+                            if($state == true && $config['step']!= 1) {
+                        ?>
+
+                        <button id="backStep<?= $config['step']?>" type="button" class="btn btn-light myStepDown"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Назад</button>
+
+                        <?php } ?>
+<!--                        <a class="btn btn-light myMainNote" role="button" data-toggle="collapse" href="#collapseTest--><?//= $config['step']; ?><!--" aria-expanded="false" aria-controls="collapseTest--><?//= $config['step']; ?><!--">-->
+<!--                            --><?//= Yii::t('app', 'mainNotes') ?>
+<!--                        </a>-->
+
+                        <button class="btn btn-light myMainNote" type="button" data-toggle="collapse" data-target="#collapseTest<?= $config['step']; ?>" aria-expanded="false" aria-controls="collapseTest<?= $config['step']; ?>">
+                            <?= Yii::t('app', 'mainNotes') ?>
+                        </button>
+                        <div class="collapse" id="collapseTest<?= $config['step'] ?>">
+                            <div class="well myMainDeleteMarginBootom">
+                                <?= Yii::t( 'app', $config['note']) ?>
+                            </div>
+                        </div>
+
+
+
+                        <?php
                         if($model->result == null || $state == false ) {
                         ?>
 
@@ -151,7 +173,7 @@ $test->params = json_encode($array);
                             else {
                             ?>
 
-                                <h1> <?= $model->result; ?> </h1>
+                                <h1> <?= round($model->result, 2); ?> </h1>
 
                         <?php } ?>
 
@@ -167,7 +189,7 @@ $test->params = json_encode($array);
 
     $j = "$(document).ready(function() {
     $('[id^=\"" . $config['step'] . "\"]').on('click', function() {
-        $('#calcform-value" . $config['step'] . "').val($(this).attr('data-id'));
+        $('#calcform-value" . $config['step'] . "').    val($(this).attr('data-id'));
         $('#calcform-params" . $config['step'] . "').val($('#calcform-params" . $config['step'] . "').attr('value'));
         $('#calcform-calc_conf" . $config['step'] . "').val($('#calcform-calc_conf" . $config['step'] . "').attr('value'));
         $('#calcform" . $config['step'] . "').submit();               

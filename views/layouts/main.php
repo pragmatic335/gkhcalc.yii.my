@@ -51,11 +51,25 @@ $this->registerJs('
 <div class="wrap">
 <!--    <div class="container">-->
 
-        <div class="header">
-            <h1 style="text-align: center;">Он-лайн калькулятор для расчета коммунальных услуг</h1>
-            <h3 style="text-align: center;">порядок начислений и размер платы</h3>
-        </div>
+    <div class="header">
+        <h1 style="text-align: center;">Он-лайн калькулятор для расчета коммунальных услуг</h1>
+        <h3 style="text-align: center;">порядок начислений и размер платы</h3>
+    </div>
+
+
+    <div class="col-md-2">
+
+    </div>
+
+    <div class="col-md-8">
         <?= $content ?>
+    </div>
+
+    <div class="col-md-2">
+
+    </div>
+
+
 <!--    </div>-->
 
 </div>

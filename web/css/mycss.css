@@ -155,6 +155,7 @@ body {
 
 .mycontent {
     margin-right: 0px !important;
+    margin-left: 0px !important;
 }
 
 
@@ -189,6 +190,37 @@ body {
     transition: 0.3s;
 
 }
+
+.myMainNote {
+    float:none !important;
+    transition: 0.3s;
+}
+
+.myMainDeleteMarginBootom {
+    margin-bottom: 0 !important;
+}
+
+
+.myMainNote:hover {
+    background-color: #1AB394 !important;
+    color: white !important;
+    transition: 0.3s;
+}
+
+.myStepDown {
+    float:none !important;
+    transition: 0.3s;
+
+}
+.myStepDown:hover {
+    background-color: #0e9aef !important;
+    color: white !important;
+    transition: 0.3s;
+}
+
+
+
+
 
 
 

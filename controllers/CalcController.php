@@ -16,12 +16,14 @@ class CalcController extends Controller
         $this->layout = 'main';
         $model = new CalcForm;
 
-        if (count(Yii::$app->request->post()) > 0 && $model->load(Yii::$app->request->post()) && $model->validate()) {
+        if (count(Yii::$app->request->post()) > 0 && $model->load(Yii::$app->request->post())) {
+            $model->params = json_decode( $model->params, true);
                 if (isset($model->params[array_key_last($model->params)]['calc'])) {
-
-                    $model->routeCalc($model->params[array_key_last($model->params)]['calc']);
-                    $model->params = json_encode($model->params);
-                    return $this->render('index', ['model' => $model]);
+                    if($model->validate()) {
+                        $model->routeCalc($model->params[array_key_last($model->params)]['calc']);
+                        $model->params = json_encode($model->params);
+                        return $this->render('index', ['model' => $model]);
+                    }
                 }
 
 //            if($model->params[1]['step'] == 2) {
