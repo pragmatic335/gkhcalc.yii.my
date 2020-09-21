@@ -17,7 +17,7 @@ use \yii\widgets\MaskedInput;
         foreach($array as $json) {
             $o[] = $json;
 
-            Form::begin(['config' => $json, 'model' => $model, 'array' => $o]);
+            Form::begin(['config' => $json, 'model' => $model, 'array' => $o, 'parametrs'=> $array]);
             Form::end();
         }
         ?>

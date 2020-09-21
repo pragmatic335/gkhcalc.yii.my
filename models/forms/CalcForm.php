@@ -26,6 +26,9 @@ class CalcForm extends Model
         //массив с содержащий наименования переменных для расчета конкретной формулы
         public $calc_conf;
 
+        //индикатор на то, что мы воспользовались шагом назад
+        public $back_step;
+
     /* ------------------------------- */
 
 
@@ -185,9 +188,9 @@ class CalcForm extends Model
             'size_notliv_all' => 'Объем потребления по всем нежилым помещениям',
             'size2service_hvs' => 'Объем холодной воды, использованный при производстве коммунальной услуги по отоплению и (или) горячему водоснабжению',
             'size_not_ipu_all' => 'Объем потребления по всем жилым помещениям, не оборудованными ИПУ',
-            'norm2odn' => 'Норматив на услугу, предоставленную на общедомовые нужды, установленный для Вашего региона (м3):',
-            'space_oi_all' => 'Общая площадь помещений, входящих в состав общего имущества собственников помещений МКД (м2):',
-            'size_ipu' => 'Объем услуги, потребленной по Вашему индивидуальному прибору учета в кубических метрах (м3)',
+            'norm2odn' => 'Норматив на услугу, предоставленную на общедомовые нужды, установленный для Вашего региона (м³):',
+            'space_oi_all' => 'Общая площадь помещений, входящих в состав общего имущества собственников помещений МКД (м²):',
+            'size_ipu' => 'Объем услуги, потребленной по Вашему индивидуальному прибору учета в кубических метрах (м³)',
             'norm' => 'Норматив, установленный на услугу для Вашего региона (м3)',
             'kol' => 'Количество постоянно и временно проживающих в квартире граждан (чел.):',
             'size2service_gvs' => 'Объем электрической энергии или газа, использованный за расчетный период исполнителем при производстве коммунальной услуги по отоплению и (или) горячему водоснабжению',
@@ -225,7 +228,7 @@ class CalcForm extends Model
                 'tariff', 'norm2odn', 'norm', 'norm2heating', 'tariff2heating_energy', 'norm_gvs', 'space_ipu_where', 'space_iio_where'],
                 'string', 'message' => 'Введите правильное числовое значение. Будьте внимательны, дробную часть отделяйте от целой точкой, а не запятой! '],
 
-            [['value', 'params', 'calc_conf'], 'safe'],
+            [['value', 'params', 'calc_conf', 'back_step'], 'safe'],
         ];
    }
 
@@ -334,11 +337,23 @@ class CalcForm extends Model
 
     }
 
+    public function viewVar($str) {
+        $tail = '.gif';
+        $config = [
+            'tariff' => 'images/formuls/simple_tariff' . $tail,
+            'size_ipu' => 'images/formuls/simple_ipu_size' . $tail,
+        ];
+
+        return $config[$str];
+
+    }
+
 
 
 
     public function fixJson($value) {
-        if(is_null($this->params)) {
+        if(is_null($this->params) || ($value == 111)) {
+            $this->params = null;
             $content = file_get_contents('js/mainconf.json');
             $content = utf8_encode($content);
             $this->params[0] = json_decode($content, true);
@@ -346,7 +361,16 @@ class CalcForm extends Model
             return $this->params[0];
         }
 
+
+
         unset($this->params[array_key_last($this->params)]['event']);
+        if($this->back_step == 1) {
+            $array = end($this->params);
+            $this->params[] = $array[$value];
+            $this->params[array_key_last($this->params)]['event'] = true;
+            $this->back_step = 0;
+            return end($this->params);
+        }
         $this->params[array_key_last($this->params)]['choosename'] = $this->params[array_key_last($this->params)][$value]['name'];
         $array = end($this->params);
         $this->params[] = $array[$value];
@@ -366,6 +390,8 @@ class CalcForm extends Model
             $this->calc_conf = json_encode(['tariff', 'space_owner', 'space_full_all','norm2odn', 'space_oi_all']);
         }
 
+
+        //Формула для расчета холодной воды при наличии счетчика, использует всего две переменные
         if($number == 3) {
             $this->calc_conf = json_encode(['tariff', 'size_ipu']);
         }

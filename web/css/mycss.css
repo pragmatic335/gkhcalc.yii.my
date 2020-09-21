@@ -161,28 +161,34 @@ body {
 
 
 .myImage {
-    position: absolute;
+    /*position: absolute;*/
 
-    top: 50%;
-    left: 50%;
+    /*top: 50%;*/
+    /*left: 50%;*/
 
 
-    transform: translate(-50%, -50%);
+    /*transform: translate(-50%, -50%);*/
+
+    margin-top: calc(15%);
+    margin-left: calc(3%);
+
+
+
     filter: grayscale(100%);
 
     border-radius: 10px;
-    transition: 0.3s;
+    transition: 0.2s;
 }
 
-.myImage:hover {
-    height: 55px;
-    width: 55px;
+/*.myImage:hover {*/
+/*    height: 55px;*/
+/*    width: 55px;*/
 
-    filter:none;
+/*    filter:none;*/
 
 
-    transition: 0.3s;
-}
+/*    transition: 0.3s;*/
+/*}*/
 
 
 .myIcon:hover ~ .myLabel p{
@@ -190,6 +196,19 @@ body {
     transition: 0.3s;
 
 }
+
+ .myIcon:hover .myImage{
+    height: 55px;
+    width: 55px;
+
+    filter:none;
+
+
+    transition: 0.4s;
+
+}
+
+
 
 .myMainNote {
     float:none !important;

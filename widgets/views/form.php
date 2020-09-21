@@ -8,14 +8,141 @@ use yii\widgets\MaskedInput;
 
 
 // Количество выбираемых элементов в блоке
+//if($model->back_step == 1) {
+//    var_dump($config);
+//    die();
+//}
 $size = intdiv(12, $config['count']);
 $state = (isset($config['event']))? true: false;
 
 $test = clone $model;
 $test->params = json_encode($array);
 
+    if($state == true && $config['step'] > 1) {
 
 
+        $form = ActiveForm::begin(['id' => 'calcformback',
+            'layout' => 'horizontal',
+            'fieldConfig' => [
+                'template' => "{label}{beginWrapper}{input}\n{error}{endWrapper}{hint}",
+                'horizontalCssClasses' => [
+                    'label' => 'col-sm-6',
+                    'offset' => '',
+
+                    'wrapper' => 'col-sm-4',
+                    'error' => '',
+                    'hint' => 'col-sm-2',
+                ],
+            ],
+            'options' => ['class' => 'mytextsize']]);
+
+        $modelStepBack = clone $model;
+
+
+
+        $modelStepBack->params = json_decode($modelStepBack->params,true);
+        if ($config['step'] == 2) {
+            $modelStepBack->value = 111;
+        }
+        else {
+            $currentStep = $modelStepBack->params[array_key_last($modelStepBack->params) - 1];
+            unset($currentStep['choosename']);
+//            unset($currentStep['event']);
+//            if($config['step'] == 5) {
+//
+//                if($modelStepBack->params[array_key_last($modelStepBack->params) - 2][1] == $currentStep) {
+//                    var_dump($modelStepBack->params[array_key_last($modelStepBack->params) - 2][1]);
+//                    echo '<br>';
+//                    echo '<br>';
+//                    echo '<br>';
+//                    echo '<br>';
+//                    echo '<br>';
+//                    var_dump($currentStep);
+//                    die();
+//                }
+//                else {
+//                    var_dump($modelStepBack->params[array_key_last($modelStepBack->params) - 2][1]);
+//                    echo '<br>';
+//                    echo '<br>';
+//                    echo '<br>';
+//                    echo '<br>';
+//                    echo '<br>';
+//                    var_dump($currentStep);
+//                    die();
+//                }
+////                var_dump($modelStepBack->params[array_key_last($modelStepBack->params) - 2][1] == $currentStep);
+////                die();
+//            }
+
+
+
+            foreach($modelStepBack->params[array_key_last($modelStepBack->params) - 2] as $key=>$value) {
+                if($currentStep == $value) {
+
+
+                    $modelStepBack->value = $key;
+
+//                    unset($modelStepBack->params[array_key_last($modelStepBack->params)]);
+                }
+
+
+            }
+
+            unset($modelStepBack->params[array_key_last($modelStepBack->params)]);
+            unset($modelStepBack->params[array_key_last($modelStepBack->params)]);
+
+
+        }
+
+
+        $modelStepBack->params = json_encode($modelStepBack->params);
+        ?>
+
+        <div class="hide"><?= $form->field($modelStepBack, 'value', [
+                'inputOptions' => [
+                    'id' => 'calcform-valueback',
+                ],
+            ])->hiddenInput()->label(false); ?></div>
+
+        <div class="hide"><?= $form->field($modelStepBack, 'params', [
+                'inputOptions' => [
+                    'id' => 'calcform-paramsback',
+                ],
+            ])->hiddenInput()->label(false); ?></div>
+
+        <div class="hide"><?= $form->field($modelStepBack, 'calc_conf', [
+                'inputOptions' => [
+                    'id' => 'calcform-calc_confback',
+                ],
+            ])->hiddenInput()->label(false); ?>
+
+        </div>
+        <div class="hide"><?= $form->field($modelStepBack, 'back_step', [
+                'inputOptions' => [
+                    'id' => 'calcform-back_stepback',
+                ],
+            ])->hiddenInput()->label(false); ?></div>
+
+
+        <?php
+        $q = "$(document).ready(function() {
+        $('[id=backStep]').on('click', function() {
+            $('#calcform-valueback').val($('#calcform-valueback').attr('value'));
+            $('#calcform-paramsback').val($('#calcform-paramsback').attr('value'));
+            $('#calcform-calc_confback').val($('#calcform-calc_confback').attr('value'));
+            $('#calcform-back_stepback').val(1);
+            $('#calcformback').submit();               
+        });     
+    })";
+        $this->registerJs($q);
+        ActiveForm::end();
+    }
+    ?>
+
+
+
+
+<?php
     $form = ActiveForm::begin(['id' => 'calcform' . $config['step'],
         'layout' => 'horizontal',
         'fieldConfig' => [
@@ -68,19 +195,38 @@ $test->params = json_encode($array);
                             if($state == true && $config['step']!= 1) {
                         ?>
 
-                        <button id="backStep<?= $config['step']?>" type="button" class="btn btn-light myStepDown"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Назад</button>
+                        <button id="backStep" type="button" class="btn btn-light myStepDown"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Назад</button>
 
                         <?php } ?>
-<!--                        <a class="btn btn-light myMainNote" role="button" data-toggle="collapse" href="#collapseTest--><?//= $config['step']; ?><!--" aria-expanded="false" aria-controls="collapseTest--><?//= $config['step']; ?><!--">-->
-<!--                            --><?//= Yii::t('app', 'mainNotes') ?>
-<!--                        </a>-->
-
                         <button class="btn btn-light myMainNote" type="button" data-toggle="collapse" data-target="#collapseTest<?= $config['step']; ?>" aria-expanded="false" aria-controls="collapseTest<?= $config['step']; ?>">
                             <?= Yii::t('app', 'mainNotes') ?>
                         </button>
                         <div class="collapse" id="collapseTest<?= $config['step'] ?>">
                             <div class="well myMainDeleteMarginBootom">
-                                <?= Yii::t( 'app', $config['note']) ?>
+                                <?php if(!is_integer($config['calc'])) {
+                                    echo Yii::t('app', $config['note']);
+                                }
+                                else {
+                                    echo 'Формула расчета:&nbsp&nbsp&nbsp';
+                                    ?>
+
+                                    <img src="<?= $config['view_calc']; ?>">
+
+                                <?php
+
+                                    echo '&nbsp, где <br>';
+                                    $array = json_decode($model->calc_conf, true);
+                                    foreach($array as $val) {
+
+                                ?>
+                                        <img src="<?= $model->viewVar($val) ?>">
+                                <?php
+                                        echo '&nbsp;&nbsp;&mdash;&nbsp;&nbsp;' . $model->attributeLabels()[$val] . '<br>';
+                                    }
+                                }
+
+                                ?>
+
                             </div>
                         </div>
 
@@ -96,12 +242,15 @@ $test->params = json_encode($array);
 
                             <?php
                             if( isset($model->calc_conf) && isset($config['calc']) ) {
+
+
                                 $array = json_decode($model->calc_conf, true);
 
                                 foreach ($array as $name) {
+                                    $images = '<img src="' . $model->viewVar($name) . '">';
                                     $t = $model->configVariable($name);
                                     if($t) {
-                                        echo $form->field($model, $name)->widget(MaskedInput::className(), $t[0])->label()->hint(Yii::t('app', $t[1]), ['style' => 'font-weight: bold; margin: 0; display: inline;', 'class' => 'mytextsize control-label']);
+                                        echo $form->field($model, $name)->widget(MaskedInput::className(), $t[0])->label()->hint(Yii::t('app', $t[1]) . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . '(' .  $images . ')', ['style' => 'font-weight: bold; margin: 0; display: inline;', 'class' => 'mytextsize control-label']);
                                         echo "<br>";
                                     }
                                     else {
@@ -143,6 +292,8 @@ $test->params = json_encode($array);
                                      'id' => 'calcform-calc_conf' . $config['step'],
                                  ],
                              ] )->hiddenInput()->label(false); ?></div>
+
+
 
 
                         <?php
@@ -187,7 +338,9 @@ $test->params = json_encode($array);
 
 <?php
 
-    $j = "$(document).ready(function() {
+    ActiveForm::end();
+
+$j = "$(document).ready(function() {
     $('[id^=\"" . $config['step'] . "\"]').on('click', function() {
         $('#calcform-value" . $config['step'] . "').    val($(this).attr('data-id'));
         $('#calcform-params" . $config['step'] . "').val($('#calcform-params" . $config['step'] . "').attr('value'));
@@ -195,9 +348,9 @@ $test->params = json_encode($array);
         $('#calcform" . $config['step'] . "').submit();               
     });     
 })";
-    $this->registerJs($j);
+$this->registerJs($j);
 
-    $test = "$(document).ready(function() {
+$test = "$(document).ready(function() {
         $('[id^=\"" . $config['step'] . "\"]').on('click', function() {
             $('#calcform-value" . $config['step'] . "').val($(this).attr('data-id'));
             $('#calcform-params" . $config['step'] . "').val($('#calcform-params" . $config['step'] . "').attr('value'));
@@ -208,6 +361,5 @@ $test->params = json_encode($array);
 
 
 
-    ActiveForm::end();
 
 ?>

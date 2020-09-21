@@ -230,7 +230,7 @@
   "1":
   {
     "label": "type meters",
-    "note": "note type_meters",
+    "note": "note_type_meters",
     "name": "energy",
     "step": 2,
     "count": 2,
@@ -720,7 +720,7 @@
     {
       "label": "exists meter",
       "name": "odpu",
-      "note": "note odpu_exist",
+      "note": "note_odpu_check",
       "step": 3,
       "count": 2,
       "names":
@@ -779,7 +779,7 @@
     {
       "label": "exists meter",
       "name": "ipu",
-      "note": "note ipu_exist",
+      "note": "note_ipu_check",
       "step": 3,
       "count": 2,
       "names":
@@ -792,6 +792,7 @@
       "0":
       {
         "calc": 3,
+        "view_calc": "images/formuls/simple_ipu.gif",
         "label": "formula",
         "name": "exists",
         "step": 4,
@@ -812,6 +813,7 @@
       {
         "label": "exists setup",
         "name": "not exists",
+        "note": "note_notIpu_checkPossibility",
         "step": 4,
         "count": 2,
         "image": "Not",
@@ -824,7 +826,7 @@
         {
           "calc": 4,
           "label": "formula",
-          "name": "exists",
+          "name": "Yes",
           "step": 5,
           "count": 1,
           "image": "Yes",
@@ -843,7 +845,7 @@
         {
           "calc": 5,
           "label": "formula",
-          "name": "not exists and imposible setup",
+          "name": "Not",
           "step": 5,
           "count": 1,
           "image": "Not",
