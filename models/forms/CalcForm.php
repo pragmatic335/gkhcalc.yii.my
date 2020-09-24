@@ -338,10 +338,24 @@ class CalcForm extends Model
     }
 
     public function viewVar($str) {
+//        ['tariff', 'space_owner', 'space_full_all', 'size_odpu', 'size_ipu_all', 'size_not_ipu_all', 'size_notliv_all', 'size2service_hvs']
         $tail = '.gif';
         $config = [
             'tariff' => 'images/formuls/simple_tariff' . $tail,
             'size_ipu' => 'images/formuls/simple_ipu_size' . $tail,
+            'norm' => 'images/formuls/normativ' . $tail,
+            'kol' => 'images/formuls/kol_jil' . $tail,
+            'size_odpu' => 'images/formuls/size_odpu_hvs' . $tail,
+            'size_notliv_all' => 'images/formuls/size_all_noliv_hvs' . $tail,
+            'size_ipu_all' => 'images/formuls/size_all_ipu_liv' . $tail,
+            'size_not_ipu_all' => 'images/formuls/size_all_hvs_not_ipu' . $tail,
+            'space_owner' => 'images/formuls/space_owner' . $tail,
+            'space_full_all' => 'images/formuls/space_all_hvs' . $tail,
+            'size2service_hvs' => 'images/formuls/serv2hvs' . $tail,
+            'norm2odn' => 'images/formuls/hvs_norm_odpu' . $tail,
+            'space_oi_all' => 'images/formuls/hvs_soi' . $tail,
+
+
         ];
 
         return $config[$str];

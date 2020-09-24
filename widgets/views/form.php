@@ -250,7 +250,7 @@ $test->params = json_encode($array);
                                     $images = '<img src="' . $model->viewVar($name) . '">';
                                     $t = $model->configVariable($name);
                                     if($t) {
-                                        echo $form->field($model, $name)->widget(MaskedInput::className(), $t[0])->label()->hint(Yii::t('app', $t[1]) . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . '(' .  $images . ')', ['style' => 'font-weight: bold; margin: 0; display: inline;', 'class' => 'mytextsize control-label']);
+                                        echo $form->field($model, $name)->widget(MaskedInput::className(), $t[0])->label()->hint(Yii::t('app', $t[1]) . '&nbsp;&nbsp;&nbsp;&nbsp;' . '(' .  $images . ')', ['style' => 'font-weight: bold; margin: 0; display: inline;', 'class' => 'mytextsize control-label']);
                                         echo "<br>";
                                     }
                                     else {
