@@ -19,10 +19,13 @@ class CalcForm extends Model
     //индикатор на то, что мы воспользовались шагом назад
     public $back_step;
 
+    //модель для расчета формулы
+    public $sub_model;
+
     public function rules()
     {
         return [
-            [['value', 'params', 'back_step'], 'safe'],
+            [['value', 'params', 'back_step', 'sub_model'], 'safe'],
         ];
    }
 

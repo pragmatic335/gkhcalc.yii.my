@@ -1,45 +1,20 @@
 {
-  "step": 1,
   "name": "",
   "label": "choose_view_services",
   "note": "note_view_services",
   "image": "",
 
-  "names": {
-    "0": "service2one",
-    "1": "heating",
-    "2": "TKO",
-    "3": "SOI"
-
-  },
-
   "0": {
-    "step": 2,
+    "name": "service2one",
     "label": "choose services",
     "note": "note_services",
-    "name": "service2one",
     "image": "images/one-tarif.png",
-    "names":
-    {
-      "0": "energy",
-      "1": "hotwater",
-      "2": "coldwater"
-    },
-
-
 
     "0":
     {
+      "name": "energy",
       "label": "type meters",
       "note": "note_type_meters",
-      "name": "energy",
-      "step": 3,
-      "count": 2,
-      "names":
-      {
-        "0": "odpu",
-        "1": "ipu"
-      },
       "image": "images/electro-main.png",
 
       "0":
@@ -47,7 +22,6 @@
         "label": "exists meter",
         "note": "note odpu_exist",
         "name": "odpu",
-        "step": 4,
         "count": 2,
         "names":
         {
@@ -503,52 +477,28 @@
 
     "2":
     {
+      "name": "coldwater",
       "label": "type meters",
       "note": "note_type_meters",
-      "name": "coldwater",
       "image": "images/hvs-main.png",
-
-      "step": 3,
-      "count": 2,
-      "names":
-      {
-        "0": "odpu",
-        "1": "ipu"
-      },
-
 
       "0":
       {
-        "label": "exists meter",
         "name": "odpu",
+        "label": "exists meter",
         "note": "note_odpu_check",
-        "step": 4,
-        "count": 2,
-        "names":
-        {
-          "0": "exists",
-          "1": "not exists"
-        },
         "image": "images/odn.png",
-
-
-
 
         "0":
         {
-
+          "name": "exists",
+          "label": "formula",
+          "note": "",
+          "image": "images/odpu-on.png",
 
           "calc": 1,
           "view_calc": "images/formuls/hvs_odpu_yes3.gif",
-          "label": "formula",
-          "name": "exists",
-          "step": 5,
-          "count": 1,
-          "image": "images/odpu-on.png",
-          "names":
-          {
-            "0": "formula"
-          },
+
           "0":
           {
             "name": 1,
@@ -558,17 +508,14 @@
 
         "1":
         {
+          "name": "not exists",
+          "label": "formula",
+          "note": "",
+          "image": "images/odpu-no.png",
+
           "calc": 2,
           "view_calc": "images/formuls/hvs_odpu_not.gif",
-          "label": "formula",
-          "name": "not exists",
-          "step": 5,
-          "count": 1,
-          "image": "images/odpu-no.png",
-          "names":
-          {
-            "0": "formula"
-          },
+
           "0":
           {
             "name": 2,
@@ -580,31 +527,18 @@
 
       "1":
       {
-        "label": "exists meter",
         "name": "ipu",
+        "label": "exists meter",
         "note": "note_ipu_check",
-        "step": 4,
-        "count": 2,
-        "names":
-        {
-          "0": "",
-          "1": ""
-        },
         "image": "images/flat.png",
 
         "0":
         {
+          "name": "exists",
+          "label": "formula",
           "calc": 3,
           "view_calc": "images/formuls/simple_ipu.gif",
-          "label": "formula",
-          "name": "exists",
-          "step": 5,
-          "count": 1,
           "image": "Yes",
-          "names":
-          {
-            "0": "formula"
-          },
           "0":
           {
             "name": 4,
@@ -617,8 +551,6 @@
           "label": "exists setup",
           "name": "not exists",
           "note": "note_notIpu_checkPossibility",
-          "step": 5,
-          "count": 2,
           "image": "Not",
           "names":
           {
@@ -631,8 +563,6 @@
             "label": "formula",
             "view_calc": "images/formuls/simple_notipu_one.gif",
             "name": "Yes",
-            "step": 6,
-            "count": 1,
             "image": "Yes",
             "names":
             {
@@ -651,8 +581,6 @@
             "label": "formula",
             "name": "Not",
             "view_calc": "images/formuls/simple_notipu_two.gif",
-            "step": 6,
-            "count": 1,
             "image": "Not",
             "names":
             {
@@ -675,8 +603,6 @@
     "label": "type room",
     "note": "note type_room",
     "name": "heating",
-    "step": 2,
-    "count": 2,
     "names":
     {
       "0": "apart",
@@ -887,19 +813,10 @@
   },
 
   "2": {
-
+    "name": "TKO",
     "label": "choose services",
     "note": "note_services",
     "image": "images/house.png",
-    "step": 2,
-    "count": 4,
-    "names":
-    {
-      "0": "heating",
-      "1": "energy",
-      "2": "hotwater",
-      "3": "coldwater"
-    },
 
     "0":
     {
@@ -1757,19 +1674,10 @@
   },
 
   "3": {
-
+    "name": "TKO",
     "label": "choose services",
     "note": "note_services",
-    "step": 2,
-    "count": 4,
     "image": "images/odpu-warm-on-3.png",
-    "names":
-    {
-      "0": "heating",
-      "1": "energy",
-      "2": "hotwater",
-      "3": "coldwater"
-    },
 
     "0":
     {

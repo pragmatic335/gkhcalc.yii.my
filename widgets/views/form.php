@@ -6,23 +6,24 @@ use app\widgets\Form;
 use yii\bootstrap\ActiveForm;
 use yii\widgets\MaskedInput;
 
-$count = 0;
+$step = count($array);//какой сейчас шаг
 
+$count = 1;//определяем количество отображаемых элементов в выбираемом пункте
 array_walk($config, function($value, $key) use (&$count)
 {
     if(in_array($key, [1,2,3,4,5,6,7,8,9]))
         $count++;
 });
-$count++;
+
 
 $size = intdiv(12, $count);
 $state = (isset($config['event']))? true: false;
 
 $test = clone $model;
 
-$test->params = json_encode([$step => $config]);
+$test->params = json_encode($array);
 
-    if($state == true && $config['step'] > 1) {
+    if($state == true && $step > 1) {
 
         $form = ActiveForm::begin(['id' => 'calcformback',
             'layout' => 'horizontal',
@@ -42,7 +43,7 @@ $test->params = json_encode([$step => $config]);
         $modelStepBack = clone $model;
 
         $modelStepBack->params = json_decode($modelStepBack->params,true);
-        if ($config['step'] == 2) {
+        if ($step == 2) {
             $modelStepBack->value = 111;
         }
         else {
@@ -93,7 +94,7 @@ $test->params = json_encode([$step => $config]);
     ?>
 
 <?php
-    $form = ActiveForm::begin(['id' => 'calcform' . $config['step'],
+    $form = ActiveForm::begin(['id' => 'calcform' . $step,
         'layout' => 'horizontal',
         'fieldConfig' => [
                 'template' => "{label}{beginWrapper}{input}\n{error}{endWrapper}{hint}",
@@ -116,7 +117,7 @@ $test->params = json_encode([$step => $config]);
 
     <!--      Иконка-цифра, которая на отображает текущий шаг к подсчету формулы  -->
     <div class="vertical-timeline-icon navy-bg">
-        <i class="fa"><?= $config['step']?></i>
+        <i class="fa"><?= $step?></i>
     </div>
 
 <!--    <div class="col-sm-9">-->
@@ -131,27 +132,62 @@ $test->params = json_encode([$step => $config]);
                             <?= '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' ?>
                         <?php } ?>
 
-                        <a  class="myclick mytextsize" data-toggle="collapse" data-parent="#accordion" href="#collapse<?= $config['step']; ?>">
+                        <a  class="myclick mytextsize" data-toggle="collapse" data-parent="#accordion" href="#collapse<?= $step; ?>">
                             <?= Yii::t('app', $config['label']) ?>  <span style="font-weight: bolder;"><?= (!$state)? ' &mdash; ' . Yii::t('app',$config['choosename']) : '' ;?></span>
                         </a>
 
                     </h5>
 
                 </div>
-                <div id="collapse<?= $config['step']; ?>" class="panel-collapse collapse <?= $state? 'in': '' ?>">
+                <div id="collapse<?= $step; ?>" class="panel-collapse collapse <?= $state? 'in': '' ?>">
                     <div class="panel-body" style="min-height: 100px;">
 
                         <?php
-                            if($state == true && $config['step']!= 1) {
+
+                            if(isset($config['calc'])) {
+
+                            $varibles = json_decode($model->sub_model->calc_conf, true);
+
+                            foreach ($varibles as $name) {
+                                $images = '<img src="' . $model->sub_model->viewVar($name) . '">';
+                                $t = $model->sub_model->configVariable($name);
+                                if($t) {
+                                    echo $form->field($model->sub_model, $name)->widget(MaskedInput::className(), $t[0])->label()->hint(Yii::t('app', $t[1]) . '&nbsp;&nbsp;&nbsp;&nbsp;' . '(' .  $images . ')', ['style' => 'font-weight: bold; margin: 0; display: inline;', 'class' => 'mytextsize control-label']);
+                                    echo "<br>";
+                                }
+                                else {
+                                    echo $form->field($model->sub_model, $name)->widget(MaskedInput::className(), [
+                                        'clientOptions' => [
+                                            'alias' => 'decimal',
+                                            'digits' => 2,
+                                            'digitsOptional' => true,
+                                            'radixPoint' => ',',
+                                            'groupSeparator' => ' ',
+                                            'autoGroup' => true,
+                                            'removeMaskOnSubmit' => true,
+                                        ]
+                                    ])->label();
+                                    echo "<br>";
+                                }
+                            }
+
+
+                        }
+                            else {
+                        ?>
+
+
+                        <?php
+                            if($state == true && $step!= 1) {
                         ?>
 
                         <button id="backStep" type="button" class="btn btn-light myStepDown"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Назад</button>
 
                         <?php } ?>
-                        <button class="btn btn-light myMainNote" type="button" data-toggle="collapse" data-target="#collapseTest<?= $config['step']; ?>" aria-expanded="false" aria-controls="collapseTest<?= $config['step']; ?>">
+                        <button class="btn btn-light myMainNote" type="button" data-toggle="collapse" data-target="#collapseTest<?= $step; ?>" aria-expanded="false" aria-controls="collapseTest<?= $step; ?>">
                             <?= Yii::t('app', 'mainNotes') ?>
                         </button>
-                        <div class="collapse" id="collapseTest<?= $config['step'] ?>">
+                        <div class="collapse" id="collapseTest<?= $step ?>">
                             <div class="well myMainDeleteMarginBootom">
                                 <?php
                                     echo Yii::t('app', $config['note']);
@@ -163,14 +199,14 @@ $test->params = json_encode([$step => $config]);
 
                          <div class="hide"><?= $form->field( $test, 'value', [
                                  'inputOptions' => [
-                                     'id' => 'calcform-value' . $config['step'],
+                                     'id' => 'calcform-value' . $step,
                                  ],
                              ] )->hiddenInput()->label(false); ?>
                          </div>
 
                          <div class="hide"><?= $form->field( $test, 'params', [
                                  'inputOptions' => [
-                                     'id' => 'calcform-params' . $config['step'],
+                                     'id' => 'calcform-params' . $step,
                                  ],
                              ] )->hiddenInput()->label(false); ?>
                          </div>
@@ -179,7 +215,7 @@ $test->params = json_encode([$step => $config]);
                         for($i = 0; $i < $count; $i++)    {
                             ?>
                             <div class="col-sm-<?= $size ?> heightMin">
-                                <div id="<?=  $config['step'] . $i ?>"  class="vertical-timeline-icon navy-bg myIcon <?= $state? "activeIcon":"" ?>" data-id="<?= $i ?>">
+                                <div id="<?=  $step . $i ?>"  class="vertical-timeline-icon navy-bg myIcon <?= $state? "activeIcon":"" ?>" data-id="<?= $i ?>">
                                     <?php if( !in_array($config[$i]['image'], ['Yes', 'Not']) ) { ?>
                                          <img src="<?= $config[$i]['image']?>" width="45" height="45" class="myImage">
                                      <?php } else {?>
@@ -188,12 +224,13 @@ $test->params = json_encode([$step => $config]);
 
                                 </div>
                                 <div class="myLabel text-center">
-                                    <p class="mytextsize"><?=  Yii::t('app', $config['names'][$i]) ?></p>
+                                    <p class="mytextsize"><?=  Yii::t('app', $config[$i]['name']) ?></p>
                                 </div>
 
                             </div>
                             <?php
                         }
+                            }
                         ?>
                     </div>
                 </div>
@@ -207,19 +244,19 @@ $test->params = json_encode([$step => $config]);
 
     ActiveForm::end();
 $j = "$(document).ready(function() {
-    $('[id^=\"" . $config['step'] . "\"]').on('click', function() {
-        $('#calcform-value" . $config['step'] . "').    val($(this).attr('data-id'));
-        $('#calcform-params" . $config['step'] . "').val($('#calcform-params" . $config['step'] . "').attr('value'));
-        $('#calcform" . $config['step'] . "').submit();               
+    $('[id^=\"" . $step . "\"]').on('click', function() {
+        $('#calcform-value" . $step . "').    val($(this).attr('data-id'));
+        $('#calcform-params" . $step . "').val($('#calcform-params" . $step . "').attr('value'));
+        $('#calcform" . $step . "').submit();               
     });     
 })";
 $this->registerJs($j);
 
 $test = "$(document).ready(function() {
-        $('[id^=\"" . $config['step'] . "\"]').on('click', function() {
-            $('#calcform-value" . $config['step'] . "').val($(this).attr('data-id'));
-            $('#calcform-params" . $config['step'] . "').val($('#calcform-params" . $config['step'] . "').attr('value'));
-            $('#calcform" . $config['step'] . "').submit();               
+        $('[id^=\"" . $step. "\"]').on('click', function() {
+            $('#calcform-value" . $step . "').val($(this).attr('data-id'));
+            $('#calcform-params" . $step . "').val($('#calcform-params" . $step . "').attr('value'));
+            $('#calcform" . $step . "').submit();               
         });     
     })";
 ?>

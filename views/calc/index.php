@@ -12,9 +12,10 @@ use \yii\widgets\MaskedInput;
     <div id="vertical-timeline" class="vertical-container dark-timeline mycontent">
         <?php
         $array = json_decode($model->params, true);
-        $step=0;
+        $sup_array=[];
         foreach($array as $json) {
-            Form::begin(['step' => $step++, 'config' => $json, 'model' => $model, 'parametrs'=> $array]);
+            $sup_array[] = $json;
+            Form::begin(['config' => $json, 'model' => $model, 'parametrs'=> $array, 'array' => $sup_array]);
             Form::end();
         }
         ?>

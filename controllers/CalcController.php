@@ -5,6 +5,7 @@ namespace app\controllers;
 
 
 
+use app\models\forms\SubForm;
 use Yii;
 use yii\web\Controller;
 use app\models\forms\CalcForm;
@@ -15,6 +16,8 @@ class CalcController extends Controller
     {
         $this->layout = 'main';
         $model = new CalcForm;
+        $model->sub_model = new SubForm;
+
 
         if (count(Yii::$app->request->post()) > 0 && $model->load(Yii::$app->request->post()) && $model->validate()) {
             $model->params = json_decode( $model->params, true);
@@ -32,7 +35,7 @@ class CalcController extends Controller
 
 
                 if (isset($model->params[array_key_last($model->params)]['calc'])) {
-                    $model->routeCalculationVaribles($model->params[array_key_last($model->params)]['calc']);
+                    $model->sub_model->routeCalculationVaribles($model->params[array_key_last($model->params)]['calc']);
                 }
 
 

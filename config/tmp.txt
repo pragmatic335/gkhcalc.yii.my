@@ -40,10 +40,10 @@
   <!--                        --><?php //} ?>
 
                               <?php
-  //                            if( isset($model->calc_conf) && isset($config['calc']) ) {
-  //
-  //
-  //                                $array = json_decode($model->calc_conf, true);
+                          if( isset($model->calc_conf) && isset($config['calc']) ) {
+
+
+ /                                $array = json_decode($model->calc_conf, true);
   //
   //                                foreach ($array as $name) {
   //                                    $images = '<img src="' . $model->viewVar($name) . '">';

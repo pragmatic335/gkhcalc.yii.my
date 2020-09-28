@@ -4,7 +4,9 @@
 namespace app\models\forms;
 
 
-class SubForm
+use yii\base\Model;
+
+class SubForm extends Model
 {
 
     public $result; //результат вычисления по формуле
@@ -16,7 +18,7 @@ class SubForm
     public $size_notliv_all; //объем потребления по всем нежилым помещениям
     public $size2service_hvs; // Объем холодной воды, использованный при производстве коммунальной услуги по отоплению и (или) горячему водоснабжению (при отсутствии на доме централизованнной сиситемы теплоснабжения) (м3)
     public $size2service_energy;
-    public $tariff; // Тариф
+    public $tariff = 1; // Тариф
     public $space_owner; // Площадь вашей квартиры
     public $space_full_all; // Общая площадь всем помещений в МКД
     public $norm2odn; // Норматив на холодное водоснабжение, предоставленного на общедомовые нужды
@@ -45,7 +47,7 @@ class SubForm
                 'tariff', 'norm2odn', 'norm', 'norm2heating', 'tariff2heating_energy', 'norm_gvs',
                 'size_ipu_heating_one', 'size_odpu_heating', 'size_ipu_heating_all',
                 'tariff', 'norm2odn', 'norm', 'norm2heating', 'tariff2heating_energy', 'norm_gvs',
-                'space_ipu_where', 'space_iio_where'], 'required'],
+                'space_ipu_where', 'space_iio_where'], 'required', 'message' => 'Поле не должно быть пустым. Также будьте внимательны при вводе числовых параметров!'],
 
             [['space_full_all', 'space_owner' ,'size_odpu', 'size_ipu_all', 'size_notliv_all',
                 'size_not_ipu_all', 'size2service_hvs', 'space_oi_all', 'size_ipu', 'kol',
