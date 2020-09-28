@@ -1,0 +1,71 @@
+  --><?php //if(!@is_integer($config['calc'])) {
+
+
+   }
+  //                                else {
+  //                                    echo 'Формула расчета:&nbsp&nbsp&nbsp';
+  //                                    ?>
+  <!---->
+  <!--                                    <img src="--><?php//= $config['view_calc']; ?><!--">-->
+  <!---->
+  <!--                                --><?php
+  //
+  //                                    echo '&nbsp, где <br>';
+  //                                    $array = json_decode($model->calc_conf, true);
+  //                                    foreach($array as $val) {
+  //
+  //                                ?>
+  <!--                                        <img src="--><?php//= $model->viewVar($val) ?><!--">-->
+  <!--                                --><?php
+  //                                        echo '&nbsp;&nbsp;&mdash;&nbsp;&nbsp;' . $model->attributeLabels()[$val] . '<br>';
+  //                                    }
+  //                                }
+
+
+
+
+
+  <!---->
+  <!--                        --><?php
+  //                        if($model->result == null || $state == false ) {
+  //                        ?>
+  <!---->
+  <!--                        --><?php //if(!@is_integer($config['calc'])){ ?>
+
+  }
+
+
+
+
+  <!--                        --><?php //} ?>
+
+                              <?php
+  //                            if( isset($model->calc_conf) && isset($config['calc']) ) {
+  //
+  //
+  //                                $array = json_decode($model->calc_conf, true);
+  //
+  //                                foreach ($array as $name) {
+  //                                    $images = '<img src="' . $model->viewVar($name) . '">';
+  //                                    $t = $model->configVariable($name);
+  //                                    if($t) {
+  //                                        echo $form->field($model, $name)->widget(MaskedInput::className(), $t[0])->label()->hint(Yii::t('app', $t[1]) . '&nbsp;&nbsp;&nbsp;&nbsp;' . '(' .  $images . ')', ['style' => 'font-weight: bold; margin: 0; display: inline;', 'class' => 'mytextsize control-label']);
+  //                                        echo "<br>";
+  //                                    }
+  //                                    else {
+  //                                        echo $form->field($model, $name)->widget(MaskedInput::className(), [
+  //                                            'clientOptions' => [
+  //                                                'alias' => 'decimal',
+  //                                                'digits' => 2,
+  //                                                'digitsOptional' => true,
+  //                                                'radixPoint' => ',',
+  //                                                'groupSeparator' => ' ',
+  //                                                'autoGroup' => true,
+  //                                                'removeMaskOnSubmit' => true,
+  //                                            ]
+  //                                        ])->label();
+  //                                        echo "<br>";
+  //                                    }
+  //                                }
+  //                            }
+                              ?>

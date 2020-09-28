@@ -1,10 +1,10 @@
 {
-
-
+  "step": 1,
+  "name": "",
   "label": "choose_view_services",
   "note": "note_view_services",
-  "step": 1,
-  "count": 4,
+  "image": "",
+
   "names": {
     "0": "service2one",
     "1": "heating",
@@ -14,11 +14,10 @@
   },
 
   "0": {
-
+    "step": 2,
     "label": "choose services",
     "note": "note_services",
-    "step": 2,
-    "count": 3,
+    "name": "service2one",
     "image": "images/one-tarif.png",
     "names":
     {

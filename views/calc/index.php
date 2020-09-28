@@ -9,34 +9,19 @@ use \yii\widgets\MaskedInput;
 ?>
 <!--<div class="col-md-9 mycontent">-->
 <div class="panel-group" id="accordion">
-
     <div id="vertical-timeline" class="vertical-container dark-timeline mycontent">
         <?php
         $array = json_decode($model->params, true);
-        $o = [];
+        $step=0;
         foreach($array as $json) {
-            $o[] = $json;
-
-            Form::begin(['config' => $json, 'model' => $model, 'array' => $o, 'parametrs'=> $array]);
+            Form::begin(['step' => $step++, 'config' => $json, 'model' => $model, 'parametrs'=> $array]);
             Form::end();
         }
         ?>
     </div>
 </div>
-<!--</div>-->
-<!--<div class="col-md-3 mynote" style="position: fixed; left: 75%; top: 12.0%;">-->
-<!--    <div class="col-md-8 notes" >-->
-<!--        <h4 style="position: absolute; top: 15%;  line-height: 30px;">--><?//=(Yii::t('app', $json['note'])) ?><!--</h4>-->
-<!--    </div>-->
-<!--    <div class="col-md-4">-->
-<!--    </div>-->
-<!---->
-<!--</div>-->
-
 
 <?php
-
-
 $js = " $(document).ready(function() {
 $('.myclick').on('click', function() {
 
