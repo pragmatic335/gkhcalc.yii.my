@@ -49,6 +49,8 @@ class SubForm extends Model
                 'tariff', 'norm2odn', 'norm', 'norm2heating', 'tariff2heating_energy', 'norm_gvs',
                 'space_ipu_where', 'space_iio_where'], 'required', 'message' => 'Поле не должно быть пустым. Также будьте внимательны при вводе числовых параметров!'],
 
+
+
             [['space_full_all', 'space_owner' ,'size_odpu', 'size_ipu_all', 'size_notliv_all',
                 'size_not_ipu_all', 'size2service_hvs', 'space_oi_all', 'size_ipu', 'kol',
                 'size2service_gvs', 'space_full_all_liv', 'size2service_energy', 'space_owner',
@@ -56,9 +58,23 @@ class SubForm extends Model
                 'tariff', 'norm2odn', 'norm', 'norm2heating', 'tariff2heating_energy', 'norm_gvs', 'space_ipu_where', 'space_iio_where'],
                 'string', 'message' => 'Введите правильное числовое значение. Будьте внимательны, дробную часть отделяйте от целой точкой, а не запятой! '],
 
+            [
+                ['space_full_all', 'space_owner' ,'size_odpu', 'size_ipu_all', 'size_notliv_all',
+                    'size_not_ipu_all', 'size2service_hvs', 'space_oi_all', 'size_ipu', 'kol',
+                    'size2service_gvs', 'space_full_all_liv', 'size2service_energy', 'space_owner',
+                    'size_ipu_heating_one', 'size_odpu_heating', 'size_ipu_heating_all',
+                    'tariff', 'norm2odn', 'norm', 'norm2heating', 'tariff2heating_energy', 'norm_gvs', 'space_ipu_where', 'space_iio_where'],
+                'filter', 'filter' => function ($value) {
+                    $value =  str_replace(',', '.', $value);
+                    $value =  str_replace(' ', '', $value);
+                return $value;}],
+
+
+
             [['result', 'calc_conf'], 'safe'],
         ];
     }
+
 
     public function attributeLabels()
     {

@@ -26,6 +26,20 @@ class CalcForm extends Model
     {
         return [
             [['value', 'params', 'back_step', 'sub_model'], 'safe'],
+            [
+                'params',
+                'filter', 'filter' =>
+                function ($value) {
+                    $value =  json_decode($value, true);
+                return $value;
+            }],
+            [
+                'sub_model',
+                'filter', 'filter' =>
+                function ($value) {
+                    $value =  json_decode($value);
+                return $value;
+                }],
         ];
    }
 

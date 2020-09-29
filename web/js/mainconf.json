@@ -501,8 +501,8 @@
 
           "0":
           {
-            "name": 1,
-            "image": "images/odpu-on.png"
+            "name": "Данные введены",
+            "result": "1"
           }
         },
 

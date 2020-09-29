@@ -142,39 +142,68 @@ $test->params = json_encode($array);
                 <div id="collapse<?= $step; ?>" class="panel-collapse collapse <?= $state? 'in': '' ?>">
                     <div class="panel-body" style="min-height: 100px;">
 
+                        <div class="hide"><?= $form->field( $test, 'value', [
+                                'inputOptions' => [
+                                    'id' => 'calcform-value' . $step,
+                                ],
+                            ] )->hiddenInput()->label(false); ?>
+                        </div>
+
+                        <div class="hide"><?= $form->field( $test, 'params', [
+                                'inputOptions' => [
+                                    'id' => 'calcform-params' . $step,
+                                ],
+                            ] )->hiddenInput()->label(false); ?>
+                        </div>
+
+                        <div class="hide"><?= $form->field( $test, 'sub_model', [
+                                'inputOptions' => [
+                                    'id' => 'calcform-sub_model' . $step,
+                                ],
+                            ] )->hiddenInput()->label(false); ?>
+                        </div>
+
                         <?php
+
+
+
+
 
                             if(isset($config['calc'])) {
 
                             $varibles = json_decode($model->sub_model->calc_conf, true);
 
                             foreach ($varibles as $name) {
-                                $images = '<img src="' . $model->sub_model->viewVar($name) . '">';
-                                $t = $model->sub_model->configVariable($name);
+                                $images = '<img src="' . $test->sub_model->viewVar($name) . '">';
+                                $t = $test->sub_model->configVariable($name);
                                 if($t) {
-                                    echo $form->field($model->sub_model, $name)->widget(MaskedInput::className(), $t[0])->label()->hint(Yii::t('app', $t[1]) . '&nbsp;&nbsp;&nbsp;&nbsp;' . '(' .  $images . ')', ['style' => 'font-weight: bold; margin: 0; display: inline;', 'class' => 'mytextsize control-label']);
+                                    echo $form->field($test->sub_model, $name)->widget(MaskedInput::className(), $t[0])->label()->hint(Yii::t('app', $t[1]) . '&nbsp;&nbsp;&nbsp;&nbsp;' . '(' .  $images . ')', ['style' => 'font-weight: bold; margin: 0; display: inline;', 'class' => 'mytextsize control-label']);
                                     echo "<br>";
                                 }
-                                else {
-                                    echo $form->field($model->sub_model, $name)->widget(MaskedInput::className(), [
-                                        'clientOptions' => [
-                                            'alias' => 'decimal',
-                                            'digits' => 2,
-                                            'digitsOptional' => true,
-                                            'radixPoint' => ',',
-                                            'groupSeparator' => ' ',
-                                            'autoGroup' => true,
-                                            'removeMaskOnSubmit' => true,
-                                        ]
-                                    ])->label();
-                                    echo "<br>";
-                                }
+//                                else {
+//                                    echo $form->field($test->sub_model, $name)->widget(MaskedInput::className(), [
+//                                        'clientOptions' => [
+//                                            'alias' => 'decimal',
+//                                            'digits' => 2,
+//                                            'digitsOptional' => true,
+//                                            'radixPoint' => ',',
+//                                            'groupSeparator' => ' ',
+//                                            'autoGroup' => true,
+//                                            'removeMaskOnSubmit' => true,
+//                                        ]
+//                                    ])->label();
+//                                    echo "<br>";
+//                                }
                             }
 
 
-                        }
-                            else {
-                        ?>
+
+                            ?>
+
+                                <button id="calculation" type="button" class="btn btn-default">РАССЧИТАТЬ</button>
+
+
+                        <?php } else { ?>
 
 
                         <?php
@@ -197,19 +226,7 @@ $test->params = json_encode($array);
 
                         <div class="air"></div>
 
-                         <div class="hide"><?= $form->field( $test, 'value', [
-                                 'inputOptions' => [
-                                     'id' => 'calcform-value' . $step,
-                                 ],
-                             ] )->hiddenInput()->label(false); ?>
-                         </div>
 
-                         <div class="hide"><?= $form->field( $test, 'params', [
-                                 'inputOptions' => [
-                                     'id' => 'calcform-params' . $step,
-                                 ],
-                             ] )->hiddenInput()->label(false); ?>
-                         </div>
 
                         <?php
                         for($i = 0; $i < $count; $i++)    {
@@ -245,18 +262,24 @@ $test->params = json_encode($array);
     ActiveForm::end();
 $j = "$(document).ready(function() {
     $('[id^=\"" . $step . "\"]').on('click', function() {
-        $('#calcform-value" . $step . "').    val($(this).attr('data-id'));
+        $('#calcform-value" . $step . "').val($(this).attr('data-id'));
         $('#calcform-params" . $step . "').val($('#calcform-params" . $step . "').attr('value'));
+        $('#calcform-sub_model" . $step . "').val($('#calcform-sub_model" . $step . "').attr('value'));
         $('#calcform" . $step . "').submit();               
-    });     
-})";
-$this->registerJs($j);
+    });
+    
+   
+";
 
-$test = "$(document).ready(function() {
-        $('[id^=\"" . $step. "\"]').on('click', function() {
-            $('#calcform-value" . $step . "').val($(this).attr('data-id'));
-            $('#calcform-params" . $step . "').val($('#calcform-params" . $step . "').attr('value'));
-            $('#calcform" . $step . "').submit();               
-        });     
-    })";
+if(isset($config['calc'])) {
+    $j.=" $('#calculation').on('click', function() {
+        $('#calcform-value" . $step . "').val(0);
+        $('#calcform-params" . $step . "').val($('#calcform-params" . $step . "').attr('value'));
+        $('#calcform-sub_model" . $step . "').val($('#calcform-sub_model" . $step . "').attr('value'));
+        $('#calcform" . $step . "').submit();               
+    });";
+}
+
+$this->registerJs($j . '})');
+
 ?>
