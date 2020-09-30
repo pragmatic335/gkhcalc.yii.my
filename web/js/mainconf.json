@@ -17,146 +17,132 @@
       "note": "note_type_meters",
       "image": "images/electro-main.png",
 
-      "0":
+      "lost":
       {
+        "name": "odpu",
         "label": "exists meter",
         "note": "note odpu_exist",
-        "name": "odpu",
-        "count": 2,
-        "names":
-        {
-          "0": "exists",
-          "1": "not exists"
-        },
         "image": "images/odn.png",
-
-
-
-
         "0":
         {
-
-
-          "calc": 13,
-          "label": "formula",
           "name": "exists",
-          "step": 5,
-          "count": 1,
-          "image": "images/odpu-on.png",
-          "names":
-          {
-            "0": "formula"
-          },
+          "label": "formula",
+          "image": "Yes",
+          "calc": 1,
+          "view_calc": "images/formuls/hvs_odpu_yes3.gif",
+
           "0":
           {
-            "name": 1,
-            "image": "images/odpu-on.png"
+            "name": "success_input",
+            "label": "result",
+            "note": "",
+            "image": "",
+
+            "result": "1",
+            "view_calc": "images/formuls/hvs_odpu_yes3.gif"
           }
         },
 
         "1":
         {
-          "calc": 2,
           "label": "formula",
           "name": "not exists",
-          "step": 5,
-          "count": 1,
-          "image": "images/odpu-no.png",
-          "names":
-          {
-            "0": "formula"
-          },
+          "image": "Not",
+
+          "calc": 2,
+          "view_calc": "images/formuls/hvs_odpu_not.gif",
+
           "0":
           {
-            "name": 2,
-            "image": "images/odpu-no.png"
+            "name": "success_input",
+            "label": "result",
+            "note": "",
+            "image": "",
+
+            "result": "1",
+            "view_calc": "images/formuls/hvs_odpu_not.gif"
           }
         }
 
       },
 
-      "1":
+      "0":
       {
-        "label": "exists meter",
-        "note": "note ipu_exist",
         "name": "ipu",
-        "step": 4,
-        "count": 2,
-        "names":
-        {
-
-        },
+        "label": "exists meter",
+        "note": "note_ipu_check",
         "image": "images/flat.png",
 
         "0":
         {
-          "calc": 3,
-          "label": "formula",
           "name": "exists",
-          "step": 5,
-          "count": 1,
+          "label": "formula",
+          "note": "",
           "image": "Yes",
-          "names":
-          {
-            "0": "formula"
-          },
+
+          "calc": 3,
+          "view_calc": "images/formuls/simple_ipu.gif",
           "0":
           {
-            "name": 4,
-            "image": "images/ipu-on.png"
+            "name": "success_input",
+            "label": "result",
+            "note": "",
+            "image": "",
+
+            "result": "1",
+            "view_calc": "images/formuls/simple_ipu.gif"
           }
         },
 
         "1":
         {
-          "label": "exists setup",
           "name": "not exists",
-          "step": 5,
-          "count": 2,
+          "label": "exists setup",
+          "note": "note_notIpu_checkPossibility",
           "image": "Not",
-          "names":
-          {
-            "0": "",
-            "1": ""
-          },
           "0":
           {
-            "calc": 4,
+            "name": "Yes",
             "label": "formula",
-            "name": "exists",
-            "step": 5,
-            "count": 1,
+            "note": "",
             "image": "Yes",
-            "names":
-            {
-              "0": "formula"
-            },
+
+            "calc": 5,
+            "view_calc": "images/formuls/simple_notipu_two.gif",
             "0":
             {
-              "name": 5,
-              "image": "images/ipu-on.png"
+              "name": "success_input",
+              "label": "result",
+              "note": "",
+              "image": "",
+
+              "result": "1",
+              "view_calc": "images/formuls/simple_notipu_two.gif"
             }
           },
 
           "1":
           {
-            "calc": 5,
+            "name": "Not",
             "label": "formula",
-            "name": "not exists and imposible setup",
-            "step": 6,
-            "count": 1,
+            "note": "",
             "image": "Not",
-            "names":
-            {
-              "0": "formula"
-            },
+
+            "calc": 4,
+            "view_calc": "images/formuls/simple_notipu_one.gif",
             "0":
             {
-              "name": 6,
-              "image": "images/ipu-no-on.png"
+              "name": "success_input",
+              "label": "result",
+              "note": "",
+              "image": "",
+
+              "result": "1",
+              "view_calc": "images/formuls/simple_notipu_one.gif"
             }
           }
         }
+
       }
     },
 
@@ -482,7 +468,7 @@
       "note": "note_type_meters",
       "image": "images/hvs-main.png",
 
-      "0":
+      "lost":
       {
         "name": "odpu",
         "label": "exists meter",
@@ -494,15 +480,20 @@
           "name": "exists",
           "label": "formula",
           "note": "",
-          "image": "images/odpu-on.png",
+          "image": "Yes",
 
           "calc": 1,
           "view_calc": "images/formuls/hvs_odpu_yes3.gif",
 
           "0":
           {
-            "name": "Данные введены",
-            "result": "1"
+            "name": "success_input",
+            "label": "result",
+            "note": "",
+            "image": "",
+
+            "result": "1",
+            "view_calc": "images/formuls/hvs_odpu_yes3.gif"
           }
         },
 
@@ -511,21 +502,26 @@
           "name": "not exists",
           "label": "formula",
           "note": "",
-          "image": "images/odpu-no.png",
+          "image": "Not",
 
           "calc": 2,
           "view_calc": "images/formuls/hvs_odpu_not.gif",
 
           "0":
           {
-            "name": 2,
-            "image": "images/odpu-no.png"
+            "name": "success_input",
+            "label": "result",
+            "note": "",
+            "image": "",
+
+            "result": "1",
+            "view_calc": "images/formuls/hvs_odpu_not.gif"
           }
         }
 
       },
 
-      "1":
+      "0":
       {
         "name": "ipu",
         "label": "exists meter",
@@ -536,60 +532,208 @@
         {
           "name": "exists",
           "label": "formula",
+          "note": "",
+          "image": "Yes",
+
           "calc": 3,
           "view_calc": "images/formuls/simple_ipu.gif",
-          "image": "Yes",
           "0":
           {
-            "name": 4,
-            "image": "images/ipu-on.png"
+            "name": "success_input",
+            "label": "result",
+            "note": "",
+            "image": "",
+
+            "result": "1",
+            "view_calc": "images/formuls/simple_ipu.gif"
           }
         },
 
         "1":
         {
-          "label": "exists setup",
           "name": "not exists",
+          "label": "exists setup",
           "note": "note_notIpu_checkPossibility",
           "image": "Not",
-          "names":
-          {
-            "0": "",
-            "1": ""
-          },
           "0":
           {
-            "calc": 4,
-            "label": "formula",
-            "view_calc": "images/formuls/simple_notipu_one.gif",
             "name": "Yes",
+            "label": "formula",
+            "note": "",
             "image": "Yes",
-            "names":
-            {
-              "0": "formula"
-            },
+
+            "calc": 5,
+            "view_calc": "images/formuls/simple_notipu_two.gif",
             "0":
             {
-              "name": 5,
-              "image": "images/ipu-on.png"
+              "name": "success_input",
+              "label": "result",
+              "note": "",
+              "image": "",
+
+              "result": "1",
+              "view_calc": "images/formuls/simple_notipu_two.gif"
             }
           },
 
           "1":
           {
-            "calc": 5,
-            "label": "formula",
             "name": "Not",
-            "view_calc": "images/formuls/simple_notipu_two.gif",
+            "label": "formula",
+            "note": "",
             "image": "Not",
-            "names":
-            {
-              "0": "formula"
-            },
+
+            "calc": 4,
+            "view_calc": "images/formuls/simple_notipu_one.gif",
             "0":
             {
-              "name": 6,
-              "image": "images/ipu-no-on.png"
+              "name": "success_input",
+              "label": "result",
+              "note": "",
+              "image": "",
+
+              "result": "1",
+              "view_calc": "images/formuls/simple_notipu_one.gif"
+            }
+          }
+        }
+
+      }
+    },
+
+    "3":
+    {
+      "name": "drainage",
+      "label": "type meters",
+      "note": "note_type_meters",
+      "image": "images/one-tarif.png",
+
+      "lost":
+      {
+        "name": "odpu",
+        "label": "exists meter",
+        "note": "note_odpu_check",
+        "image": "images/odn.png",
+
+        "0":
+        {
+          "name": "exists",
+          "label": "formula",
+          "note": "",
+          "image": "Yes",
+
+          "calc": 1,
+          "view_calc": "images/formuls/hvs_odpu_yes3.gif",
+
+          "0":
+          {
+            "name": "success_input",
+            "label": "result",
+            "note": "",
+            "image": "",
+
+            "result": "1",
+            "view_calc": "images/formuls/hvs_odpu_yes3.gif"
+          }
+        },
+
+        "1":
+        {
+          "name": "not exists",
+          "label": "formula",
+          "note": "",
+          "image": "Not",
+
+          "calc": 2,
+          "view_calc": "images/formuls/hvs_odpu_not.gif",
+
+          "0":
+          {
+            "name": "success_input",
+            "label": "result",
+            "note": "",
+            "image": "",
+
+            "result": "1",
+            "view_calc": "images/formuls/hvs_odpu_not.gif"
+          }
+        }
+
+      },
+
+      "0":
+      {
+        "name": "ipu",
+        "label": "exists meter",
+        "note": "note_ipu_check",
+        "image": "images/flat.png",
+
+        "0":
+        {
+          "name": "exists",
+          "label": "formula",
+          "note": "",
+          "image": "Yes",
+
+          "calc": 3,
+          "view_calc": "images/formuls/simple_ipu.gif",
+          "0":
+          {
+            "name": "success_input",
+            "label": "result",
+            "note": "",
+            "image": "",
+
+            "result": "1",
+            "view_calc": "images/formuls/simple_ipu.gif"
+          }
+        },
+
+        "1":
+        {
+          "name": "not exists",
+          "label": "exists setup",
+          "note": "note_notIpu_checkPossibility",
+          "image": "Not",
+          "0":
+          {
+            "name": "Yes",
+            "label": "formula",
+            "note": "",
+            "image": "Yes",
+
+            "calc": 5,
+            "view_calc": "images/formuls/simple_notipu_two.gif",
+            "0":
+            {
+              "name": "success_input",
+              "label": "result",
+              "note": "",
+              "image": "",
+
+              "result": "1",
+              "view_calc": "images/formuls/simple_notipu_two.gif"
+            }
+          },
+
+          "1":
+          {
+            "name": "Not",
+            "label": "formula",
+            "note": "",
+            "image": "Not",
+
+            "calc": 4,
+            "view_calc": "images/formuls/simple_notipu_one.gif",
+            "0":
+            {
+              "name": "success_input",
+              "label": "result",
+              "note": "",
+              "image": "",
+
+              "result": "1",
+              "view_calc": "images/formuls/simple_notipu_one.gif"
             }
           }
         }

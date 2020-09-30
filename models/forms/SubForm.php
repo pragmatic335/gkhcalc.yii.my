@@ -9,24 +9,27 @@ use yii\base\Model;
 class SubForm extends Model
 {
 
-    public $result; //результат вычисления по формуле
+    public $result ; //результат вычисления по формуле
     public $calc_conf; //массив с содержащий наименования переменных для расчета конкретной формулы
 
+    public $tariff = '19,46'; // Тариф
+    public $space_owner; // Площадь вашей квартиры
+    public $space_full_all; // Общая площадь всем помещений в МКД
     public $size_odpu; //объем потребления на общедомовом приборе учета
     public $size_ipu_all; //объем потребления по всем жилым помещениям, оборудованных индивидуальными приборами учета
     public $size_not_ipu_all; //объем потребления по всем жилым помещениям, не оборудованными ИПУ
     public $size_notliv_all; //объем потребления по всем нежилым помещениям
     public $size2service_hvs; // Объем холодной воды, использованный при производстве коммунальной услуги по отоплению и (или) горячему водоснабжению (при отсутствии на доме централизованнной сиситемы теплоснабжения) (м3)
+
     public $size2service_energy;
-    public $tariff = 1; // Тариф
-    public $space_owner; // Площадь вашей квартиры
-    public $space_full_all; // Общая площадь всем помещений в МКД
+
+
     public $norm2odn; // Норматив на холодное водоснабжение, предоставленного на общедомовые нужды
     public $space_oi_all; // Общая площадь помещений, входящих в состав общего имущества
     public $size_ipu;
-    public $norm;
+    public $norm = '5,193';
     public $kol;
-    const MULTIPLIER = 1.5;
+    public $multiplier = 1.5;
     public $size2service_gvs;
     public $space_full_all_liv; // Общая площадь всем помещений в МКД
     public $norm2heating; // норматив на подогрев
@@ -38,10 +41,26 @@ class SubForm extends Model
     public $space_ipu_where;
     public $space_iio_where;
 
+
     public function rules()
     {
         return [
-            [['space_full_all', 'space_owner' ,'size_odpu', 'size_ipu_all', 'size_notliv_all',
+
+            [
+                ['multiplier', 'space_full_all', 'space_owner' ,'size_odpu', 'size_ipu_all', 'size_notliv_all',
+                    'size_not_ipu_all', 'size2service_hvs', 'space_oi_all', 'size_ipu', 'kol',
+                    'size2service_gvs', 'space_full_all_liv', 'size2service_energy', 'space_owner',
+                    'size_ipu_heating_one', 'size_odpu_heating', 'size_ipu_heating_all',
+                    'tariff', 'norm2odn', 'norm', 'norm2heating', 'tariff2heating_energy', 'norm_gvs', 'space_ipu_where', 'space_iio_where'],
+                'filter', 'filter' => function ($value) {
+                $value =  str_replace(',', '.', $value);
+                $value =  str_replace(' ', '', $value);
+                if(is_null($value) || ($value == '')) {
+                    $value = 'a';
+                }
+                return $value;}],
+
+            [['multiplier', 'space_full_all', 'space_owner' ,'size_odpu', 'size_ipu_all', 'size_notliv_all',
                 'size_not_ipu_all', 'size2service_hvs', 'space_oi_all', 'size_ipu', 'kol',
                 'size2service_gvs', 'space_full_all_liv', 'size2service_energy', 'space_owner',
                 'tariff', 'norm2odn', 'norm', 'norm2heating', 'tariff2heating_energy', 'norm_gvs',
@@ -51,23 +70,14 @@ class SubForm extends Model
 
 
 
-            [['space_full_all', 'space_owner' ,'size_odpu', 'size_ipu_all', 'size_notliv_all',
+            [['multiplier', 'space_full_all', 'space_owner' ,'size_odpu', 'size_ipu_all', 'size_notliv_all',
                 'size_not_ipu_all', 'size2service_hvs', 'space_oi_all', 'size_ipu', 'kol',
                 'size2service_gvs', 'space_full_all_liv', 'size2service_energy', 'space_owner',
                 'size_ipu_heating_one', 'size_odpu_heating', 'size_ipu_heating_all',
                 'tariff', 'norm2odn', 'norm', 'norm2heating', 'tariff2heating_energy', 'norm_gvs', 'space_ipu_where', 'space_iio_where'],
                 'string', 'message' => 'Введите правильное числовое значение. Будьте внимательны, дробную часть отделяйте от целой точкой, а не запятой! '],
 
-            [
-                ['space_full_all', 'space_owner' ,'size_odpu', 'size_ipu_all', 'size_notliv_all',
-                    'size_not_ipu_all', 'size2service_hvs', 'space_oi_all', 'size_ipu', 'kol',
-                    'size2service_gvs', 'space_full_all_liv', 'size2service_energy', 'space_owner',
-                    'size_ipu_heating_one', 'size_odpu_heating', 'size_ipu_heating_all',
-                    'tariff', 'norm2odn', 'norm', 'norm2heating', 'tariff2heating_energy', 'norm_gvs', 'space_ipu_where', 'space_iio_where'],
-                'filter', 'filter' => function ($value) {
-                    $value =  str_replace(',', '.', $value);
-                    $value =  str_replace(' ', '', $value);
-                return $value;}],
+
 
 
 
@@ -102,7 +112,8 @@ class SubForm extends Model
             'size_ipu_heating_one' => 'Объем (количество) тепловой энергии, потребленной в вашей квартире',
             'size_odpu_heating' => 'Объем тепловой энергии по показаниям общедомового прибора учета',
             'size_ipu_heating_all' => 'Cумма объемов по всем показаниям индивидуальных приборов учета в МКД',
-            'space_iio_where' => 'Общая площадь жилых помещений (квартир) и нежилых помещений, имеющих индивидуальные источники тепловой энергии'
+            'space_iio_where' => 'Общая площадь жилых помещений (квартир) и нежилых помещений, имеющих индивидуальные источники тепловой энергии',
+            'multiplier' => 'Повышающий коэффициент установленный на услугу в Вашем регионе'
         ];
     }
 
@@ -124,6 +135,22 @@ class SubForm extends Model
                         ]
                     ],
                     'meter^2'
+                ],
+
+                [
+                    ['multiplier'],
+                    [
+                        'clientOptions' => [
+                            'alias' => 'decimal',
+                            'digits' => 1,
+                            'digitsOptional' => true,
+                            'radixPoint' => ',',
+                            'groupSeparator' => ' ',
+                            'autoGroup' => true,
+                            'removeMaskOnSubmit' => true,
+                        ]
+                    ],
+                    ''
                 ],
 
                 [
@@ -217,6 +244,7 @@ class SubForm extends Model
             'size2service_hvs' => 'images/formuls/serv2hvs' . $tail,
             'norm2odn' => 'images/formuls/hvs_norm_odpu' . $tail,
             'space_oi_all' => 'images/formuls/hvs_soi' . $tail,
+            'multiplier' => 'images/formuls/multiplier' . $tail,
 
 
         ];
@@ -244,7 +272,7 @@ class SubForm extends Model
         }
 
         if($number == 5) {
-            $this->calc_conf = json_encode(['tariff', 'norm', 'kol']);
+            $this->calc_conf = json_encode(['tariff', 'norm', 'kol', 'multiplier']);
         }
 
         if($number == 6) {
@@ -306,6 +334,52 @@ class SubForm extends Model
 
         return true;
     }
+
+
+    /**
+     **************** Формулы исключительно для холодной воды *********************/
+
+    //ИПУ если есть
+    public function calcThree() {
+        $array = $this->calc_conf;
+        $e = $array[0];
+        $f = $array[1];
+
+        $this->result = $this->$e * $this->$f;
+        return true;
+
+
+    }
+
+    //нет ИПУ
+    public function calcFour() {
+        $array = $this->calc_conf;
+        $e = $array[0];
+        $f = $array[1];
+        $a = $array[2];
+
+        $this->result = $this->$e * $this->$f * $this->$a;
+        return true;
+    }
+
+    //
+    public function calcFive() {
+        $array = $this->calc_conf;
+        $e = $array[0];
+        $f = $array[1];
+        $a = $array[2];
+        $b = $array[3];
+
+        $this->result = $this->$e * $this->$f * $this->$a * $this->$b;
+        return true;
+    }
+
+    /**
+     *****************************************************************************/
+
+
+
+
 
     public function routeCalc($value) {
         if($value == 1) {
@@ -389,7 +463,7 @@ class SubForm extends Model
 
     //Калькулятор расчета платы за холодное водоснабжение, предоставленного на ОДН, при наличии ОДПУ по формуле номер 1
     public function calcOne() {
-        $array = json_decode($this->calc_conf, true);
+        $array = $this->calc_conf;
 
         $a = $array[3];
         $b = $array[4];
@@ -399,6 +473,7 @@ class SubForm extends Model
         $f = $array[1];
         $g = $array[2];
         $r = $array[7];
+
         $this->result = ($this->$a - $this->$d - $this->$b - $this->$c - $this->$r) * $this->$e * ($this->$f/$this->$g);
         return true;
     }
@@ -406,8 +481,7 @@ class SubForm extends Model
     //ХВС ОДПУ нет
     public function calcTwo() {
 
-        $array = json_decode($this->calc_conf, true);
-
+        $array = $this->calc_conf;
 
         $e = $array[0];
         $f = $array[1];
@@ -420,43 +494,9 @@ class SubForm extends Model
 
     }
 
-    //ИПУ если
-    public function calcThree() {
-        $array = json_decode($this->calc_conf, true);
-        $e = $array[0];
-        $f = $array[1];
-
-        $this->result = $this->$e * $this->$f;
-        return true;
-
-
-    }
-
-    //ХВС ИПУ нет и нет возможности его установки
-    public function calcFour() {
-        $array = json_decode($this->calc_conf, true);
-        $e = $array[0];
-        $f = $array[1];
-        $a = $array[2];
-
-        $this->result = $this->$e * $this->$f * $this->$a;
-        return true;
-    }
-
-    //ХВС ИПУ если его нет и есть возможность его установки
-    public function calcFive() {
-        $array = json_decode($this->calc_conf, true);
-        $e = $array[0];
-        $f = $array[1];
-        $a = $array[2];
-
-        $this->result = $this->$e * $this->$f * $this->$a * self::MULTIPLIER;
-        return true;
-    }
-
     //ГВС Однокомпонентный тариф ОДПУ, если счетчик есть
     public function calcSix() {
-        $array = json_decode($this->calc_conf, true);
+        $array = $this->calc_conf;
 
         $a = $array[3];
         $b = $array[4];
@@ -475,7 +515,7 @@ class SubForm extends Model
     //ГВС Однокомпонентный тариф ОДПУ, если счетчика нет
     public function calcSeven()
     {
-        $array = json_decode($this->calc_conf, true);
+        $array = $this->calc_conf;
 
         $e = $array[0];
         $f = $array[1];
@@ -491,7 +531,7 @@ class SubForm extends Model
     //ГВС Двухкомпонентный тарий ОДПУ, если счетчик есть
     public function calcEight()
     {
-        $array = json_decode($this->calc_conf, true);
+        $array = $this->calc_conf;
         $a = $array[0];
         $b = $array[1];
         $c = $array[2];
@@ -512,7 +552,7 @@ class SubForm extends Model
 
     public function calcNine()
     {
-        $array = json_decode($this->calc_conf, true);
+        $array = $this->calc_conf;
         $a = $array[0];
         $b = $array[1];
         $c = $array[2];
@@ -529,7 +569,7 @@ class SubForm extends Model
     //горячая вода двухкомпонентный тариф ИПУ  есть
     public function calcTen()
     {
-        $array = json_decode($this->calc_conf, true);
+        $array = $this->calc_conf;
         $a = $array[0];
         $b = $array[1];
         $c = $array[2];
@@ -541,7 +581,7 @@ class SubForm extends Model
     //горячая вода двухкомпонентный тариф ИПУ нет возможности установки нет
     public function calcEleven()
     {
-        $array = json_decode($this->calc_conf, true);
+        $array = $this->calc_conf;
         $a = $array[0];
         $b = $array[1];
         $c = $array[2];
@@ -556,7 +596,7 @@ class SubForm extends Model
     //горячая вода двухкомпонентный тариф ИПУ нет возможности установки есть
     public function calcTwelve()
     {
-        $array = json_decode($this->calc_conf, true);
+        $array = $this->calc_conf;
         $a = $array[0];
         $b = $array[1];
         $c = $array[2];
@@ -570,7 +610,7 @@ class SubForm extends Model
 
     //ОДПУ отопление
     public function calcThirteen() {
-        $array = json_decode($this->calc_conf, true);
+        $array = $this->calc_conf;
 
         $a = $array[3];
         $b = $array[4];
@@ -589,7 +629,7 @@ class SubForm extends Model
     //ОДПУ отопление
     public function calcTwenty() {
         //$this->calc_conf = json_encode(['tariff', 'space_owner', 'space_full_all','size_ipu_heating_one', 'size_odpu_heating', 'size_ipu_heating_all']);
-        $array = json_decode($this->calc_conf, true);
+        $array = $this->calc_conf;
         $a = $array[0];
         $b = $array[1];
         $c = $array[2];
@@ -600,9 +640,10 @@ class SubForm extends Model
 
     }
 
+    //
     public function calcTwentyOne() {
         //$this->calc_conf = json_encode(['tariff', 'space_owner', 'space_full_all','size_ipu_heating_one', 'size_odpu_heating', 'size_ipu_heating_all' ,'space_liv']);
-        $array = json_decode($this->calc_conf, true);
+        $array = $this->calc_conf;
         $a = $array[0];
         $b = $array[1];
         $c = $array[2];
@@ -624,7 +665,7 @@ class SubForm extends Model
 
     public function calcTwentyTwo() {
         //$this->calc_conf = json_encode(['tariff', 'space_owner', 'space_full_all', 'size_ipu_heating_one', 'size_odpu_heating', 'size_ipu_heating_all' ,'space_liv']);
-        $array = json_decode($this->calc_conf, true);
+        $array = $this->calc_conf;
         $a = $array[0];
         $b = $array[1];
         $c = $array[2];
@@ -647,7 +688,7 @@ class SubForm extends Model
 
     public function calcTwentyThree() {
         // json_encode(['tariff', 'space_owner', 'space_full_all', 'space_oi_all', 'space_iio_where','size_odpu_heating']);
-        $array = json_decode($this->calc_conf, true);
+        $array = $this->calc_conf;
         $a = $array[0];//tariff
         $b = $array[1];//space_owner
         $c = $array[2];//space_full_all
@@ -661,7 +702,7 @@ class SubForm extends Model
 
     public function calcTwentyFour() {
         // json_encode(['tariff', 'space_owner', 'space_full_all', 'space_oi_all', 'space_iio_where','size_odpu_heating']);
-        $array = json_decode($this->calc_conf, true);
+        $array = $this->calc_conf;
         $a = $array[0];//tariff
         $b = $array[1];//space_owner
         $c = $array[2];//space_full_all

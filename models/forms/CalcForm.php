@@ -22,10 +22,12 @@ class CalcForm extends Model
     //модель для расчета формулы
     public $sub_model;
 
+    public $calc_conf;
+
     public function rules()
     {
         return [
-            [['value', 'params', 'back_step', 'sub_model'], 'safe'],
+            [['value', 'params', 'back_step', 'sub_model', 'calc_conf'], 'safe'],
             [
                 'params',
                 'filter', 'filter' =>
@@ -33,13 +35,15 @@ class CalcForm extends Model
                     $value =  json_decode($value, true);
                 return $value;
             }],
+
             [
-                'sub_model',
+                'calc_conf',
                 'filter', 'filter' =>
                 function ($value) {
-                    $value =  json_decode($value);
-                return $value;
+                    $value =  json_decode($value, true);
+                    return $value;
                 }],
+
         ];
    }
 

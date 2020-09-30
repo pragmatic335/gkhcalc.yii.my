@@ -62,26 +62,25 @@ class CalcController extends Controller
                 if($model->validate()) {
                     $model->fixJson($model->value);
                     if (isset($model->params[array_key_last($model->params)]['calc'])) {
-                        $model->sub_model = json_decode($model->sub_model, false);
-                        var_dump($model->sub_model);
-                        die();
                          $model->sub_model->routeCalculationVaribles($model->params[array_key_last($model->params)]['calc']);
                          $model->params = json_encode($model->params);
-                         $model->sub_model = json_encode($model->params);
+                         $model->calc_conf = $model->sub_model->calc_conf;
                          return $this->render('index', ['model' => $model]);
                     }
                     if (isset($model->params[array_key_last($model->params)]['result'])) {
                         if ($model->sub_model->load(Yii::$app->request->post())) {
                             if($model->sub_model->validate()) {
-                                $model->sub_model->routeCalc($model->params[array_key_last($model->params)]['calc']);
+                                $model->sub_model->calc_conf = $model->calc_conf;
+                                $model->sub_model->routeCalc($model->params[array_key_last($model->params) - 1]['calc']);
                                 $model->params = json_encode($model->params);
-                                $model->sub_model = json_encode($model->params);
+                                $model->calc_conf = json_encode($model->calc_conf);
                                 return $this->render('index', ['model' => $model]);
                             }
                         }
                     }
                     $model->params = json_encode($model->params);
-                    $model->sub_model = json_encode($model->params);
+                    $model->calc_conf = json_encode($model->sub_model->calc_conf);
+//                    $model->sub_model = json_encode($model->params);
                     return $this->render('index', ['model' => $model]);
 
                 }
@@ -92,7 +91,7 @@ class CalcController extends Controller
 
         $model->fixJson(0);
         $model->params = json_encode($model->params);
-        $model->sub_model = json_encode($model->sub_model);
+//        $model->sub_model = json_encode($model->sub_model);
         return $this->render('index', ['model' => $model]);
     }
 }

@@ -79,6 +79,8 @@ $test->params = json_encode($array);
             ])->hiddenInput()->label(false); ?>
         </div>
 
+
+
         <?php
         $q = "$(document).ready(function() {
         $('[id=backStep]').on('click', function() {
@@ -156,44 +158,93 @@ $test->params = json_encode($array);
                             ] )->hiddenInput()->label(false); ?>
                         </div>
 
-                        <div class="hide"><?= $form->field( $test, 'sub_model', [
+                        <div class="hide"><?= $form->field( $test, 'calc_conf', [
                                 'inputOptions' => [
-                                    'id' => 'calcform-sub_model' . $step,
+                                    'id' => 'calcform-calc_conf' . $step,
                                 ],
                             ] )->hiddenInput()->label(false); ?>
                         </div>
 
                         <?php
+                        if($state == true && $step!= 1) {
+                            ?>
+
+                            <button id="backStep" type="button" class="btn btn-light myStepDown"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Назад</button>
+
+                        <?php } ?>
+                        <button class="btn btn-light myMainNote" type="button" data-toggle="collapse" data-target="#collapseTest<?= $step; ?>" aria-expanded="false" aria-controls="collapseTest<?= $step; ?>">
+                            <?= Yii::t('app', 'mainNotes') ?>
+                        </button>
+                        <div class="collapse" id="collapseTest<?= $step ?>">
+                            <div class="well myMainDeleteMarginBootom">
+                                <?php if(!isset($config['calc']) &&!isset($config['result'])) {
+                                    echo Yii::t('app', $config['note']);
+                                }
+                                elseif(isset($config['calc'])) {
+                                    echo 'Формула расчета:&nbsp&nbsp&nbsp';
+                                    ?>
+
+                                    <img src="<?= $config['view_calc']; ?>">
+
+                                    <?php
+
+                                    echo '&nbsp, где <br>';
+                                    $array = json_decode($model->calc_conf, true);
+                                    foreach($array as $val) {
+
+                                        ?>
+                                        <img src="<?= $model->sub_model->viewVar($val) ?>">
+                                        <?php
+                                        echo '&nbsp;&nbsp;&mdash;&nbsp;&nbsp;' . $model->sub_model->attributeLabels()[$val] . '<br>'. '<br>';
+                                    }
+
+                                    ?>
+                                <?php
+                                }
+                                elseif(isset($config['result'])) {
+                                    echo 'Формула по которой происходил расчет:&nbsp&nbsp&nbsp';
+                                    ?>
+                                    <img src="<?= $config['view_calc']; ?>">
+                                    <?php
+
+                                    echo '&nbsp, где <br>';
+                                    $array = json_decode($model->calc_conf, true);
+
+                                    foreach($array as $val) {
+
+                                        ?>
+                                        <img src="<?= $model->sub_model->viewVar($val) ?>">
+                                        <?php
+                                        echo '&nbsp;&nbsp;&mdash;&nbsp;&nbsp;' . $model->sub_model->attributeLabels()[$val] . '&nbsp;&nbsp;(Введенный параметр&nbsp;&mdash;&nbsp;<b>' . $model->sub_model->$val . '</b>)' . '<br>' . '<br>';
+
+                                    }
+
+                                    ?>
+
+
+                                <?php
+                                }
 
 
 
+                                ?>
+                            </div>
+                        </div>
 
+
+                        <?php
 
                             if(isset($config['calc'])) {
 
-                            $varibles = json_decode($model->sub_model->calc_conf, true);
+                            $varibles = json_decode($model->calc_conf, true);
 
                             foreach ($varibles as $name) {
                                 $images = '<img src="' . $test->sub_model->viewVar($name) . '">';
                                 $t = $test->sub_model->configVariable($name);
                                 if($t) {
-                                    echo $form->field($test->sub_model, $name)->widget(MaskedInput::className(), $t[0])->label()->hint(Yii::t('app', $t[1]) . '&nbsp;&nbsp;&nbsp;&nbsp;' . '(' .  $images . ')', ['style' => 'font-weight: bold; margin: 0; display: inline;', 'class' => 'mytextsize control-label']);
                                     echo "<br>";
+                                    echo $form->field($test->sub_model, $name)->textInput(['disabled' => true])->widget(MaskedInput::className(), $t[0])->label()->hint(Yii::t('app', $t[1]), ['style' => 'font-weight: bold; margin: 0; display: inline;', 'class' => 'mytextsize control-label myCollapseHint']);
                                 }
-//                                else {
-//                                    echo $form->field($test->sub_model, $name)->widget(MaskedInput::className(), [
-//                                        'clientOptions' => [
-//                                            'alias' => 'decimal',
-//                                            'digits' => 2,
-//                                            'digitsOptional' => true,
-//                                            'radixPoint' => ',',
-//                                            'groupSeparator' => ' ',
-//                                            'autoGroup' => true,
-//                                            'removeMaskOnSubmit' => true,
-//                                        ]
-//                                    ])->label();
-//                                    echo "<br>";
-//                                }
                             }
 
 
@@ -203,26 +254,10 @@ $test->params = json_encode($array);
                                 <button id="calculation" type="button" class="btn btn-default">РАССЧИТАТЬ</button>
 
 
-                        <?php } else { ?>
+                        <?php } elseif(!isset($config['result'])) { ?>
 
 
-                        <?php
-                            if($state == true && $step!= 1) {
-                        ?>
 
-                        <button id="backStep" type="button" class="btn btn-light myStepDown"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Назад</button>
-
-                        <?php } ?>
-                        <button class="btn btn-light myMainNote" type="button" data-toggle="collapse" data-target="#collapseTest<?= $step; ?>" aria-expanded="false" aria-controls="collapseTest<?= $step; ?>">
-                            <?= Yii::t('app', 'mainNotes') ?>
-                        </button>
-                        <div class="collapse" id="collapseTest<?= $step ?>">
-                            <div class="well myMainDeleteMarginBootom">
-                                <?php
-                                    echo Yii::t('app', $config['note']);
-                                ?>
-                            </div>
-                        </div>
 
                         <div class="air"></div>
 
@@ -241,12 +276,19 @@ $test->params = json_encode($array);
 
                                 </div>
                                 <div class="myLabel text-center">
-                                    <p class="mytextsize"><?=  Yii::t('app', $config[$i]['name']) ?></p>
+                                    <p class="mytextsize"><?=  in_array(Yii::t('app', $config[$i]['name']),['Да', 'Нет'])? '': Yii::t('app', $config[$i]['name']) ?></p>
                                 </div>
 
                             </div>
                             <?php
                         }
+                            }
+                            else {
+                                ?>
+                                <br>
+                                <br>
+                                <h1>ИТОГО: <?= round($model->sub_model->result,2); ?></h1>
+                                <?php
                             }
                         ?>
                     </div>
@@ -264,22 +306,24 @@ $j = "$(document).ready(function() {
     $('[id^=\"" . $step . "\"]').on('click', function() {
         $('#calcform-value" . $step . "').val($(this).attr('data-id'));
         $('#calcform-params" . $step . "').val($('#calcform-params" . $step . "').attr('value'));
-        $('#calcform-sub_model" . $step . "').val($('#calcform-sub_model" . $step . "').attr('value'));
+        $('#calcform-calc_conf" . $step . "').val($('#calcform-calc_conf" . $step . "').attr('value'));
         $('#calcform" . $step . "').submit();               
     });
     
-   
 ";
 
 if(isset($config['calc'])) {
     $j.=" $('#calculation').on('click', function() {
         $('#calcform-value" . $step . "').val(0);
         $('#calcform-params" . $step . "').val($('#calcform-params" . $step . "').attr('value'));
-        $('#calcform-sub_model" . $step . "').val($('#calcform-sub_model" . $step . "').attr('value'));
+        $('#calcform-calc_conf" . $step . "').val($('#calcform-calc_conf" . $step . "').attr('value'));
         $('#calcform" . $step . "').submit();               
-    });";
+        });
+        ";
 }
 
-$this->registerJs($j . '})');
 
+
+$this->registerJs($j . '})');
+//$('#calcform-sub_model" . $step . "').val($('#calcform-sub_model" . $step . "').attr('value'));
 ?>

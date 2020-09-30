@@ -245,6 +245,15 @@ body {
     padding-right: 20px;
 }
 
+#myCollapseTrigger {
+    float: left;
+    margin-bottom: 100px;
+}
+
+.myCollapseHint {
+    /*display: none !important;*/
+}
+
 
 
 
