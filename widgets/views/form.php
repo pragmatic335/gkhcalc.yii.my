@@ -198,6 +198,8 @@ $test->params = json_encode($array);
                                         echo '&nbsp;&nbsp;&mdash;&nbsp;&nbsp;' . $model->sub_model->attributeLabels()[$val] . '<br>'. '<br>';
                                     }
 
+                                    echo 'Обращаем Ваше <b>внимание</b>, что значение определенных компонент задается администраторами сайта.';
+
                                     ?>
                                 <?php
                                 }
@@ -284,11 +286,15 @@ $test->params = json_encode($array);
                         }
                             }
                             else {
+                                for($a = 0; $a < count($model->sub_model->result); $a++)
+                                {
                                 ?>
-                                <br>
-                                <br>
-                                <h1>ИТОГО: <?= round($model->sub_model->result,2); ?></h1>
+                                    <br>
+                                    <br>
+                                    <h1> <?= $model->sub_model->result[$a] ?></h1>
+                                    <br>
                                 <?php
+                                }
                             }
                         ?>
                     </div>
