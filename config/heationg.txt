@@ -1,0 +1,212 @@
+ "1": {
+    "label": "type room",
+    "note": "note type_room",
+    "name": "heating",
+    "names":
+    {
+      "0": "apart",
+      "1": "house"
+    },
+    "image": "images/warm.png",
+
+    "0":
+    {
+      "label": "exists meter_odpu",
+      "name": "apart",
+      "note": "",
+      "step": 3,
+      "count": 2,
+      "names":
+      {
+
+      },
+      "image": "images/odn.png",
+
+
+
+
+      "0":
+      {
+        "label": "exists meter_ipu_heating",
+        "name": "exists",
+        "step": 4,
+        "count": 2,
+        "image": "Yes",
+        "names":
+        {
+
+        },
+
+        "0":
+        {
+          "label": "exists meter_ipu_heating_all",
+          "name": "Yes",
+          "step": 5,
+          "count": 2,
+          "image": "Yes",
+          "names":
+          {
+
+          },
+
+
+
+          "0":
+          {
+            "calc": 20,
+            "label": "formula",
+            "name": "Yes",
+            "step": 6,
+            "count": 1,
+            "image": "Yes",
+            "names":
+            {
+              "0": "formula"
+            },
+            "0":
+            {
+              "name": 5,
+              "image": "images/ipu-on.png"
+            }
+          },
+          "1":
+          {
+
+            "label": "exists meter_ipu_heating_ on you",
+            "name": "exists",
+            "step": 6,
+            "count": 2,
+            "image": "Not",
+            "names":
+            {
+
+            },
+            "0" :
+            {
+              "calc": 21,
+              "label": "formula",
+              "name": "Yes",
+              "step": 7,
+              "count": 1,
+              "image": "Yes",
+              "names":
+              {
+                "0": "formula"
+              },
+              "0":
+              {
+                "name": 5,
+                "image": "images/ipu-on.png"
+              }
+            },
+            "1" :
+            {
+              "calc": 22,
+              "label": "formula",
+              "name": "Not",
+              "step": 7,
+              "count": 1,
+              "image": "Not",
+              "names":
+              {
+                "0": "formula"
+              },
+              "0":
+              {
+                "name": 5,
+                "image": "images/ipu-on.png"
+              }
+            }
+
+
+          }
+        },
+        "1":
+        {
+          "label": "setup main heating",
+          "name": "Not",
+          "step": 5,
+          "count": 2,
+          "image": "Not",
+          "names":
+          {
+
+          },
+          "0":
+          {
+            "calc": 23,
+            "label": "formula",
+            "name": "Yes",
+            "step": 6,
+            "count": 1,
+            "image": "Yes",
+            "names":
+            {
+              "0": "formula"
+            },
+            "0":
+            {
+              "name": 5,
+              "image": "images/ipu-on.png"
+            }
+          },
+          "1":
+          {
+            "calc": 24,
+            "label": "formula",
+            "name": "Not",
+            "step": 6,
+            "count": 1,
+            "image": "Not",
+            "names":
+            {
+              "0": "formula"
+            },
+            "0":
+            {
+              "name": 5,
+              "image": "images/ipu-on.png"
+            }
+          }
+
+        }
+      },
+
+      "1":
+      {
+        "calc": 2,
+        "label": "formula",
+        "name": "not exists",
+        "step": 4,
+        "count": 1,
+        "image": "Not",
+        "names":
+        {
+          "0": "formula"
+        },
+        "0":
+        {
+          "name": 2,
+          "image": "images/odpu-no.png"
+        }
+      }
+
+    },
+
+    "1":
+    {
+
+      "label": "type room",
+      "note": "note type_room",
+      "name": "heating",
+      "step": 2,
+      "count": 2,
+      "names":
+      {
+        "0": "apart",
+        "1": "house"
+      },
+      "image": "images/house.png"
+    }
+
+  },

@@ -687,214 +687,76 @@
   },
 
   "1": {
-    "label": "type room",
-    "note": "note type_room",
     "name": "heating",
-    "names":
-    {
-      "0": "apart",
-      "1": "house"
-    },
+    "label": "type_house",
+    "note": "note_type_house",
     "image": "images/warm.png",
-
-    "0":
-    {
-      "label": "exists meter_odpu",
-      "name": "apart",
-      "note": "",
-      "step": 3,
-      "count": 2,
-      "names":
-      {
-
-      },
-      "image": "images/odn.png",
-
-
-
-
-      "0":
-      {
-        "label": "exists meter_ipu_heating",
-        "name": "exists",
-        "step": 4,
-        "count": 2,
-        "image": "Yes",
-        "names":
-        {
-
-        },
-
-        "0":
-        {
-          "label": "exists meter_ipu_heating_all",
+    "0": {
+      "name": "MKD",
+      "label": "type_heating",
+      "note": "note_type_heating",
+      "image": "images/warm.png",
+      "0": {
+        "name": "service_heating",
+        "label": "odpu_exists",
+        "note": "note_odpu_exists",
+        "image": "images/warm.png",
+        "0": {
           "name": "Yes",
-          "step": 5,
-          "count": 2,
-          "image": "Yes",
-          "names":
-          {
-
-          },
-
-
-
-          "0":
-          {
-            "calc": 20,
-            "label": "formula",
-            "name": "Yes",
-            "step": 6,
-            "count": 1,
-            "image": "Yes",
-            "names":
-            {
-              "0": "formula"
-            },
-            "0":
-            {
-              "name": 5,
-              "image": "images/ipu-on.png"
-            }
-          },
-          "1":
-          {
-
-            "label": "exists meter_ipu_heating_ on you",
-            "name": "exists",
-            "step": 6,
-            "count": 2,
-            "image": "Not",
-            "names":
-            {
-
-            },
-            "0" :
-            {
-              "calc": 21,
-              "label": "formula",
-              "name": "Yes",
-              "step": 7,
-              "count": 1,
-              "image": "Yes",
-              "names":
-              {
-                "0": "formula"
-              },
-              "0":
-              {
-                "name": 5,
-                "image": "images/ipu-on.png"
-              }
-            },
-            "1" :
-            {
-              "calc": 22,
-              "label": "formula",
-              "name": "Not",
-              "step": 7,
-              "count": 1,
-              "image": "Not",
-              "names":
-              {
-                "0": "formula"
-              },
-              "0":
-              {
-                "name": 5,
-                "image": "images/ipu-on.png"
-              }
-            }
-
-
-          }
+          "label": "type_heating_service",
+          "note": "note_type_heating_service",
+          "image": "Yes"
         },
-        "1":
-        {
-          "label": "setup main heating",
+        "1": {
           "name": "Not",
-          "step": 5,
-          "count": 2,
+          "label": "formula",
+          "note": "",
           "image": "Not",
-          "names":
-          {
-
-          },
-          "0":
-          {
-            "calc": 23,
-            "label": "formula",
-            "name": "Yes",
-            "step": 6,
-            "count": 1,
-            "image": "Yes",
-            "names":
-            {
-              "0": "formula"
-            },
-            "0":
-            {
-              "name": 5,
-              "image": "images/ipu-on.png"
-            }
-          },
-          "1":
-          {
-            "calc": 24,
-            "label": "formula",
-            "name": "Not",
-            "step": 6,
-            "count": 1,
-            "image": "Not",
-            "names":
-            {
-              "0": "formula"
-            },
-            "0":
-            {
-              "name": 5,
-              "image": "images/ipu-on.png"
-            }
+          "calc": 11,
+          "view_calc": "images/formuls/heating_not_odpu.gif",
+          "0": {
+            "name": "success_input",
+            "label": "result",
+            "note": "",
+            "image": "",
+            "result": "1",
+            "view_calc": "images/formuls/heating_not_odpu.gif"
           }
-
         }
-      },
 
-      "1":
-      {
-        "calc": 2,
+      },
+      "1": {
+        "name": "correct_heating",
         "label": "formula",
-        "name": "not exists",
-        "step": 4,
-        "count": 1,
-        "image": "Not",
-        "names":
-        {
-          "0": "formula"
-        },
-        "0":
-        {
-          "name": 2,
-          "image": "images/odpu-no.png"
+        "note": "",
+        "image": "images/house-ipu.png",
+        "calc": 9,
+        "view_calc": "images/formuls/corrects.gif",
+        "0": {
+          "name": "success_input",
+          "label": "result",
+          "note": "",
+          "image": "",
+          "result": "1",
+          "view_calc": "images/formuls/corrects.gif"
         }
       }
-
     },
-
-    "1":
-    {
-
-      "label": "type room",
-      "note": "note type_room",
-      "name": "heating",
-      "step": 2,
-      "count": 2,
-      "names":
-      {
-        "0": "apart",
-        "1": "house"
-      },
-      "image": "images/house.png"
+    "1": {
+      "name": "solo_house",
+      "label": "formula",
+      "note": "",
+      "image": "images/house-ipu.png",
+      "calc": 10,
+      "view_calc": "images/formuls/heating_house.gif",
+      "0": {
+        "name": "success_input",
+        "label": "result",
+        "note": "",
+        "image": "",
+        "result": "1",
+        "view_calc": "images/formuls/heating_house.gif"
+      }
     }
 
   },

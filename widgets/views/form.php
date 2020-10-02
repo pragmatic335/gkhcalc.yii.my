@@ -245,7 +245,12 @@ $test->params = json_encode($array);
                                 $t = $test->sub_model->configVariable($name);
                                 if($t) {
                                     echo "<br>";
-                                    echo $form->field($test->sub_model, $name)->textInput(['disabled' => true])->widget(MaskedInput::className(), $t[0])->label()->hint(Yii::t('app', $t[1]), ['style' => 'font-weight: bold; margin: 0; display: inline;', 'class' => 'mytextsize control-label myCollapseHint']);
+//                                    if($name == 'tariff_hvs') {
+//                                        echo true;
+////                                        echo 'hello' . in_array($name, $test->sub_model->lockVariables());
+//                                        die();
+//                                    }
+                                    echo $form->field($test->sub_model, $name)->widget(MaskedInput::className(), $t[0])->textInput($test->sub_model->lockVariables($name))->label()->hint(Yii::t('app', $t[1]), ['style' => 'font-weight: bold; margin: 0; display: inline;', 'class' => 'mytextsize control-label myCollapseHint']);
                                 }
                             }
 
