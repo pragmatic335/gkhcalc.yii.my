@@ -1,388 +1,55 @@
-  --><?php //if(!@is_integer($config['calc'])) {
+ "name": "Yes",
+          "label": "type_heating_service",
+          "note": "note_type_heating_service",
+          "image": "Yes",
 
+          "0" : {
+            "name": "ipu_all",
+            "label": "formula",
+            "note": "",
+            "image": "images/one-tarif.png",
+            "calc": 12,
+            "view_calc": "images/formuls/heating_1.gif",
+            "0": {
+              "name": "success_input",
+              "label": "result",
+              "note": "",
+              "image": "",
+              "result": "1",
+              "view_calc": "images/formuls/heating_1.gif"
+            }
+          },
 
-   }
-  //                                else {
-  //                                    echo 'Формула расчета:&nbsp&nbsp&nbsp';
-  //                                    ?>
-  <!---->
-  <!--                                    <img src="--><?php//= $config['view_calc']; ?><!--">-->
-  <!---->
-  <!--                                --><?php
-  //
-  //                                    echo '&nbsp, где <br>';
-  //                                    $array = json_decode($model->calc_conf, true);
-  //                                    foreach($array as $val) {
-  //
-  //                                ?>
-  <!--                                        <img src="--><?php//= $model->viewVar($val) ?><!--">-->
-  <!--                                --><?php
-  //                                        echo '&nbsp;&nbsp;&mdash;&nbsp;&nbsp;' . $model->attributeLabels()[$val] . '<br>';
-  //                                    }
-  //                                }
+          "1" : {
+            "name": "ipu_not",
+            "label": "formula",
+            "note": "",
+            "image": "images/one-tarif.png",
+            "calc": 13,
+            "view_calc": "images/formuls/heating_not_odpu.gif",
+            "0": {
+              "name": "success_input",
+              "label": "result",
+              "note": "",
+              "image": "",
+              "result": "1",
+              "view_calc": "images/formuls/heating_not_odpu.gif"
+            }
+          },
 
-
-
-
-
-  <!---->
-  <!--                        --><?php
-  //                        if($model->result == null || $state == false ) {
-  //                        ?>
-  <!---->
-  <!--                        --><?php //if(!@is_integer($config['calc'])){ ?>
-
-  }
-
-
-
-
-  <!--                        --><?php //} ?>
-
-                              <?php
-                          if( isset($model->calc_conf) && isset($config['calc']) ) {
-
-
- /                                $array = json_decode($model->calc_conf, true);
-  //
-  //                                foreach ($array as $name) {
-  //                                    $images = '<img src="' . $model->viewVar($name) . '">';
-  //                                    $t = $model->configVariable($name);
-  //                                    if($t) {
-  //                                        echo $form->field($model, $name)->widget(MaskedInput::className(), $t[0])->label()->hint(Yii::t('app', $t[1]) . '&nbsp;&nbsp;&nbsp;&nbsp;' . '(' .  $images . ')', ['style' => 'font-weight: bold; margin: 0; display: inline;', 'class' => 'mytextsize control-label']);
-  //                                        echo "<br>";
-  //                                    }
-  //                                    else {
-  //                                        echo $form->field($model, $name)->widget(MaskedInput::className(), [
-  //                                            'clientOptions' => [
-  //                                                'alias' => 'decimal',
-  //                                                'digits' => 2,
-  //                                                'digitsOptional' => true,
-  //                                                'radixPoint' => ',',
-  //                                                'groupSeparator' => ' ',
-  //                                                'autoGroup' => true,
-  //                                                'removeMaskOnSubmit' => true,
-  //                                            ]
-  //                                        ])->label();
-  //                                        echo "<br>";
-  //                                    }
-  //                                }
-  //                            }
-                              ?>
-
-
-
-
-
-
-
-                               "0":
-                                      {
-                                        "name": "exists",
-                                        "label": "formula",
-                                        "note": "",
-                                        "image": "Yes",
-
-                                        "calc": 3,
-                                        "view_calc": "images/formuls/simple_ipu.gif",
-                                        "0":
-                                        {
-                                          "name": "success_input",
-                                          "label": "result",
-                                          "note": "",
-                                          "image": "",
-
-                                          "result": "1",
-                                          "view_calc": "images/formuls/simple_ipu.gif"
-                                        }
-                                      },
-
-                                      "1":
-                                      {
-                                        "name": "not exists",
-                                        "label": "exists setup",
-                                        "note": "note_notIpu_checkPossibility",
-                                        "image": "Not",
-                                        "0":
-                                        {
-                                          "name": "Yes",
-                                          "label": "formula",
-                                          "note": "",
-                                          "image": "Yes",
-
-                                          "calc": 5,
-                                          "view_calc": "images/formuls/simple_notipu_two.gif",
-                                          "0":
-                                          {
-                                            "name": "success_input",
-                                            "label": "result",
-                                            "note": "",
-                                            "image": "",
-
-                                            "result": "1",
-                                            "view_calc": "images/formuls/simple_notipu_two.gif"
-                                          }
-                                        },
-
-                                        "1":
-                                        {
-                                          "name": "Not",
-                                          "label": "formula",
-                                          "note": "",
-                                          "image": "Not",
-
-                                          "calc": 4,
-                                          "view_calc": "images/formuls/simple_notipu_one.gif",
-                                          "0":
-                                          {
-                                            "name": "success_input",
-                                            "label": "result",
-                                            "note": "",
-                                            "image": "",
-
-                                            "result": "1",
-                                            "view_calc": "images/formuls/simple_notipu_one.gif"
-                                          }
-                                        }
-                                      }
-
-
-
-
-
-                                       "1": {
-                                            "label": "type tariff",
-                                            "note": "note type_tariff",
-                                            "name": "hotwater",
-                                            "image": "images/gvs-main.png",
-                                            "step": 3,
-                                            "count": 2,
-                                            "names": {
-                                              "0": "onekom",
-                                              "1": "twokom"
-                                            },
-                                            "0": {
-                                              "label": "type meters",
-                                              "note": "note type_meters",
-                                              "name": "onekom",
-                                              "image": "images/one-tarif.png",
-                                              "step": 4,
-                                              "count": 2,
-                                              "names": {
-                                                "0": "odpu",
-                                                "1": "ipu"
-                                              },
-                                              "0": {
-                                                "label": "exists meter",
-                                                "note": "note odpu_exist",
-                                                "name": "odpu",
-                                                "step": 5,
-                                                "count": 2,
-                                                "names": {
-                                                  "0": "exists",
-                                                  "1": "not exists"
-                                                },
-                                                "image": "images/odn.png",
-                                                "0": {
-                                                  "calc": 6,
-                                                  "label": "formula",
-                                                  "name": "exists",
-                                                  "step": 6,
-                                                  "count": 1,
-                                                  "image": "images/odpu-on.png",
-                                                  "names": {
-                                                    "0": "formula"
-                                                  },
-                                                  "0": {
-                                                    "name": 1,
-                                                    "image": "images/odpu-on.png"
-                                                  }
-                                                },
-                                                "1": {
-                                                  "calc": 7,
-                                                  "label": "formula",
-                                                  "name": "not exists",
-                                                  "step": 6,
-                                                  "count": 1,
-                                                  "image": "images/odpu-no.png",
-                                                  "names": {
-                                                    "0": "formula"
-                                                  },
-                                                  "0": {
-                                                    "name": 2,
-                                                    "image": "images/odpu-no.png"
-                                                  }
-                                                }
-                                              },
-                                              "1": {
-                                                "label": "exists meter",
-                                                "note": "note ipu_exist",
-                                                "name": "ipu",
-                                                "step": 5,
-                                                "count": 3,
-                                                "names": {
-                                                  "0": "exists",
-                                                  "1": "not exists",
-                                                  "2": "not exists and imposible setup"
-                                                },
-                                                "image": "images/flat.png",
-                                                "0": {
-                                                  "calc": 3,
-                                                  "label": "formula",
-                                                  "name": "exists",
-                                                  "step": 6,
-                                                  "count": 1,
-                                                  "image": "images/ipu-on.png",
-                                                  "names": {
-                                                    "0": "formula"
-                                                  },
-                                                  "0": {
-                                                    "name": 4,
-                                                    "image": "images/ipu-on.png"
-                                                  }
-                                                },
-                                                "1": {
-                                                  "calc": 4,
-                                                  "label": "formula",
-                                                  "name": "not exists",
-                                                  "step": 6,
-                                                  "count": 1,
-                                                  "image": "images/ipu-no.png",
-                                                  "names": {
-                                                    "0": "formula"
-                                                  },
-                                                  "0": {
-                                                    "name": 5,
-                                                    "image": "images/ipu-no.png"
-                                                  }
-                                                },
-                                                "2": {
-                                                  "calc": 5,
-                                                  "label": "formula",
-                                                  "name": "not exists and imposible setup",
-                                                  "step": 6,
-                                                  "count": 1,
-                                                  "image": "images/ipu-no-on.png",
-                                                  "names": {
-                                                    "0": "formula"
-                                                  },
-                                                  "0": {
-                                                    "name": 6,
-                                                    "image": "images/ipu-no-on.png"
-                                                  }
-                                                }
-                                              }
-                                            },
-                                            "1": {
-                                              "label": "type meters",
-                                              "note": "note type_meters",
-                                              "name": "twokom",
-                                              "image": "images/two-tarif.png",
-                                              "step": 4,
-                                              "count": 2,
-                                              "names": {
-                                                "0": "odpu",
-                                                "1": "ipu"
-                                              },
-                                              "0": {
-                                                "label": "exists meter",
-                                                "note": "note odpu_exist",
-                                                "name": "odpu",
-                                                "step": 5,
-                                                "count": 2,
-                                                "names": {
-                                                  "0": "exists",
-                                                  "1": "not exists"
-                                                },
-                                                "image": "images/odn.png",
-                                                "0": {
-                                                  "calc": 8,
-                                                  "label": "formula",
-                                                  "name": "exists",
-                                                  "step": 6,
-                                                  "count": 1,
-                                                  "image": "images/odpu-on.png",
-                                                  "names": {
-                                                    "0": "formula"
-                                                  },
-                                                  "0": {
-                                                    "name": 8,
-                                                    "image": "images/odpu-on.png"
-                                                  }
-                                                },
-                                                "1": {
-                                                  "calc": 9,
-                                                  "label": "formula",
-                                                  "name": "not exists",
-                                                  "step": 6,
-                                                  "count": 1,
-                                                  "image": "images/odpu-no.png",
-                                                  "names": {
-                                                    "0": "formula"
-                                                  },
-                                                  "0": {
-                                                    "name": 2,
-                                                    "image": "images/odpu-no.png"
-                                                  }
-                                                }
-                                              },
-                                              "1": {
-                                                "label": "exists meter",
-                                                "note": "note ipu_exist",
-                                                "name": "ipu",
-                                                "step": 5,
-                                                "count": 3,
-                                                "names": {
-                                                  "0": "exists",
-                                                  "1": "not exists",
-                                                  "2": "not exists and imposible setup"
-                                                },
-                                                "image": "images/flat.png",
-                                                "0": {
-                                                  "calc": 10,
-                                                  "label": "formula",
-                                                  "name": "exists",
-                                                  "step": 6,
-                                                  "count": 1,
-                                                  "image": "images/ipu-on.png",
-                                                  "names": {
-                                                    "0": "formula"
-                                                  },
-                                                  "0": {
-                                                    "name": 4,
-                                                    "image": "images/ipu-on.png"
-                                                  }
-                                                },
-                                                "1": {
-                                                  "calc": 11,
-                                                  "label": "formula",
-                                                  "name": "not exists",
-                                                  "step": 6,
-                                                  "count": 1,
-                                                  "image": "images/ipu-no.png",
-                                                  "names": {
-                                                    "0": "formula"
-                                                  },
-                                                  "0": {
-                                                    "name": 5,
-                                                    "image": "images/ipu-no.png"
-                                                  }
-                                                },
-                                                "2": {
-                                                  "calc": 12,
-                                                  "label": "formula",
-                                                  "name": "not exists and imposible setup",
-                                                  "step": 6,
-                                                  "count": 1,
-                                                  "image": "images/ipu-no-on.png",
-                                                  "names": {
-                                                    "0": "formula"
-                                                  },
-                                                  "0": {
-                                                    "name": 6,
-                                                    "image": "images/ipu-no-on.png"
-                                                  }
-                                                }
-                                              }
-                                            }
-                                          },
+          "2" : {
+            "name": "ipu_not_all",
+            "label": "formula",
+            "note": "",
+            "image": "images/one-tarif.png",
+            "calc": 14,
+            "view_calc": "images/formuls/heating_not_odpu.gif",
+            "0": {
+              "name": "success_input",
+              "label": "result",
+              "note": "",
+              "image": "",
+              "result": "1",
+              "view_calc": "images/formuls/heating_not_odpu.gif"
+            }
+          }

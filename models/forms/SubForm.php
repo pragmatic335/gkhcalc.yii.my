@@ -40,6 +40,56 @@ class SubForm extends Model
     public $tariff_heating_mkd_odpu_not = '1467,82';
 
 
+    /**
+     * Переменные для расчета отопления, где присутствует ОДПУ и полностью присутствуют ИПУ
+     * формула 12
+     */
+    //space_owner
+    public $size_heating_odpu_average_last_year;
+    public $size_heating_ipu_average_last_year;
+    public $size_heating_ipu_all_average_last_year;
+    //space_all
+    public $size_heating_all_average_last_year;
+    public $space_heating_where_exists_ipu;
+    //tariff_heating_house
+
+
+    /**
+     * Переменные для расчета отопления, где присутствует ОДПУ, но полностью отсутствуют ИПУ
+     * формула 13
+     */
+    //space_owner
+    //size_heating_odpu_average_last_year
+    //size_heating_ipu_average_last_year
+    //space_all
+    //space_soi
+    //space_heating_mkd_odpu_not_ipu_not
+    //tariff_heating_mkd_odpu_not = '1467,82'
+
+
+    /**
+     * Переменные для расчета отопления, где присутствует ОДПУ, но полностью отсутствуют ИПУ
+     * формула 14
+     */
+    //space_owner
+    //size_heating_odpu_average_last_year
+    //size_heating_ipu_average_last_year
+    //space_all
+    //size_heating_all_average_last_year
+    //space_heating_where_exists_ipu
+    //tariff_heating_mkd_odpu_not = '1467,82'
+
+
+    /**
+     * Переменные для расчета TKO
+     * формула 1
+     */
+    //public $kol;
+    public $norm_tko = '2,38';
+    public $tariff_tko = '301,92';
+
+
+
 
 
 
@@ -92,13 +142,14 @@ class SubForm extends Model
 
     public function rules()
     {
-        ////space_owner
-        //    public $norm_heating_mkd_odpu_not;
+        // //space_owner
+        //    public $size_heating_odpu_average_last_year;
+        //    public $size_heating_ipu_average_last_year;
+        //    public $size_heating_ipu_all_average_last_year;
         //    //space_all
-        //    public $space_soi;
-        //    public $space_heating_mkd_odpu_not_ipu_not;
-        //    //multiplier_house
-        //    public $tariff_heating_mkd_odpu_not;
+        //    public $size_heating_all_average_last_year;
+        //    public $space_heating_where_exists_ipu;
+        //    //$tariff_heating_house
         return [
 
             [
@@ -111,7 +162,10 @@ class SubForm extends Model
                     'tariff_hvs','tariff_energy','tariff_drainage', 'tariff_gvs', 'gvs_multiplier_heating', 'tariff_gvs_heating', 'tariff_gvs_teplonos',
                     'pays_pre_year', 'size_odpu_corrects_oneyear', 'size_odpu_corrects_twoyear', 'space_all', 'tariff_corrects_oneyear',
                     'tariff_corrects_twoyear', 'norm_heating_house', 'multiplier_house', 'tariff_heating_house',
-                    'norm_heating_mkd_odpu_not', 'space_soi', 'space_heating_mkd_odpu_not_ipu_not', 'tariff_heating_mkd_odpu_not'],
+                    'norm_heating_mkd_odpu_not', 'space_soi', 'space_heating_mkd_odpu_not_ipu_not', 'tariff_heating_mkd_odpu_not',
+                    'size_heating_odpu_average_last_year', 'size_heating_ipu_average_last_year', 'size_heating_ipu_all_average_last_year',
+                    'size_heating_all_average_last_year', 'space_heating_where_exists_ipu',
+                    'norm_tko', 'tariff_tko'],
                 'filter', 'filter' => function ($value) {
                 $value =  str_replace(',', '.', $value);
                 $value =  str_replace(' ', '', $value);
@@ -131,7 +185,10 @@ class SubForm extends Model
                 'gvs_multiplier_heating', 'tariff_gvs_heating',
                 'tariff_gvs', 'tariff_gvs_teplonos','pays_pre_year', 'size_odpu_corrects_oneyear', 'size_odpu_corrects_twoyear', 'space_all', 'tariff_corrects_oneyear',
                 'tariff_corrects_twoyear', 'norm_heating_house', 'multiplier_house', 'tariff_heating_house',
-                'norm_heating_mkd_odpu_not', 'space_soi', 'space_heating_mkd_odpu_not_ipu_not', 'tariff_heating_mkd_odpu_not'], 'required', 'message' => 'Поле не должно быть пустым. Также будьте внимательны при вводе числовых параметров!'],
+                'norm_heating_mkd_odpu_not', 'space_soi', 'space_heating_mkd_odpu_not_ipu_not', 'tariff_heating_mkd_odpu_not',
+                'size_heating_odpu_average_last_year', 'size_heating_ipu_average_last_year', 'size_heating_ipu_all_average_last_year',
+                'size_heating_all_average_last_year', 'space_heating_where_exists_ipu',
+                'norm_tko', 'tariff_tko'], 'required', 'message' => 'Поле не должно быть пустым. Также будьте внимательны при вводе числовых параметров!'],
 
 
 
@@ -144,7 +201,10 @@ class SubForm extends Model
                 'tariff_hvs','tariff_energy','tariff_drainage','gvs_multiplier_heating', 'tariff_gvs_heating', 'tariff_gvs_teplonos',
                 'pays_pre_year', 'size_odpu_corrects_oneyear', 'size_odpu_corrects_twoyear', 'space_all', 'tariff_corrects_oneyear',
                 'tariff_corrects_twoyear', 'norm_heating_house', 'multiplier_house', 'tariff_heating_house',
-                'norm_heating_mkd_odpu_not', 'space_soi', 'space_heating_mkd_odpu_not_ipu_not', 'tariff_heating_mkd_odpu_not'],
+                'norm_heating_mkd_odpu_not', 'space_soi', 'space_heating_mkd_odpu_not_ipu_not', 'tariff_heating_mkd_odpu_not',
+                'size_heating_odpu_average_last_year', 'size_heating_ipu_average_last_year', 'size_heating_ipu_all_average_last_year',
+                'size_heating_all_average_last_year', 'space_heating_where_exists_ipu',
+                'norm_tko', 'tariff_tko'],
                 'string', 'message' => 'Введите правильное числовое значение. Будьте внимательны, дробную часть отделяйте от целой точкой, а не запятой! '],
 
 
@@ -155,11 +215,10 @@ class SubForm extends Model
         ];
     }
 
-
-
     public function attributeLabels()
     {
         return [
+
             'tariff' => 'Тариф',
             'space_owner' => 'Площадь вашей квартиры',
             'space_full_all' => 'Общая площадь всех помещений в МКД',
@@ -205,11 +264,10 @@ class SubForm extends Model
             'pays_pre_year' => 'Введите размер платы за отопление за предыдущий год, начисленный с января по декабрь по платежным документам',
             'size_odpu_corrects_oneyear' => 'Введите объем фактического потребления тепловой энергии по ОДПУ за первое полугодие предыдущего года',
             'size_odpu_corrects_twoyear' => 'Введите объем фактического потребления тепловой энергии по ОДПУ за второе полугодие предыдущего года',
-            'space_all' => 'Введите площадь жилых и нежилых помещений, находящихся в собственности',
+            'space_all' => 'Введите площадь жилых и нежилых помещений в МКД',
             'tariff_corrects_oneyear' => 'Размер тарифа, первое полугодие предыдущего года',
             'tariff_corrects_twoyear' => 'Размер тарифа, первое полугодие предыдущего года',
 
-            //'norm_heating_mkd_odpu_not', 'space_soi', 'space_heating_mkd_odpu_not_ipu_not', 'tariff_heating_mkd_odpu_not'
             'norm_heating_house' => 'Норматив потребления',
             'multiplier_house' => 'Коэффициент периодичности',
             'tariff_heating_house' => 'Тариф',
@@ -218,29 +276,43 @@ class SubForm extends Model
             'space_soi' => 'Площадь общего имущества',
             'space_heating_mkd_odpu_not_ipu_not' => 'Общую площадь помещений, в которых не предусмотрено наличие приборов отопления',
             'tariff_heating_mkd_odpu_not' => 'Тариф',
-
+            'size_heating_odpu_average_last_year' => 'Среднемесячное потребление по ОДПУ за предыдущий год',
+            'size_heating_ipu_average_last_year' => 'Среднемесячное потребление по ИПУ в Вашей квартире за предыдущий год',
+            'size_heating_ipu_all_average_last_year' => 'Среднемесячное потребление по ИПУ в МКД за предыдущий год',
+            'size_heating_all_average_last_year' => 'Сумма объемов тепловой энергии по всем приборам учета за предыдущий год',
+            'space_heating_where_exists_ipu' => 'Сумма площадей всех помещений в МКД, оборудованных индивидуальными приборама учета',
+            'norm_tko' => 'Норматив',
+            'tariff_tko' => 'Тариф',
 
 
 
 
         ];
     }
+
     public function lockVariables($name) {
 
         return in_array($name, ['multiplier', 'norm', 'norm_gvs', 'norm_drainage', 'norm_hvs', 'tariff_gvs', 'tariff_energy', 'tariff_hvs', 'tariff',
             'multiplier', 'tariff_heating_mkd_odpu_not', 'tariff_heating_house', 'multiplier_house', 'tariff_corrects_twoyear',
-            'tariff_corrects_oneyear', 'tariff_gvs_teplonos', 'tariff_gvs_heating',])?['disabled'=>true]:['disabled' => false];
+            'tariff_corrects_oneyear', 'tariff_gvs_teplonos', 'tariff_gvs_heating',
+            'norm_tko', 'tariff_tko'])?['disabled'=>true]:['disabled' => false];
     }
 
     public function configVariable($variable)
     {
+        //space_owner
+        //size_heating_odpu_average_last_year
+        //size_heating_ipu_average_last_year
+        //space_all
+        //size_heating_all_average_last_year
+        //space_heating_where_exists_ipu
+        //tariff_heating_mkd_odpu_not = '1467,82'
 
-//'norm_heating_mkd_odpu_not', 'space_soi', 'space_heating_mkd_odpu_not_ipu_not', 'tariff_heating_mkd_odpu_not'
         $array =
             [
                 [
                     ['space_full_all', 'space_owner', 'space_oi_all', 'space_full_all_liv', 'space_ipu_where', 'space_iio_where', 'space_all',
-                        'space_soi', 'space_heating_mkd_odpu_not_ipu_not', ],
+                        'space_soi', 'space_heating_mkd_odpu_not_ipu_not', 'space_heating_where_exists_ipu'],
                     [
                         'clientOptions' => [
                             'alias' => 'decimal',
@@ -273,7 +345,8 @@ class SubForm extends Model
 
                 [
                     ['tariff', 'tariff_hvs', 'tariff_energy', 'tariff_drainage', 'tariff_gvs', 'tariff2heating_energy', 'tariff_gvs_heating', 'tariff_gvs_teplonos',
-                        'pays_pre_year','tariff_corrects_oneyear','tariff_corrects_twoyear', 'tariff_heating_house', 'tariff_heating_mkd_odpu_not'],
+                        'pays_pre_year','tariff_corrects_oneyear','tariff_corrects_twoyear',
+                        'tariff_heating_house', 'tariff_heating_mkd_odpu_not', 'tariff_tko',],
                     [
                         'clientOptions' => [
                             'alias' => 'decimal',
@@ -289,7 +362,9 @@ class SubForm extends Model
                 ],
 
                 [
-                    ['size_odpu', 'size_ipu_all', 'size_notliv_all', 'norm2odn', 'size_ipu', 'norm', 'size2service_hvs', 'size_not_ipu_all', 'size_ipu_hvs_drainage', 'norm_hvs', 'norm_drainage', 'norm_gvs'],
+                    ['size_odpu', 'size_ipu_all', 'size_notliv_all', 'norm2odn', 'size_ipu', 'norm',
+                        'size2service_hvs', 'size_not_ipu_all', 'size_ipu_hvs_drainage', 'norm_hvs',
+                        'norm_drainage', 'norm_gvs', 'norm_tko', ],
                     [
                         'clientOptions' => [
                             'alias' => 'decimal',
@@ -320,7 +395,7 @@ class SubForm extends Model
                 ],
             [
                 ['size_ipu_heating_one', 'size_odpu_heating', 'size_ipu_heating_all', 'size_ipu_heating_diff', 'size_odpu_corrects_oneyear',
-                    'size_odpu_corrects_twoyear',],
+                    'size_odpu_corrects_twoyear', 'size_heating_all_average_last_year'],
                 [
                     'clientOptions' => [
                         'alias' => 'decimal',
@@ -368,7 +443,8 @@ class SubForm extends Model
                 ],
 
                 [
-                    ['norm_heating_house', 'norm_heating_mkd_odpu_not'],
+                    ['norm_heating_house', 'norm_heating_mkd_odpu_not', 'size_heating_odpu_average_last_year',
+                        'size_heating_ipu_average_last_year', 'size_heating_ipu_all_average_last_year'],
                     [
                         'clientOptions' => [
                             'alias' => 'decimal',
@@ -396,7 +472,7 @@ class SubForm extends Model
     }
 
     public function viewVar($str) {
-        //, 'norm_heating_house', 'multiplier_house', 'tariff_heating_house',
+
         $tail = '.gif';
         $config = [
 
@@ -441,17 +517,21 @@ class SubForm extends Model
             'multiplier_house' => 'images/formuls/multiplier' . $tail,
             'tariff_heating_house' => 'images/formuls/simple_tariff' . $tail,
 
-            //////space_owner
-            //        //    public $norm_heating_mkd_odpu_not;
-            //        //    //space_all
-            //        //    public $space_soi;
-            //        //    public $space_heating_mkd_odpu_not_ipu_not;
-            //        //    //multiplier_house
-            //        //    public $tariff_heating_mkd_odpu_not;
+            //'size_heating_odpu_average_last_year', 'size_heating_ipu_average_last_year', 'size_heating_ipu_all_average_last_year',
+            //'size_heating_all_average_last_year', 'space_heating_where_exists_ipu'
             'norm_heating_mkd_odpu_not' => 'images/formuls/normativ' . $tail,
             'space_soi' => 'images/formuls/space_soi' . $tail,
             'space_heating_mkd_odpu_not_ipu_not' => 'images/formuls/space_heating_ipu_not' . $tail,
             'tariff_heating_mkd_odpu_not' => 'images/formuls/simple_tariff' . $tail,
+
+            'size_heating_odpu_average_last_year' => 'images/formuls/heating_mkd_odpu_123' . $tail,
+            'size_heating_ipu_average_last_year' => 'images/formuls/heating_ipu_size' . $tail,
+            'size_heating_ipu_all_average_last_year' => 'images/formuls/heating_size_ipu_1' . $tail,
+            'size_heating_all_average_last_year' => 'images/formuls/qwertyd' . $tail,
+            'space_heating_where_exists_ipu' => 'images/formuls/space_ipu_exists1' . $tail,
+            'norm_tko' => 'images/formuls/normativ' . $tail,
+            'tariff_tko' => 'images/formuls/simple_tariff' . $tail,
+            ''
 
 
 
@@ -462,6 +542,8 @@ class SubForm extends Model
     }
 
     public function routeCalculationVaribles($number) {
+
+
 
         //Электроэнергия//
         if($number == 31) {
@@ -555,6 +637,24 @@ class SubForm extends Model
             $this->calc_conf = json_encode(['space_owner', 'norm_heating_mkd_odpu_not', 'space_all', 'space_soi', 'space_heating_mkd_odpu_not_ipu_not', 'multiplier_house', 'tariff_heating_mkd_odpu_not']);
         }
 
+        if($number == 12) {
+            $this->calc_conf = json_encode(['space_owner', 'size_heating_odpu_average_last_year','size_heating_ipu_average_last_year',
+                'size_heating_ipu_all_average_last_year', 'space_all', 'tariff_heating_house']);
+        }
+
+        if($number == 13) {
+            $this->calc_conf = json_encode(['space_owner', 'size_heating_odpu_average_last_year', 'space_all', 'space_soi', 'space_heating_mkd_odpu_not_ipu_not', 'tariff_heating_mkd_odpu_not']);
+        }
+
+        if($number == 14) {
+            $this->calc_conf = json_encode(['space_owner', 'size_heating_odpu_average_last_year',
+                'size_heating_ipu_average_last_year', 'space_all',
+                'size_heating_all_average_last_year',
+                'space_heating_where_exists_ipu', 'tariff_heating_mkd_odpu_not']);
+        }
+
+
+
 
 
 
@@ -562,8 +662,10 @@ class SubForm extends Model
 
 
         if($number == 1) {
-            $this->calc_conf = json_encode(['tariff', 'space_owner', 'space_full_all', 'size_odpu', 'size_ipu_all', 'size_not_ipu_all', 'size_notliv_all', 'size2service_hvs']);
+            $this->calc_conf = json_encode(['kol', 'norm_tko', 'tariff_tko', ]);
         }
+
+
 
         if($number == 2) {
             $this->calc_conf = json_encode(['tariff', 'space_owner', 'space_full_all','norm2odn', 'space_oi_all']);
@@ -586,16 +688,6 @@ class SubForm extends Model
         }
 
 
-
-
-
-        if($number == 12) {
-            $this->calc_conf = json_encode(['kol', 'norm', 'tariff', 'norm2heating', 'tariff2heating_energy']);
-        }
-
-        if($number == 13) {
-            $this->calc_conf = json_encode(['tariff', 'space_owner', 'space_full_all', 'size_odpu', 'size_ipu_all', 'size_not_ipu_all', 'size_notliv_all', 'size2service_energy']);
-        }
 
 
         if($number == 20) {
@@ -691,10 +783,23 @@ class SubForm extends Model
 
         if($value == 10) {
             return $this->calcTen();
-
         }
 
+        if($value == 11) {
+            return $this->calcEleven();
+        }
 
+        if($value == 12) {
+            return $this->calcTwelve();
+        }
+
+        if($value == 13) {
+            return $this->calcThirteen();
+        }
+
+        if($value == 14) {
+            return $this->calcFourteen();
+        }
 
 
 
@@ -728,15 +833,7 @@ class SubForm extends Model
 
         }
 
-        if($value == 11) {
-            return $this->calcEleven();
 
-        }
-
-        if($value == 12) {
-            return $this->calcTwelve();
-
-        }
 
 
         //Отопление ОДПУ+ ИПУ везде
@@ -946,44 +1043,119 @@ class SubForm extends Model
         }
         return true;
     }
+
+    public function calcTwelve()
+    {
+        //json_encode(['space_owner', 'size_heating_odpu_average_last_year', size_heating_ipu_average_last_year
+        //                'size_heating_ipu_all_average_last_year', 'space_all', 'tariff_heating_house'])
+        $array = $this->calc_conf;
+        $a = $array[0];
+        $b = $array[1];
+        $c = $array[2];
+        $d = $array[3];
+        $e = $array[4];
+        $f = $array[5];
+
+
+
+        $this->result[] ='Размер платы в текущем месяце:' .  round( ($this->$c + (($this->$b - $this->$d)*$this->$a)/$this->$e)*$this->$f, 2);
+        foreach($array as $value) {
+            $this->$value = str_replace('.', ',', $this->$value);
+        }
+        return true;
+    }
+
+    public function calcThirteen() {
+        //['space_owner', 'norm_heating_mkd_odpu_not', 'space_all', 'space_soi', 'space_heating_mkd_odpu_not_ipu_not', 'tariff_heating_mkd_odpu_not']
+        //c7/(c8 - c10 + c9) -- c13
+        //c8 * c13  --c14
+        //C6*(c7 - c14) -- c15
+        //C8  -- c16
+        //C6*c7/(c8 - c10 +c9) -- c12
+        $array = $this->calc_conf;
+        $a = $array[0]; //c6
+        $b = $array[1];//c7
+        $c = $array[2];//c8
+        $d = $array[3];//c9
+        $e = $array[4];//c10
+        $f = $array[5];//c11
+        $tmp1 = $this->$b/($this->$c - $this->$e + $this->$d); //c13
+        $tmp2 = $this->$c * $tmp1; // c14
+        $tmp3 = $this->$a*($this->$b - $tmp2); // c15
+        $tmp4 = $this->$c; //c16
+        $tmp5 = $this->$a*$this->$b/($this->$c - $this->$e + $this->$d); //c12
+
+
+
+        $this->result[] = round( ($tmp3/$tmp4 + $tmp5)*$this->$f,2);
+        foreach($array as $value) {
+            $this->$value = str_replace('.', ',', $this->$value);
+        }
+        return true;
+
+    }
+
+    public function calcFourteen() {
+        //space_owner
+        //size_heating_odpu_average_last_year
+        //size_heating_ipu_average_last_year
+        //space_all
+        //size_heating_all_average_last_year
+        //space_heating_where_exists_ipu
+        //tariff_heating_mkd_odpu_not = '1467,82'
+
+
+        //c10/c11 -- c13
+        //c10+(c9 - c11)*c13  --c14
+        //C6*(c7 - c14) -- c15
+        //C9  -- c16
+        //(c15/c16+c8)*c12
+        $array = $this->calc_conf;
+        $a = $array[0]; //c6
+        $b = $array[1];//c7
+        $c = $array[2];//c8
+        $d = $array[3];//c9
+        $e = $array[4];//c10
+        $f = $array[5];//c11
+        $g = $array[6];//c12
+
+        $tmp1 = $this->$e/$this->$f; //c13
+        $tmp2 = $this->$e + ($this->$d - $this->$f) * $tmp1; // c14
+        $tmp3 = $this->$a*($this->$b - $tmp2); // c15
+        $tmp4 = $this->$d; //c16
+
+        $this->result[] = round( ($tmp3/$tmp4 + $this->$c)*$this->$g,2);
+        foreach($array as $value) {
+            $this->$value = str_replace('.', ',', $this->$value);
+        }
+        return true;
+
+    }
+
 //---------------------------------------------------------
 
 
+    //тко
+    public function calcOne() {
+        $array = $this->calc_conf;
 
+        $a = $array[0];
+        $b = $array[1];
+        $c = $array[2];
 
-
-
-
-
-
-
-
-
-
-
-
-
+        $this->result[] = round( $this->$b*$this->$c/12*$this->$a,2);
+        foreach($array as $value) {
+            $this->$value = str_replace('.', ',', $this->$value);
+        }
+        return true;
+    }
 
 
 
 
 
     //Калькулятор расчета платы за холодное водоснабжение, предоставленного на ОДН, при наличии ОДПУ по формуле номер 1
-    public function calcOne() {
-        $array = $this->calc_conf;
 
-        $a = $array[3];
-        $b = $array[4];
-        $c = $array[5];
-        $d = $array[6];
-        $e = $array[0];
-        $f = $array[1];
-        $g = $array[2];
-        $r = $array[7];
-
-        $this->result = ($this->$a - $this->$d - $this->$b - $this->$c - $this->$r) * $this->$e * ($this->$f/$this->$g);
-        return true;
-    }
 
     //ХВС ОДПУ нет
     public function calcTwo() {
@@ -1013,37 +1185,10 @@ class SubForm extends Model
 
 
     //горячая вода двухкомпонентный тариф ИПУ нет возможности установки есть
-    public function calcTwelve()
-    {
-        $array = $this->calc_conf;
-        $a = $array[0];
-        $b = $array[1];
-        $c = $array[2];
-        $d = $array[3];
-        $e = $array[4];
-        $tmp = $this->$a * $this->$b;
 
-        $this->result = round( (self::MULTIPLIER * $tmp * $this->$c) + (($tmp * $this->$d) * $this->$e), 2);
-        return true;
-    }
 
     //ОДПУ отопление
-    public function calcThirteen() {
-        $array = $this->calc_conf;
 
-        $a = $array[3];
-        $b = $array[4];
-        $c = $array[5];
-        $d = $array[6];
-        $e = $array[0];
-        $f = $array[1];
-        $g = $array[2];
-        $r = $array[7];
-
-        $this->result = ($this->$a - $this->$d - $this->$b - $this->$c - $this->$r) * $this->$e * ($this->$f/$this->$g);
-        return true;
-
-    }
 
     //ОДПУ отопление
     public function calcTwenty() {
