@@ -8,7 +8,7 @@
     "name": "service2one",
     "label": "choose services",
     "note": "note_services",
-    "image": "images/one-tarif.png",
+    "image": "images/odpu-warm-on.png",
     "0": {
       "name": "energy",
       "label": "type meters",
@@ -734,32 +734,32 @@
             "note": "",
             "image": "Not",
             "calc": 14,
-            "view_calc": "images/formuls/heating_not_odpu.gif",
+            "view_calc": "images/formuls/last2.gif",
             "0": {
               "name": "success_input",
               "label": "result",
               "note": "",
               "image": "",
               "result": "1",
-              "view_calc": "images/formuls/heating_not_odpu.gif"
+              "view_calc": "images/formuls/last2.gif"
             }
           }
         },
 
-          "1" : {
+        "1" : {
             "name": "Not",
             "label": "formula",
             "note": "",
             "image": "Not",
             "calc": 13,
-            "view_calc": "images/formuls/heating_not_odpu.gif",
+            "view_calc": "images/formuls/last1.gif",
             "0": {
               "name": "success_input",
               "label": "result",
               "note": "",
               "image": "",
               "result": "1",
-              "view_calc": "images/formuls/heating_not_odpu.gif"
+              "view_calc": "images/formuls/last1.gif"
             }
           }
         },
@@ -883,15 +883,15 @@
         "label": "type meters",
         "note": "note_type_meters",
         "image": "Not",
-        "calc": 1,
-        "view_calc": "images/formuls/tko1.gif",
+        "calc": 25,
+        "view_calc": "images/formuls/gvs_soi_nocenter.gif",
         "0": {
           "name": "success_input",
           "label": "result",
           "note": "",
           "image": "",
           "result": "1",
-          "view_calc": "images/formuls/tko1.gif"
+          "view_calc": "images/formuls/gvs_soi_nocenter.gif"
         }
       }
     },

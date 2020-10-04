@@ -15,7 +15,6 @@ array_walk($config, function($value, $key) use (&$count)
         $count++;
 });
 
-
 $size = intdiv(12, $count);
 $state = (isset($config['event']))? true: false;
 
@@ -80,7 +79,6 @@ $test->params = json_encode($array);
         </div>
 
 
-
         <?php
         $q = "$(document).ready(function() {
         $('[id=backStep]').on('click', function() {
@@ -113,16 +111,10 @@ $test->params = json_encode($array);
 
  ?>
 
-
-<!--  Составной блок нашего аккардиона -->
 <div class="vertical-timeline-block">
-
-    <!--      Иконка-цифра, которая на отображает текущий шаг к подсчету формулы  -->
     <div class="vertical-timeline-icon navy-bg">
         <i class="fa"><?= $step?></i>
     </div>
-
-<!--    <div class="col-sm-9">-->
         <div class="vertical-timeline-content mytimeline">
             <div class="panel panel-default" style="border:0px;">
                 <div class="panel-heading">
@@ -187,7 +179,6 @@ $test->params = json_encode($array);
                                     <img src="<?= $config['view_calc']; ?>">
 
                                     <?php
-
                                     echo '&nbsp, где <br>';
                                     $array = json_decode($model->calc_conf, true);
                                     foreach($array as $val) {
@@ -213,63 +204,32 @@ $test->params = json_encode($array);
                                     $array = json_decode($model->calc_conf, true);
 
                                     foreach($array as $val) {
-
                                         ?>
                                         <img src="<?= $model->sub_model->viewVar($val) ?>">
                                         <?php
                                         echo '&nbsp;&nbsp;&mdash;&nbsp;&nbsp;' . $model->sub_model->attributeLabels()[$val] . '&nbsp;&nbsp;(Введенный параметр&nbsp;&mdash;&nbsp;<b>' . $model->sub_model->$val . '</b>)' . '<br>' . '<br>';
 
                                     }
-
                                     ?>
-
-
-                                <?php
-                                }
-
-
-
-                                ?>
+                                <?php } ?>
                             </div>
                         </div>
 
-
                         <?php
-
                             if(isset($config['calc'])) {
-
                             $varibles = json_decode($model->calc_conf, true);
-
                             foreach ($varibles as $name) {
                                 $images = '<img src="' . $test->sub_model->viewVar($name) . '">';
                                 $t = $test->sub_model->configVariable($name);
                                 if($t) {
                                     echo "<br>";
-//                                    if($name == 'tariff_hvs') {
-//                                        echo true;
-////                                        echo 'hello' . in_array($name, $test->sub_model->lockVariables());
-//                                        die();
-//                                    }
                                     echo $form->field($test->sub_model, $name)->widget(MaskedInput::className(), $t[0])->textInput($test->sub_model->lockVariables($name))->label()->hint(Yii::t('app', $t[1]), ['style' => 'font-weight: bold; margin: 0; display: inline;', 'class' => 'mytextsize control-label myCollapseHint']);
                                 }
                             }
-
-
-
                             ?>
-
                                 <button id="calculation" type="button" class="btn btn-default">РАССЧИТАТЬ</button>
-
-
                         <?php } elseif(!isset($config['result'])) { ?>
-
-
-
-
                         <div class="air"></div>
-
-
-
                         <?php
                         for($i = 0; $i < $count; $i++)    {
                             ?>
@@ -308,10 +268,7 @@ $test->params = json_encode($array);
         </div>
 </div>
 
-
-
 <?php
-
     ActiveForm::end();
 $j = "$(document).ready(function() {
     $('[id^=\"" . $step . "\"]').on('click', function() {
@@ -322,7 +279,6 @@ $j = "$(document).ready(function() {
     });
     
 ";
-
 if(isset($config['calc'])) {
     $j.=" $('#calculation').on('click', function() {
         $('#calcform-value" . $step . "').val(0);
@@ -332,9 +288,5 @@ if(isset($config['calc'])) {
         });
         ";
 }
-
-
-
 $this->registerJs($j . '})');
-//$('#calcform-sub_model" . $step . "').val($('#calcform-sub_model" . $step . "').attr('value'));
 ?>

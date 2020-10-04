@@ -106,6 +106,20 @@ class SubForm extends Model
     //tariff_gvs
 
 
+    /**
+     * Переменные для расчета СОИ ХВС, ГВС, ЭЭ, Водоотведения
+     * формула 1
+     */
+    //space_owner
+    //space_soi
+    //space_all
+   public $multiplier_soi_gvs = '0,0662';
+    //norm_soi_gvs
+    //tariff_gvs_teplonos
+    //tariff_heating_house
+
+
+
 
 
 
@@ -175,7 +189,7 @@ class SubForm extends Model
                     'norm_heating_mkd_odpu_not', 'space_soi', 'space_heating_mkd_odpu_not_ipu_not', 'tariff_heating_mkd_odpu_not',
                     'size_heating_odpu_average_last_year', 'size_heating_ipu_average_last_year', 'size_heating_ipu_all_average_last_year',
                     'size_heating_all_average_last_year', 'space_heating_where_exists_ipu',
-                    'norm_tko', 'tariff_tko', 'norm_soi_hvs', 'norm_soi_energy','norm_soi_gvs','norm_soi_drainage'],
+                    'norm_tko', 'tariff_tko', 'norm_soi_hvs', 'norm_soi_energy','norm_soi_gvs','norm_soi_drainage', 'multiplier_soi_gvs'],
                 'filter', 'filter' => function ($value) {
                 $value =  str_replace(',', '.', $value);
                 $value =  str_replace(' ', '', $value);
@@ -198,7 +212,7 @@ class SubForm extends Model
                 'norm_heating_mkd_odpu_not', 'space_soi', 'space_heating_mkd_odpu_not_ipu_not', 'tariff_heating_mkd_odpu_not',
                 'size_heating_odpu_average_last_year', 'size_heating_ipu_average_last_year', 'size_heating_ipu_all_average_last_year',
                 'size_heating_all_average_last_year', 'space_heating_where_exists_ipu',
-                'norm_tko', 'tariff_tko','norm_soi_hvs', 'norm_soi_energy','norm_soi_gvs','norm_soi_drainage'], 'required', 'message' => 'Поле не должно быть пустым. Также будьте внимательны при вводе числовых параметров!'],
+                'norm_tko', 'tariff_tko','norm_soi_hvs', 'norm_soi_energy','norm_soi_gvs','norm_soi_drainage', 'multiplier_soi_gvs'], 'required', 'message' => 'Поле не должно быть пустым. Также будьте внимательны при вводе числовых параметров!'],
 
 
 
@@ -214,7 +228,7 @@ class SubForm extends Model
                 'norm_heating_mkd_odpu_not', 'space_soi', 'space_heating_mkd_odpu_not_ipu_not', 'tariff_heating_mkd_odpu_not',
                 'size_heating_odpu_average_last_year', 'size_heating_ipu_average_last_year', 'size_heating_ipu_all_average_last_year',
                 'size_heating_all_average_last_year', 'space_heating_where_exists_ipu',
-                'norm_tko', 'tariff_tko','norm_soi_hvs', 'norm_soi_energy','norm_soi_gvs','norm_soi_drainage'],
+                'norm_tko', 'tariff_tko','norm_soi_hvs', 'norm_soi_energy','norm_soi_gvs','norm_soi_drainage', 'multiplier_soi_gvs'],
                 'string', 'message' => 'Введите правильное числовое значение. Будьте внимательны, дробную часть отделяйте от целой точкой, а не запятой! '],
 
 
@@ -280,7 +294,7 @@ class SubForm extends Model
 
             'norm_heating_house' => 'Норматив потребления',
             'multiplier_house' => 'Коэффициент периодичности',
-            'tariff_heating_house' => 'Тариф',
+            'tariff_heating_house' => 'Тариф на тепловую энергию',
 
             'norm_heating_mkd_odpu_not' => 'Норматив потребления',
             'space_soi' => 'Площадь общего имущества',
@@ -297,6 +311,7 @@ class SubForm extends Model
             'norm_soi_energy' => 'Норматив',
             'norm_soi_gvs' => 'Норматив',
             'norm_soi_drainage' => 'Норматив',
+            'multiplier_soi_gvs' => 'Коэффициент подогрева'
         ];
     }
 
@@ -305,7 +320,7 @@ class SubForm extends Model
         return in_array($name, ['multiplier', 'norm', 'norm_gvs', 'norm_drainage', 'norm_hvs', 'tariff_gvs', 'tariff_energy', 'tariff_hvs', 'tariff',
             'multiplier', 'tariff_heating_mkd_odpu_not', 'tariff_heating_house', 'multiplier_house', 'tariff_corrects_twoyear',
             'tariff_corrects_oneyear', 'tariff_gvs_teplonos', 'tariff_gvs_heating',
-            'norm_tko', 'tariff_tko','norm_soi_hvs', 'norm_soi_energy','norm_soi_gvs','norm_soi_drainage'])?['disabled'=>true]:['disabled' => false];
+            'norm_tko', 'tariff_tko','norm_soi_hvs', 'norm_soi_energy','norm_soi_gvs','norm_soi_drainage','multiplier_soi_gvs'])?['disabled'=>true]:['disabled' => false];
     }
 
     public function configVariable($variable)
@@ -429,7 +444,8 @@ class SubForm extends Model
             ],
 
                 [
-                    ['gvs_multiplier_heating','norm_soi_hvs','norm_soi_gvs','norm_soi_drainage'],
+                    ['gvs_multiplier_heating','norm_soi_hvs','norm_soi_gvs',
+                        'norm_soi_drainage', 'multiplier_soi_gvs'],
                     [
                         'clientOptions' => [
                             'alias' => 'decimal',
@@ -553,6 +569,7 @@ class SubForm extends Model
             'norm_soi_gvs' => 'images/formuls/normativ' . $tail,
             'norm_soi_drainage' => 'images/formuls/normativ' . $tail,
             'norm_soi_energy' => 'images/formuls/normativ' . $tail,
+            'multiplier_soi_gvs' => 'images/formuls/multiplier' . $tail,
 
         ];
 
@@ -694,6 +711,17 @@ class SubForm extends Model
         if($number == 24) {
             $this->calc_conf = json_encode(['space_owner', 'space_soi', 'space_all', 'norm_soi_drainage', 'tariff_drainage']);
         }
+        //space_owner
+        //space_soi
+        //space_all
+        //multiplier_soi_gvs;
+        //norm_soi_gvs
+        //tariff_gvs_teplonos
+        //tariff_gvs
+        if($number == 25) {
+            $this->calc_conf = json_encode(['space_owner', 'space_soi', 'space_all', 'multiplier_soi_gvs',
+                'norm_soi_gvs', 'tariff_gvs_teplonos', 'tariff_heating_house']);
+        }
 
 
 
@@ -825,6 +853,12 @@ class SubForm extends Model
             return $this->calcOne();
         }
 
+
+
+
+        if($value == 25) {
+            return $this->calcTwentyFive();
+        }
         if($value == 2) {
             return $this->calcTwo();
         }
@@ -1144,6 +1178,38 @@ class SubForm extends Model
             $this->$value = str_replace('.', ',', $this->$value);
         }
         return true;
+
+    }
+
+    public function calcTwentyFive() {
+        //space_owner
+        //space_soi
+        //space_all
+        //multiplier_soi_gvs;
+        //norm_soi_gvs
+        //tariff_gvs_teplonos
+        //tariff_gvs
+
+        $array = $this->calc_conf;
+        $a = $array[0];//c6
+        $b = $array[1];//c7
+        $c = $array[2];//c8
+        $d = $array[3];//c9
+        $e = $array[4];//c10
+        $f = $array[5];//c11
+        $g = $array[6];//c12
+
+        $this->result[0] = 'Размер платы в текущем месяце (компонент на теплоноситель): <b>' . round($this->$e*$this->$b/$this->$c*$this->$f*$this->$a, 2) . ' руб</b>';
+        $this->result[1] = 'Размер платы в текущем месяце (компонент на подогрев): <b>' . round($this->$e*$this->$d*$this->$b/$this->$c*$this->$g*$this->$a, 2) . ' руб</b>';
+
+        foreach($array as $value) {
+            $this->$value = str_replace('.', ',', $this->$value);
+        }
+
+
+
+        return true;
+
 
     }
 
