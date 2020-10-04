@@ -822,7 +822,7 @@
     "label": "formula",
     "note": "",
     "image": "images/house.png",
-    "calc": 1,
+    "calc": 2,
     "view_calc": "images/formuls/tko1.gif",
     "0": {
       "name": "success_input",
@@ -845,8 +845,8 @@
       "label": "type meters",
       "note": "note_type_meters",
       "image": "images/electro-main.png",
-      "calc": 1,
-      "view_calc": "images/formuls/tko1.gif",
+      "calc": 21,
+      "view_calc": "images/formuls/soid.gif",
       "0": {
         "name": "success_input",
         "label": "result",
@@ -867,15 +867,15 @@
         "label": "type meters",
         "note": "note_type_meters",
         "image": "Yes",
-        "calc": 1,
-        "view_calc": "images/formuls/tko1.gif",
+        "calc": 22,
+        "view_calc": "images/formuls/soid.gif",
         "0": {
           "name": "success_input",
           "label": "result",
           "note": "",
           "image": "",
           "result": "1",
-          "view_calc": "images/formuls/tko1.gif"
+          "view_calc": "images/formuls/soid.gif"
         }
       },
       "1": {
@@ -900,15 +900,15 @@
       "label": "type meters",
       "note": "note_type_meters",
       "image": "images/hvs-main.png",
-      "calc": 1,
-      "view_calc": "images/formuls/tko1.gif",
+      "calc": 23,
+      "view_calc": "images/formuls/soid.gif",
       "0": {
         "name": "success_input",
         "label": "result",
         "note": "",
         "image": "",
         "result": "1",
-        "view_calc": "images/formuls/tko1.gif"
+        "view_calc": "images/formuls/soid.gif"
       }
 
     },
@@ -917,15 +917,15 @@
       "label": "type meters",
       "note": "note_type_meters",
       "image": "images/one-tarif.png",
-      "calc": 1,
-      "view_calc": "images/formuls/tko1.gif",
+      "calc": 24,
+      "view_calc": "images/formuls/soid.gif",
       "0": {
         "name": "success_input",
         "label": "result",
         "note": "",
         "image": "",
         "result": "1",
-        "view_calc": "images/formuls/tko1.gif"
+        "view_calc": "images/formuls/soid.gif"
       }
     }
   }

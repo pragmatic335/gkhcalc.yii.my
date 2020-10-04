@@ -7,7 +7,7 @@ use \yii\widgets\MaskedInput;
 /* @var $model app\models\forms\CalcForm */
 
 ?>
-<!--<div class="col-md-9 mycontent">-->
+
 <div class="panel-group" id="accordion">
     <div id="vertical-timeline" class="vertical-container dark-timeline mycontent">
         <?php
@@ -42,14 +42,6 @@ $('.myclick').on('click', function() {
 });";
 $this->registerJs($js);
 
-
-
-
-
-
-
-//$("#box").animate({height: "0px"});
-//        $(this).removeClass('in');
 ?>
 
 
